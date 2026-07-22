@@ -72,8 +72,13 @@ jobs:
                 should_create=true
               fi
               ;;
-            10|11|12)
+            10|11)
               if [ "$weekday" -ge 1 ] && [ "$weekday" -le 6 ]; then
+                should_create=true
+              fi
+              ;;
+            12)
+              if [ "$weekday" -ge 1 ] && [ "$weekday" -le 5 ] && [[ "$target_date" < "2026-12-19" ]]; then
                 should_create=true
               fi
               ;;
