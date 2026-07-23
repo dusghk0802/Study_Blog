@@ -136,4 +136,6 @@ SELECT 컬럼명 FROM 테이블1 UNION ALL SELECT 컬럼명 FROM 테이블2;
 SELECT 컬럼명 FROM 테이블1 MINUS SELECT 컬럼명 FROM 테이블2;
 
 첫 번째 조회 결과에서 두 번째 조회 결과에 존재하는 데이터를 제외한다.
+
 ---
+
