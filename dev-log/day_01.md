@@ -1,4 +1,4 @@
-:one:일차 
+#1일차 
 
 Oracle SELECT 기본 조회
 
