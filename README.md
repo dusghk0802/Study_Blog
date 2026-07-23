@@ -1,4 +1,4 @@
-study_Blog
+Study_Blog
 
 
 KOSA AI agent 
