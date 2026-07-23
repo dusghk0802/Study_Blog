@@ -7,11 +7,11 @@ Oracle 조건 조회와 연산자
 📌학습 내용: 컬럼 별칭, 연결·산술 연산자, WHERE 조건문, 비교·논리 연산자, BETWEEN, IN, LIKE, NULL, 집합 연산자
 
 ---
-SELECT 컬럼명 AS 별칭 FROM 테이블명;
+<p>SELECT 컬럼명 AS 별칭 FROM 테이블명;</p>
 
 SELECT 컬럼명 AS "별칭 이름" FROM 테이블명;
 
-조회 결과의 컬럼명을 원하는 이름으로 변경한다.
+<p>조회 결과의 컬럼명을 원하는 이름으로 변경한다.</p>
 
 
 SELECT 컬럼명1 || ' ' || 컬럼명2 FROM 테이블명;
