@@ -2,6 +2,7 @@
 Oracle SELECT 기본 조회
 
 :pushpin:학습일: 2026.07.20
+
 :pushpin:학습 내용: SELECT, FROM, DISTINCT를 이용한 기본 데이터 조회
 
 ---
