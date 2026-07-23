@@ -148,5 +148,5 @@ SQL> SELECT name, grade, birthdate
      and (grade= '1' or grade= '3');
 
 <p align="center">
-  <img src="images/2026-07-21/where day_02.png" width="700">
+  <img src="../training/Oracle/2026-07-21/day_02.JPG" alt="day_02" width="700">
 </p>
