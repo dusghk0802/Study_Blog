@@ -1,0 +1,106 @@
+SELECT *
+FROM emp;
+
+-- 실행 결과
+
+
+SELECT *
+FROM tab;
+
+-- 실행 결과
+-- TNAME                                      TABTYPE    CLUSTERID
+-- --------------------------------------------------------------
+-- BIN$...==$0                                TABLE      (null)
+-- BONUS                                      TABLE      (null)
+-- DEPARTMENT                                 TABLE      (null)
+-- DEPT                                       TABLE      (null)
+-- EMP                                        TABLE      (null)
+-- PROFESSOR                                  TABLE      (null)
+-- SALGRADE                                   TABLE      (null)
+-- STUDENT                                    TABLE      (null)
+--
+-- 총 8행
+
+
+
+
+SELECT *
+FROM professor;
+
+SELECT name, position, sal, deptno
+FROM professor;
+
+-- 실행 결과
+-- NAME      POSITION    SAL    DEPTNO
+-- ------------------------------------------
+-- 김도훈     교수        500    101
+-- 이재우     조교수      320    201
+-- 성연희     조교수      360    101
+-- 엄일웅     전임강사    240    102
+-- 권혁일     교수        450    102
+-- 이만식     부교수      420    101
+-- 전은지     전임강사    210    101
+-- 남은혁     부교수      400    202
+--
+-- 총 8행
+
+
+SELECT *
+FROM student;
+
+SELECT studno, name, userid
+FROM student;
+
+-- 실행 결과
+-- STUDNO    NAME      USERID
+-- --------------------------------
+-- 10101     전인하     jun123
+-- 20101     이동훈     Dals
+-- 10102     박미경     anse1414
+-- 10103     김영균     mandu
+-- 20102     박동진     Ping2
+-- 10201     김지영     simply
+-- 10104     지은경     Gom000
+-- 10202     오유석     yousuk
+-- 10203     하나리     hana1
+-- 10105     임유진     YouJin12
+-- 10106     서재진     seolly
+-- 10204     윤진욱     Samba7
+-- 10107     이광훈     huriky
+-- 20103     김진경     lovely
+-- 20104     조명훈     Rader214
+-- 10108     류민정     cleanSky
+--
+-- 총 16행
+
+SELECT DISTINCT position
+FROM professor;
+
+-- 실행 결과
+-- POSITION
+-- ----------
+-- 교수
+-- 조교수
+-- 전임강사
+-- 부교수
+--
+-- 총 4행
+
+
+
+SELECT profno, name, position, deptno
+FROM professor;
+
+-- 실행 결과
+-- PROFNO    NAME      POSITION    DEPTNO
+-- --------------------------------------------------
+-- 9901      김도훈     교수        101
+-- 9902      이재우     조교수      201
+-- 9903      성연희     조교수      101
+-- 9904      엄일웅     전임강사    102
+-- 9905      권혁일     교수        102
+-- 9906      이만식     부교수      101
+-- 9907      전은지     전임강사    101
+-- 9908      남은혁     부교수      202
+--
+-- 총 8행
