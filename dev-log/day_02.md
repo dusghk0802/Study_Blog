@@ -1,4 +1,4 @@
-2️⃣일차
+**2️일차**
 
 Oracle 조건 조회와 연산자
 
@@ -121,10 +121,14 @@ SELECT 컬럼명 FROM 테이블1 MINUS SELECT 컬럼명 FROM 테이블2;
 --학생테이블에서 81년에서 83년도에 태어난 학생의 이름과 생년 월일을 출력하고 그 중에서 1학년이거나 3학년인 학생
 --이름, 학년, 생일
 
+<pre>
+<code>
 SQL> SELECT name, grade, birthdate
      FROM student
      where birthdate between '81/01/01' and '83/12/31'
      and (grade= '1' or grade= '3');
+</code>
+</pre>
 
 <p align="center">
   <img src="../training/Oracle/2026-07-21/day_02.JPG" alt="day_02" width="700">
