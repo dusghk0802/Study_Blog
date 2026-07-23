@@ -134,4 +134,5 @@ SQL> SELECT name, grade, birthdate
 </p>
 
 (grade= '1' or grade= '3') 이 부분에서 괄호와 ''은 꼭 들어가야 한다.
+
 숫자에 ''을 실수로 빼먹곤 하는데 좀 더 연습해야겠다.
