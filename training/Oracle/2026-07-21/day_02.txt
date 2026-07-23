@@ -1,0 +1,905 @@
+SELECT * FROM dept;
+--select * from dept;
+SELECT dname dpt_name, deptno as dn
+FROM department;
+
+-- 실행 결과
+-- DPT_NAME        DN
+-- -------------------
+-- 컴퓨터공학과      101
+-- 멀티미디어학과    102
+-- 전자공학과       201
+-- 기계공학과       202
+-- 정보미디어학부    100
+-- 메카트로닉스학부  200
+-- 공과대학          10
+
+--학과명, 학과번호로 변경
+SELECT dname 학과명, deptno 학과번호
+FROM department;
+
+-- 실행 결과
+-- 학과명             학과번호
+-- ----------------------------
+-- 컴퓨터공학과        101
+-- 멀티미디어학과      102
+-- 전자공학과         201
+-- 기계공학과         202
+-- 정보미디어학부      100
+-- 메카트로닉스학부    200
+-- 공과대학            10
+
+--교수테이블에서 교수명, 학과번호, 급여 출력
+SELECT * FROM professor;
+SELECT name 교수명, deptno as 학과번호, sal 급여 
+FROM professor;
+
+-- 실행 결과
+-- 교수명  학과명  학과번호
+-- ----------------------------
+--김도훈	101	500
+--이재우	201	320
+--성연희	101	360
+--염일웅	102	240
+--권혁일	102	450
+--이만식	101	420
+--전은지	101	210
+--남은혁	202	400
+
+--칼럼 별명 부여
+SELECT * FROM department;
+SELECT dname "Deaprtment Name", deptno "부서 번호#"
+FROM department;
+
+-- 실행 결과
+-- Department Name      부서 번호#
+-- -------------------------------
+--컴퓨터공학과	101
+--멀티미디어학과	102
+--전자공학과	201
+--기계공학과	202
+--정보미디어학부	100
+--메카트로닉스학부	200
+--공과대학	10
+
+--교수 이름과 급여 출력
+--열의 레이블 professor와 monthly salary
+SELECT * FROM professor;
+SELECT name "Professor", sal "monthly salary"
+FROM professor;
+
+-- 실행 결과
+-- Professor      monthly salary
+-- -----------------------------
+--김도훈	500
+--이재우	320
+--성연희	360
+--염일웅	240
+--권혁일	450
+--이만식	420
+--전은지	210
+--남은혁	400
+
+--합성 연산자 사용
+SELECT * FROM student;
+SELECT studno ｜｜ ' ' ｜｜ name "student"
+FROM student;
+
+-- 실행 결과
+-- student
+-- ----------------
+--10101 전인하
+--20101 이동훈
+--10102 박미경
+--10103 김영균
+--20102 박동진
+--10201 김진영
+--10104 지은경
+--10202 오유석
+--10203 하나리
+--10105 임유진
+--10106 서재진
+--10204 윤진욱
+--10107 이광훈
+--20103 김진경
+--20104 조명훈
+--10108 류민정
+
+--사원 테이블 emp, 열레이블이 emloyee title, 콤마 공백 구분, 이름과 직무 job 연결 출력
+SELECT * FROM emp;
+SELECT ename ｜｜ ', ' ｜｜ job "Emplyee and Title"
+FROM emp;
+
+-- 실행 결과
+--Emplyee and Title
+-- -------------------
+--SMITH, CLERK
+--ALLEN, SALESMAN
+--WARD, SALESMAN
+--JONES, MANAGER
+--MARTIN, SALESMAN
+--BLAKE, MANAGER
+--CLARK, MANAGER
+--SCOTT, ANALYST
+--KING, PRESIDENT
+--TURNER, SALESMAN
+--ADAMS, CLERK
+--JAMES, CLERK
+--FORD, ANALYST
+--MILLER, CLERK
+
+--산술 연산자 사용
+SELECT * FROM student;
+SELECT name, weight, weight*2.2 as weight_pound
+FROM student;
+
+-- 실행 결과
+-- NAME     WEIGHT   WEIGHT_POUND
+-- ----------------------------------------
+--황보_정호		
+--전인하	72	158.4
+--이동훈	64	140.8
+--박미경	52	114.4
+--김영균	88	193.6
+--박동진	70	154
+--김진영	48	105.6
+--지은경	42	92.4
+--오유석	92	202.4
+--하나리	68	149.6
+--임유진	54	118.8
+--서재진	72	158.4
+--윤진욱	70	154
+--이광훈	92	202.4
+--김진경	51	112.2
+--조명훈	62	136.4
+--류민정	72	158.4
+
+--사원테이블에서 사원번호, 이름, 급여 그리고 20%증가된 급여 모두 출력
+SELECT * FROM emp;
+SELECT empno, ename, sal, sal*1.2 as New_Salary
+FROM emp;
+
+-- 실행 결과
+-- DEPNO  ENAME   SAL   NEW_SALARY
+-- ----------------------------------------
+--7369	SMITH	800	960
+--7499	ALLEN	1600	1920
+--7521	WARD	1250	1500
+--7566	JONES	2975	3570
+--7654	MARTIN	1250	1500
+--7698	BLAKE	2850	3420
+--7782	CLARK	2450	2940
+--7788	SCOTT	3000	3600
+--7839	KING	5000	6000
+--7844	TURNER	1500	1800
+--7876	ADAMS	1100	1320
+--7900	JAMES	950	1140
+--7902	FORD	3000	3600
+--7934	MILLER	1300	1560
+
+--새로운 급여에서 예전 급여 빼기(increase 열 추가)
+SELECT * FROM emp;
+SELECT empno, ename, sal, sal*1.2 as New_Salary, sal*1.2-sal as increase
+FROM emp;
+
+-- 실행 결과
+-- DEPNO  ENAME   SAL   NEW_SALARY   INCREASE
+-- -------------------------------------------------------
+--7369	SMITH	800	960	160
+--7499	ALLEN	1600	1920	320
+--7521	WARD	1250	1500	250
+--7566	JONES	2975	3570	595
+--7654	MARTIN	1250	1500	250
+--7698	BLAKE	2850	3420	570
+--7782	CLARK	2450	2940	490
+--7788	SCOTT	3000	3600	600
+--7839	KING	5000	6000	1000
+--7844	TURNER	1500	1800	300
+--7876	ADAMS	1100	1320	220
+--7900	JAMES	950	1140	190
+--7902	FORD	3000	3600	600
+--7934	MILLER	1300	1560	260
+
+CREATE table ex_type
+(c char(10), v varchar2(10));
+
+desc ex_type;
+
+INSERT INTO ex_type
+values('spl', 'spl');
+
+SELECT * 
+FROM ex_type
+where c='spl';
+
+spl       	spl
+spl       	spl
+spl       	spl
+      
+SELECT sysdate FROM dual;
+
+-- 실행 결과
+-- SYSDATE
+-- ----------
+--26/07/21
+
+SELECT sysdate-1 YESTERDAY, sysdate TODAY, sysdate+1 TOMOROW 
+FROM dual;
+
+-- 실행 결과
+-- YESTERDAY  TODAY  TOMOROW 
+-- -------------------------------------
+--26/07/20	26/07/21	26/07/22
+
+SELECT rowid studno, name 
+FROM student;
+
+-- 실행 결과
+-- STUDNO                           NAME
+-- -------------------------------------------
+--AAAStFAAHAAAAGuAAA	전인하
+--AAAStFAAHAAAAGuAAB	이동훈
+--AAAStFAAHAAAAGuAAC	박미경
+--AAAStFAAHAAAAGuAAD	김영균
+--AAAStFAAHAAAAGuAAE	박동진
+--AAAStFAAHAAAAGuAAF	김진영
+--AAAStFAAHAAAAGuAAG	지은경
+--AAAStFAAHAAAAGuAAH	오유석
+--AAAStFAAHAAAAGuAAI	하나리
+--AAAStFAAHAAAAGuAAJ	임유진
+--AAAStFAAHAAAAGuAAK	서재진
+--AAAStFAAHAAAAGuAAL	윤진욱
+--AAAStFAAHAAAAGuAAM	이광훈
+--AAAStFAAHAAAAGuAAN	김진경
+--AAAStFAAHAAAAGuAAO	조명훈
+--AAAStFAAHAAAAGuAAP	류민정
+
+SELECT rowid, name, position 
+FROM professor;
+
+-- 실행 결과
+-- ROWID                        NAME   POSITION
+-- --------------------------------------------------
+--AAAStGAAHAAAAG2AAA	김도훈	교수
+--AAAStGAAHAAAAG2AAB	이재우	조교수
+--AAAStGAAHAAAAG2AAC	성연희	조교수
+--AAAStGAAHAAAAG2AAD	염일웅	전임강사
+--AAAStGAAHAAAAG2AAE	권혁일	교수
+--AAAStGAAHAAAAG2AAF	이만식	부교수
+--AAAStGAAHAAAAG2AAG	전은지	전임강사
+--AAAStGAAHAAAAG2AAH	남은혁	부교수
+
+desc student;
+
+SELECT 23*25 FROM dual;
+
+-- 실행 결과
+-- 23*25
+-- ------
+--575
+
+--더미 사용
+desc sys.dual;
+SELECT dummy FROM dual;
+
+-- 실행 결과
+-- DUMMY
+-- --------
+X
+
+--where절 사용
+SELECT studno,name, deptno
+FROM student
+where grade='1';
+
+-- 실행 결과
+-- STUDNO   NAME   DEPTNO
+-- --------------------------------
+--20101	이동훈	201
+--10102	박미경	101
+--20102	박동진	201
+--10203	하나리	102
+--10106	서재진	101
+--20104	조명훈	201
+
+--교수 테이블에서 직급이 교수인 분들만 이름, 직급, 급여, 학과번호 출력
+SELECT * FROM professor;
+
+--9901	김도훈	capool	교수	500	82/06/24	20	101
+--9902	이재우	sweat413	조교수	320	95/04/12		201
+--9903	성연희	Pascal	조교수	360	93/05/17	15	101
+--9904	염일웅	Blue77	전임강사	240	98/12/02		102
+--9905	권혁일	refresh	교수	450	86/01/08	25	102
+--9906	이만식	Pocari	부교수	420	88/09/13		101
+--9907	전은지	totoro	전임강사	210	01/06/01		101
+--9908	남은혁	Bird13	부교수	400	90/11/18	17	202
+
+SELECT name, position, sal, deptno
+FROM professor
+where position = '교수';
+
+-- 실행 결과
+-- NAME   POSITION   SAL  DEPTNO
+-- ---------------------------------------
+김도훈	교수	500	101
+권혁일	교수	450	102
+
+--비교 연산자 사용
+SELECT studno, name, grade, deptno, weight
+FROM student
+where weight <=70;
+
+-- 실행 결과
+-- STUDNO   NAME  GADE   DEPTNO  WEIGHT
+-- --------------------------------------------------
+--20101	이동훈	1	201	64
+--10102	박미경	1	101	52
+--20102	박동진	1	201	70
+--10201	김진영	2	102	48
+--10104	지은경	2	101	42
+--10203	하나리	1	102	68
+--10105	임유진	2	101	54
+--10204	윤진욱	3	102	70
+--20103	김진경	2	201	51
+--20104	조명훈	1	201	62
+
+--학생 테이블 1학년, 몸무게 70키로 이상인 항생만 검색하여 이름, 학년, 몸무게, 학과번호
+SELECT studno, name, weight, deptno
+FROM student
+where grade='1'
+and weight >=70;
+
+-- 실행 결과
+-- STUDNO   NAME   WEIGHT  DEPTNO
+-- ------------------------------------------
+--20102	박동진	70	201
+--10106	서재진	72	101
+
+--교수 테이블에서 직급이 조교수이면서 급여가 350이상인 교수이름, 급여, 직급, 학과번호 출력
+SELECT * FROM professor;
+SELECT name, sal, position, deptno
+FROM professor
+where position='조교수'
+and sal >=350;
+
+-- 실행 결과
+--  NAME   SAL   POSITION   DEPTNO
+-- ------------------------------------------
+성연희	360	조교수	101
+
+--학생 테이블에서 1학년이거나 몸무개가 70kg이상인 학생만 검색하여 이름, 학년, 몸무게, 학과번호 출력
+SELECT studno, name, weight, deptno
+FROM student
+where (grade ='1' or weight >=70);
+
+-- 실행 결과
+--  NAME   SAL   POSITION   DEPTNO
+-- ------------------------------------------
+
+
+--학생테이블에서 학과번호가‘101’이 아닌학생의 학번과 이름과 학과번호를 출력
+SELECT studno, name, weight, deptno
+FROM student
+where not deptno = 101;
+
+--  STUDNO  NAME   WEIGHT  DEPTNO
+-- ------------------------------------------
+--20101	이동훈	64	201
+--20102	박동진	70	201
+--10201	김진영	48	102
+--10202	오유석	92	102
+--10203	하나리	68	102
+--10204	윤진욱	70	102
+--20103	김진경	51	201
+--20104	조명훈	62	201
+
+--BETWEEN 연산자를 사용하여 몸무게가 50kg에서 70kg 사이인 학생의 학번, 이름, 몸무게를 출력
+SELECT studno, name, weight
+FROM student
+where weight between 50 and 70;
+
+--  STUDNO   NAME   WEIGHT
+-- ---------------------------------
+--20101	이동훈	64
+--10102	박미경	52
+--20102	박동진	70
+--10203	하나리	68
+--10105	임유진	54
+--10204	윤진욱	70
+--20103	김진경	51
+--20104	조명훈	62
+
+--교수 테이블에서 급여가 350에서 400사이고 102번 학번과 아닌 교수들의 이름, 급여, 학과번호 출력
+SELECT name, sal, deptno
+FROM professor
+where sal between 350 and 400
+and not deptno=102;
+
+-- 실행 결과
+--  NAME   SAL   DEPTNO
+-- ---------------------------
+--성연희	360	101
+--남은혁	400	202
+
+--학생테이블에서 81년에서 83년도에 태어난 학생의 이름과 생년 월일을 출력하고 그 중에서 1학년이거나 3학년인 학생
+--이름, 학년, 생일
+SELECT name, grade, birthdate
+FROM student
+where birthdate between '81/01/01' and '83/12/31'
+and (grade= '1' or grade= '3');
+
+-- 실행 결과
+--  NAME   GRADE    BIRTHDATE
+-- ----------------------------------
+이동훈	1	83/12/10
+김영균	3	81/01/11
+
+--IN 연산자를 사용하여 102번학과와 201번학과 학생의 이름, 학년, 학과번호를 출력
+SELECT name, grade, deptno
+FROM student
+where deptno in (102,201);
+
+-- 실행 결과
+--  NAME   GRADE    DEPTNO
+-- ----------------------------------
+--이동훈	1	201
+--박동진	1	201
+--김진영	2	102
+--오유석	4	102
+--하나리	1	102
+--윤진욱	3	102
+--김진경	2	201
+--조명훈	1	201
+
+--교수 테이블에서 급여가 400~500이고, 학과번호가 101이나 201에 속하는 교수들의 교수번호, 이름, 급여, 학과 번호를 출력
+SELECT * FROM professor;
+SELECT profno "교수no" , name "교수명", sal "급여", deptno "학과번호#"
+FROM professor
+where sal between 400 and 500
+and deptno in (101, 201);
+
+--9901	김도훈	500	101
+--9906	이만식	420	101
+
+--학생테이블에서 성이‘김’씨인 학생의 이름, 학년, 학과번호를 출력
+SELECT name, grade, deptno
+FROM student
+where name like '김%';
+
+-- 실행 결과
+--  NAME   GRADE    DEPTNO
+-- --------------------------------
+--김영균	3	101
+--김진영	2	102
+--김진경	2	201
+
+--학생 테이블에서 이름이 '훈'으로 끝나는 학생의 이름, 학년, 학과번호 출력
+SELECT name, grade, deptno
+FROM student
+where name like '%훈';
+
+-- 실행 결과
+--  NAME   GRADE    DEPTNO
+-- --------------------------------
+--이동훈	1	201
+--이광훈	4	101
+--조명훈	1	201
+
+--학생테이블에서 이름이 3글자, 성은‘김’씨고 마지막글자가 ‘영’으로 끝나는학생의 이름, 학년, 학과번호를 출력
+SELECT name, grade, deptno
+FROM student
+where name like '김_영';
+
+-- 실행 결과
+--  NAME   GRADE    DEPTNO
+-- -------------------------------
+김진영	2	102
+
+--학생 테이블에서 남학생의 이름, 학년, 주민등록번호, 학과번호 출력
+SELECT * FROM student;
+SELECT studno, name, grade, idnum, deptno
+FROM student
+where idnum like '______1%';
+
+-- 실행 결과
+--  STUDNO   NAME   GRADE    IDNUM      DEPTNO
+-- ---------------------------------------------------------
+--10101	전인하	4	7907021369824	101
+--20101	이동훈	1	8312101128467	201
+--10103	김영균	3	8103211063421	101
+--20102	박동진	1	8511241639826	201
+--10202	오유석	4	7709121128379	102
+--10106	서재진	1	8511291186273	101
+--10204	윤진욱	3	7904021358671	102
+--10107	이광훈	4	8109131276431	101
+--20104	조명훈	1	8412141254963	201
+
+--학생 테이블에서 남학생이면서 101학과 79년생의 이름, 학년, 주민등록번호, 학과번호 출력
+SELECT * FROM student;
+SELECT studno, name, grade, idnum, deptno
+FROM student
+where idnum like '______1%'
+and deptno='101'
+and birthdate like '79%';
+
+-- 실행 결과
+--  STUDNO   NAME   GRADE    IDNUM      DEPTNO
+-- ---------------------------------------------------------
+--10101	전인하	4	7907021369824	101
+--20101	이동훈	1	8312101128467	201
+--10103	김영균	3	8103211063421	101
+--20102	박동진	1	8511241639826	201
+--10202	오유석	4	7709121128379	102
+--10106	서재진	1	8511291186273	101
+--10204	윤진욱	3	7904021358671	102
+--10107	이광훈	4	8109131276431	101
+--20104	조명훈	1	8412141254963	201
+
+insert into student (studno, name)
+values (33333, '황보_정호');
+-- 1행이 삽입되었습니다.
+
+SELECT * FROM student;
+select name from student
+where name like '황보\_%' escape '\';
+-- 실행 결과
+--  NAME   
+-- --------
+--황보 정호
+
+--null값
+--사번, 이름, 급여, 커미션, 급여+커미션 출력
+SELECT empno, ename, sal, comm, sal + comm
+FROM emp;
+
+-- 실행 결과
+--  EMPNO   ENAME   SAL   COMM   SAL+COMM
+-- ------------------------------------------------------
+--7369	SMITH	800		
+--7499	ALLEN	1600	300	1900
+--7521	WARD	1250	500	1750
+--7566	JONES	2975		
+--7654	MARTIN	1250	1400	2650
+--7698	BLAKE	2850		
+--7782	CLARK	2450		
+--7788	SCOTT	3000		
+--7839	KING	5000		
+--7844	TURNER	1500	0	1500
+--7876	ADAMS	1100		
+--7900	JAMES	950		
+--7902	FORD	3000		
+--7934	MILLER	1300		
+
+--교수테이블에서 보직수당이없는 교수의 이름, 직급, 보직수당을 출력
+SELECT name, position, comm
+FROM professor
+where comm=Null;
+
+-- 실행 결과
+--  ENAME   POSITION   COMM
+-- ---------------------------------
+
+SELECT name, position, comm
+FROM professor
+where comm is Null;
+
+-- 실행 결과
+--  ENAME   POSITION   COMM
+-- ---------------------------------
+--이재우	조교수	
+--염일웅	전임강사	
+--이만식	부교수	
+--전은지	전임강사	
+
+--학생테이블에서 이름이 '진'으로 끝나고 지도교수를 배정받지 못한 101번 학과 학생의 아이디,
+--이름, 학년, 학과 번호, 지도교수를 출력
+SELECT userid, name, grade, deptno, profno
+FROM student
+where name like '%진'
+and profno is Null
+and deptno in '101';
+
+-- 실행 결과
+--  USERID   NAME   GRADE   DEPTNO   PROFNO
+-- -----------------------------------------------------
+--seolly	서재진	1	101	
+
+--학생 테이블에서 지도 교수를 배정받은 학생들의 학생들의 아이디, 이름, 학년, 학과번호, 지도교수 출력
+SELECT userid, name, grade, deptno, profno
+FROM student
+where profno is not null;
+
+-- 실행 결과
+--  USERID   NAME   GRADE   DEPTNO   PROFNO
+-- -----------------------------------------------------
+--jun123	전인하	4	101	9903
+--mandu	김영균	3	101	9906
+--simply	김진영	2	102	9905
+--Gomo00	지은경	2	101	9907
+--yousuk	오유석	4	102	9905
+--YouJin12	임유진	2	101	9907
+--Samba7	윤진욱	3	102	9905
+--huriky	이광훈	4	101	9903
+--lovely	김진경	2	201	9902
+--cleanSky	류민정	2	101	9907
+
+--102번학과의 학생중에서 1학년 또는 4학년 학생의 이름, 학년, 학과번호를 출력
+SELECT name, grade, deptno
+FROM student
+where deptno=102
+and (grade= '1' or grade= '4');
+
+-- 실행 결과
+-- NAME   GRADE   DEPTNO
+-- ------------------------------
+--오유석	4	102
+--하나리	1	102
+
+
+--102번학과이면서 1학년 또는 4학년에 해당하는 학생중에서 이름, 학년, 학과번호를 출력
+SELECT name, grade, deptno
+FROM student
+where deptno=102
+and grade= '1' 
+or grade= '4';
+
+-- 실행 결과
+-- NAME   GRADE   DEPTNO
+-- ------------------------------
+--전인하	4	101
+--오유석	4	102
+--하나리	1	102
+--이광훈	4	101
+
+--1학년이면서 몸무게가70kg 이상인 학생의 집합(stud_heavy)과 1학년이면서 101번학과에 소속된
+--학생(stud_101)으로 구성된 두개의 테이블생성
+CREATE TABLE stud_heavy
+as select *
+from student
+where (weight >=70 and grade='1');
+--TABLE stud_heavy가 생성되었습니다.
+
+-- 실행 결과
+--  STUDNO   NAME   WEIGHT   DEPTNO
+-- --------------------------------------------  
+--10101	전인하	72	101
+--20101	이동훈	64	201
+--10102	박미경	52	101
+--10103	김영균	88	101
+--20102	박동진	70	201
+--10202	오유석	92	102
+--10203	하나리	68	102
+--10106	서재진	72	101
+--10204	윤진욱	70	102
+--10107	이광훈	92	101
+--20104	조명훈	62	201
+--10108	류민정	72	101
+
+CREATE TABLE stud_101
+as select *
+from student
+where deptno = 101 and grade='1';
+--TABLE stud_101가 생성되었습니다.
+
+--stud_heavy와 stud_101테이블에 대해 UNION, UNION ALL 연산을 각각수행한결과를 출력
+SELECT studno, name
+FROM stud_heavy
+union
+SELECT studno, name
+FROM stud_101;
+
+-- 실행 결과
+--  STUDNO   NAME
+-- ---------------------
+--20102	박동진
+--10106	서재진
+--10102	박미경
+
+SELECT studno, name
+FROM stud_heavy
+union all
+SELECT studno, name
+FROM stud_101;
+
+-- 실행 결과
+--  STUDNO   NAME
+-- ---------------------
+--20102	박동진
+--10106	서재진
+--10102	박미경
+--10106	서재진
+
+--학생과 교수 전체의 명단에서 이름, 학과번호, 급여를 출력(급여가 없다면 0으로)
+SELECT name, deptno, 0 as sal
+FROM student
+union
+SELECT name, deptno, sal
+FROM professor;
+
+-- 실행 결과
+-- NAME   DEPTNO   SAL
+-- --------------------------
+--황보_정호            0
+--전인하	101	0
+--이동훈	201	0
+--박미경	101	0
+--김영균	101	0
+--박동진	201	0
+--김진영	102	0
+--지은경	101	0
+--오유석	102	0
+--하나리	102	0
+--임유진	101	0
+--서재진	101	0
+--윤진욱	102	0
+--이광훈	101	0
+--김진경	201	0
+--조명훈	201	0
+--류민정	101	0
+--김도훈	101	500
+--이재우	201	320
+--성연희	101	360
+--염일웅	102	240
+--권혁일	102	450
+--이만식	101	420
+--전은지	101	210
+--남은혁	202	400
+
+--INTERSECT 연산 사용
+select name from  stud_heavy
+intersect
+SELECT name FROM stud_101;
+
+-- 실행 결과
+-- NAME
+-- -------
+서재진
+
+--MINUS 연산 사용
+SELECT studno 학번, name 이름
+FROM stud_heavy
+MINUS
+SELECT studno, name
+FROM stud_101;
+
+-- 실행 결과
+--  학번   이름
+-- --------------
+--20102	박동진
+
+SELECT studno 학번, name 이름
+FROM stud_101
+MINUS
+SELECT studno, name
+FROM stud_heavy;
+
+-- 실행 결과
+-- 학번   이름
+-- --------------
+--10102	박미경
+
+--교수 테이블에서 전체 교수의 급여를 인상하기 위한 직원 명단을 출력
+--단, 직급이 전임강사인 사람들은 명단에서 제외
+SELECT name, position
+FROM professor
+minus
+SELECT name, position
+FROM professor
+where position='전임강사';
+
+-- 실행 결과
+-- NAEM   POSITION
+-- --------------------
+--김도훈	교수
+--이재우	조교수
+--성연희	조교수
+--권혁일	교수
+--이만식	부교수
+--남은혁	부교수
+
+--급여가 $2780이상을 받는 사원의 이름과 급여 출력
+SELECT * FROM emp;
+SELECT ename, sal
+FROM emp
+where sal >=2780;
+
+-- 실행 결과
+-- ENAEM   SAL
+-- ---------------
+--JONES	2975
+--BLAKE	2850
+--SCOTT	3000
+--KING	5000
+--FORD	3000
+
+--아래의 질의는 오류를 포함하고 있다. 수정해서 실행
+--SELECT name, job, sal*12 AS yearly sal FROM emp;
+SELECT * FROM emp;
+SELECT ename, job, sal, sal*12 AS yearly_sal
+FROM emp;
+
+-- 실행 결과
+-- ENAEM   JOB                 SAL    YEARLY_SAL
+-- ---------------------------------------------------------------
+--SMITH	CLERK	             800       9600
+--ALLEN	SALESMAN	1600	19200
+--WARD	SALESMAN	1250	15000
+--JONES	MANAGER	2975	35700
+--MARTIN  SALESMAN	1250	15000
+--BLAKE	MANAGER	2850	34200
+--CLARK	MANAGER	2450	29400
+--SCOTT	ANALYST	3000	36000
+--KING	PRESIDENT	5000	60000
+--TURNER  SALESMAN	1500	18000
+--ADAMS	CLERK	1100	13200
+--JAMES	CLERK	950	11400
+--FORD	ANALYST	3000	36000
+--MILLER	CLERK	1300	15600
+
+
+-- 사원 테이블에서 이름에 A를 포함하고 커미션을 받지 않는 사원의 사원 번호, 이름, 급여, 커미션을 출력
+--(결과가 아래와 같이 나오도록)
+
+//EMPNO ENAME SAL COMM
+-------- ---------- ---------- ----------
+//7698 BLAKE 2850
+//7782 CLARK 2450
+
+SELECT empno, ename, sal, comm
+FROM emp
+where ename like '%A%'
+and comm is null;
+
+-- 실행 결과
+-- EMPNO   ENAEM   SAL    COMM
+-- --------------------------------------
+--7698	BLAKE	2850	
+--7782	CLARK	2450	
+--7876	ADAMS	1100	
+--7900	JAMES	950	
+
+SELECT ename, job, sal
+FROM emp
+where (job= 'MANAGER' or job= 'SALESMAN')
+and sal not in (1500, 3000, 5000);
+
+-- 실행 결과
+-- ENAEM   JOB                SAL
+-- --------------------------------------
+--ALLEN	SALESMAN	1600
+--WARD	SALESMAN	1250
+--JONES	MANAGER	2975
+--MARTIN	SALESMAN	1250
+--BLAKE	MANAGER	2850
+--CLARK	MANAGER	2450
+
+--사원 테이블에서 사원 번호, 이름, 직업, 급여 그리고 22% 증가된 급여를 출력
+--증가된 급여의 열 레이블은 New Salary(결과가 아래와 같이 나오도록)
+
+//EMPNO ENAME JOB SAL New Salary Increase
+------- ---------- --------- ---------- ------------- ----------
+//7902 FORD ANALYST 3000 3660 660
+//7788 SCOTT ANALYST 3000 3660 660
+//7369 SMITH CLERK 800 976 176
+//7900 JAMES CLERK 950 1159 209
+
+SELECT empno, ename, job, sal, sal*1.22 as New_Salary, sal*1.22-sal as Increase
+FROM emp;
+
+-- 실행 결과
+-- EMPNO   ENAEM   JOB               SAL   NEW_SALARY   INCREASE
+-- ----------------------------------------------------------------------------
+--7369	SMITH	CLERK	            800        976	176
+--7499	ALLEN	SALESMAN	1600	1952	352
+--7521	WARD	SALESMAN	1250	1525	275
+--7566	JONES	MANAGER	2975	3629.5	654.5
+--7654	MARTIN	SALESMAN	1250	1525	275
+--7698	BLAKE	MANAGER	2850	3477	627
+--7782	CLARK	MANAGER	2450	2989	539
+--7788	SCOTT	ANALYST	3000	3660	660
+--7839	KING	PRESIDENT	5000	6100	1100
+--7844	TURNER	SALESMAN	1500	1830	330
+--7876	ADAMS	CLERK	1100	1342	242
+--7900	JAMES	CLERK	950	1159	209
+--7902	FORD	ANALYST	3000	3660	660
+--7934	MILLER	CLERK	1300	1586	286
