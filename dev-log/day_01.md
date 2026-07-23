@@ -1,4 +1,4 @@
-<span style="font-size: 24px;">24px 1일차</span> 
+**1일차**
 
 Oracle SELECT 기본 조회
 
