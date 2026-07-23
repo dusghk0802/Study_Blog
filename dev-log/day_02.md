@@ -139,3 +139,13 @@ SELECT 컬럼명 FROM 테이블1 MINUS SELECT 컬럼명 FROM 테이블2;
 
 ---
 
+--학생테이블에서 81년에서 83년도에 태어난 학생의 이름과 생년 월일을 출력하고 그 중에서 1학년이거나 3학년인 학생
+--이름, 학년, 생일
+SQL> SELECT name, grade, birthdate
+     FROM student
+     where birthdate between '81/01/01' and '83/12/31'
+     and (grade= '1' or grade= '3');
+
+<p align="center">
+  <img src="images/2026-07-21/where.png" width="700">
+</p>
