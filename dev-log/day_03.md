@@ -553,7 +553,48 @@ WHERE grade='1';
   <img src="../training/Oracle/2026-07-22/day_03_1.JPG" alt="day_03" width="700">
 </p>
 substr 시작위치와 길이 입력 위치를 헷갈리지 않게 잘 기억해야겠다.
+
 아직은 몇번 연습 해봤지만 헷갈린다.
 
 
-29,33,35
+입사한지 360개월미만인 교수의 교수번호, 입사일, 입사일로부터 현재일까지의 개월수
+입사일에서 6개월후의 날짜를 출력
+
+```sql
+SELECT profno, hiredate, months_between(sysdate, hiredate) tenure,
+add_months(hiredate, 6) review
+FROM professor
+WHERE months_between(sysdate, hiredate) < 360;
+```
+<p align="center">
+  <img src="../training/Oracle/2026-07-22/day_03_2.JPG" alt="day_03" width="700">
+</p>
+MONTHS_BETWEEN(SYSDATE, TO_DATE('날짜', '날짜형식') 이 부분을 잘 기억해야겠다.
+
+날짜 지정을 숫자가 아니여도 사용할 수 있고 날짜랑 날짜형식 위치가 아직까지 헷갈리지만 유의해야겠다.
+
+
+101번 학과 교수들의 입사일을 일, 월, 년을 기준으로 반올림하여 출력
+```sql
+SELECT To_char(hiredate, 'yy/mm/dd hh24:mi:ss') hiredate,
+To_char(round(hiredate, 'dd'), 'yy/mm/dd') round_dd,
+To_char(round(hiredate, 'mm'), 'yy/mm/dd') round_mm,
+To_char(round(hiredate, 'yy'), 'yy/mm/dd') round_yy
+FROM professor
+WHERE deptno=101;
+```
+<p align="center">
+  <img src="../training/Oracle/2026-07-22/day_03_3.JPG" alt="day_03" width="700">
+</p>
+To_char를 사용하기 전에 꼭 To_char(hiredate, 'yy/mm/dd hh24:mi:ss') hiredate 처럼 어디를 기준으로 날짜를 어떤 형태로 가져올건지가 명확해야 한다.
+
+학생테이블에서 102번학과 학생의 이름, 학년, 생년월일을 출력
+```sql
+SELECT name, grade, to_char(birthdate, 'day Month dd, yyyy') birthdate
+FROM student
+where deptno=102;
+```
+<p align="center">
+  <img src="../training/Oracle/2026-07-22/day_03_4.JPG" alt="day_03" width="700">
+</p>
+To_char를 사용할 때 'day Month dd, yyyy' 이런식으로도 날짜를 년, 월, 일을 다양한 형태로 표시 할 수 있다는 걸 꼭 기억해야겠다.
