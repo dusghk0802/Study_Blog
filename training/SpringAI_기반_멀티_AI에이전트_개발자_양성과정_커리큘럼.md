@@ -16,4 +16,4 @@
 | 10 | **Spring AI 기반 AI 서비스 개발** | • Spring AI Architecture<br>• LLM API 활용<br>• Prompt Engineering<br>• PromptTemplate<br>• ChatClient<br>• Advisor<br>• ChatMemory<br>• Structured Output<br>• Tool Calling<br>• AI Agent 설계<br>• Agent Workflow | 80 |
 | 11 | **RAG 기반 AI Agent 개발** | • Embedding<br>• Text Splitter<br>• Vector Database (Chroma, pgvector)<br>• Retriever<br>• RAG 구현<br>• Agentic RAG<br>• MCP (Model Context Protocol)<br>• Spring Boot + Python Agent 연동<br>• Multi Agent Architecture | 64 |
 | 12 | **최종 실무 프로젝트** | • Spring AI 기반 멀티 AI Agent 서비스 개발<br>• RAG + MCP + Multi Agent 통합<br>• 클라우드 기반 서비스 배포 및 발표 | 240 |
-| | **총 교육시간** | | **960H** | |
+| | **총 교육시간** | | **960H** |
