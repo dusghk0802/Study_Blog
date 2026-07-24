@@ -14,8 +14,6 @@
 
 ### 📝 Training
 
-교육 과정에서 진행한 실습 내용을 날짜별로 정리했습니다.
-
 #### 01. Oracle [➡️](./training/Oracle)
 
 #### 02. Java
