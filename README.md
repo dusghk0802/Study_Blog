@@ -1,4 +1,4 @@
-### Study_Blog
+# Study_Blog
 
 ---
 
