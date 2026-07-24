@@ -549,5 +549,7 @@ FROM student
 WHERE grade='1';
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-21/day_02.JPG" alt="day_02" width="700">
+  <img src="../training/Oracle/2026-07-22/day_03_1.JPG" alt="day_03" width="700">
 </p>
+substr 시작위치와 길이 입력 위치를 헷갈리지 않게 잘 기억해야겠다.
+아직은 몇번 연습 해봤지만 헷갈린다.
