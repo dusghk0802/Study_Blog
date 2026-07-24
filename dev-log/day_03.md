@@ -382,7 +382,7 @@ SELECT TO_CHAR(날짜컬럼, 'MONTH DD, YYYY', 'NLS_DATE_LANGUAGE=ENGLISH') FROM
 
 날짜의 월 또는 요일을 지정한 언어로 출력
 
----
+
 
 #### 29. TO_CHAR - 숫자를 문자로 변환
 
