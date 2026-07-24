@@ -548,4 +548,6 @@ SELECT name, idnum, substr(idnum, 1,6) birth_date, substr(idnum, 3,2) birth_mon
 FROM student
 WHERE grade='1';
 ```
-
+<p align="center">
+  <img src="../training/Oracle/2026-07-21/day_02.JPG" alt="day_02" width="700">
+</p>
