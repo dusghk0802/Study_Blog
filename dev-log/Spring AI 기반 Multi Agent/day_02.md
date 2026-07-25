@@ -128,7 +128,7 @@ SELECT name, grade, birthdate
 ```
 
 <p align="center">
-  <img src="../training/Oracle/2026-07-21/day_02.JPG" alt="Spring AI 기반 Multi Agent/day_02" width="700">
+  <img src="../training/Oracle/2026-07-21/day_02.JPG" alt="day_02" width="700">
 </p>
 
 (grade= '1' or grade= '3') 이 부분에서 괄호와 ''은 꼭 들어가야 한다.
