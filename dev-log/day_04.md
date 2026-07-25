@@ -488,7 +488,7 @@ ROLLUP 연산자를 이용하여 아래와 같이 부서별, 직업별 전체 �
 
 DNAME JOB Total Emp Total Sal
 -------------------- --------- ---------- ----------
-<br/>SALES CLERK 1 950
+SALES CLERK 1 950
 <br/>SALES MANAGER 1 2850
 <br/>SALES SALESMAN 4 5600
 <br/>SALES 6 9400
@@ -500,9 +500,10 @@ DNAME JOB Total Emp Total Sal
 <br/>ACCOUNTING MANAGER 1 2450
 <br/>ACCOUNTING PRESIDENT 1 5000
 
+
 DNAME JOB Total Emp Total Sal
 -------------------- --------- ---------- ----------
-<br/>ACCOUNTING 3 8750
+ACCOUNTING 3 8750
 <br/>14 29025
 ```sql
 SELECT d.dname, e.job, count(*) "Total Emp", sum(sal) "Total Sal"
@@ -520,11 +521,10 @@ GROUP BY ROLLUP, order by grouping을 사용 할때는 뒤에 꼭 ()가 들어�
 
 
 1980, 1981, 1982, 1983년에 입사한 전체 사원 수와 연도별 사원수를 출력하는 SQL 작성
-
 (적당한 열레이블을 부여하세요.)
 
 TOTAL 1980 1981 1982 1983
--
+-------------------------
 14 1 10 1 
 ```sql
 SELECT count(empno) TOTAL, 
