@@ -522,10 +522,11 @@ GROUP BY ROLLUP, order by grouping을 사용 할때는 뒤에 꼭 ()가 들어�
 1980, 1981, 1982, 1983년에 입사한 전체 사원 수와 연도별 사원수를 출력하는 SQL 작성
 (적당한 열레이블을 부여하세요.)
 
+```text
 TOTAL 1980 1981 1982 1983
-
 -------------------------
-14 1 10 1 
+14 1 10 1
+
 ```sql
 SELECT count(empno) TOTAL, 
        sum(case when to_char(hiredate,'yy')=80 then 1 else 0 end) "1980",
