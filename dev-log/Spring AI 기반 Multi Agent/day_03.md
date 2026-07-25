@@ -550,7 +550,7 @@ FROM student
 WHERE grade='1';
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-22/day_03_1.JPG" alt="day_03" width="700">
+  <img src="../../training/Oracle/2026-07-22/day_03_1.JPG" alt="day_03" width="700">
 </p>
 substr 시작위치와 길이 입력 위치를 헷갈리지 않게 잘 기억해야겠다.
 
@@ -567,7 +567,7 @@ FROM professor
 WHERE months_between(sysdate, hiredate) < 360;
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-22/day_03_2.JPG" alt="day_03" width="700">
+  <img src="../../training/Oracle/2026-07-22/day_03_2.JPG" alt="day_03" width="700">
 </p>
 MONTHS_BETWEEN(SYSDATE, TO_DATE('날짜', '날짜형식') 이 부분을 잘 기억해야겠다.
 
@@ -584,7 +584,7 @@ FROM professor
 WHERE deptno=101;
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-22/day_03_3.JPG" alt="day_03" width="700">
+  <img src="../../training/Oracle/2026-07-22/day_03_3.JPG" alt="day_03" width="700">
 </p>
 To_char를 사용하기 전에 꼭 To_char(hiredate, 'yy/mm/dd hh24:mi:ss') hiredate 처럼 어디를 기준으로 날짜를 어떤 형태로 가져올건지가 명확해야 한다.
 
@@ -595,6 +595,6 @@ FROM student
 where deptno=102;
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-22/day_03_4.JPG" alt="day_03" width="700">
+  <img src="../../training/Oracle/2026-07-22/day_03_4.JPG" alt="day_03" width="700">
 </p>
 To_char를 사용할 때 'day Month dd, yyyy' 이런식으로도 날짜를 년, 월, 일을 다양한 형태로 표시 할 수 있다는 걸 꼭 기억해야겠다.
