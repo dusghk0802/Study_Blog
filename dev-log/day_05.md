@@ -285,7 +285,7 @@ ON s.deptno = d.deptno;
 <p align="center">
   <img src="../training/Oracle/2026-07-24/day_05_1.JPG" alt="day_05" width="700">
 </p>
-2개이상에 테이블에서 결과값을 출력할때 INNER JOIN를 사용하며, 뒤에는 ON과 별칭.칼럼명이 와야한다.
+2개이상에 테이블에서 결과값을 이어서 출력할때 INNER JOIN를 사용하며, 뒤에는 ON과 별칭.칼럼명이 와야한다.
 
 별칭.칼럼명이 해당되는 테이블에 없으면 오류가 나고 조인할 테이블이랑 공통된 칼라명으로 조건을 입력해야하고 3개이상 테이블과 연결 할때도 INNER JOIN를 테이블별로 각각 사용해야한다.
 조건을 제대로 입력해야 제대로 결과값이 나오고 별칭도 잘 지정해야겠다.
@@ -306,4 +306,41 @@ WHERE s.name='전인하';
 INNER JOIN를 사용하는 경우에도 추가적으로 조건이 있을때는 마지막에 WHERE 뒤에 조건이 와야한다.
 
 INNER JOIN 앞에 WHERE절이 오면 오류가 발생하니 유의해야겠다.
+<br/><br/><br/>
+학과별 학생수가 최대인 학과번호와 학생수를 출력
+```sql
+SELECT d.deptno 학과번호, d.dname 학과명, count(s.studno) 학생수
+FROM student s, department d
+WHERE s.deptno = d.deptno
+GROUP BY d.deptno, d.dname
+HAVING COUNT(s.studno) = (SELECT MAX(COUNT(studno))
+                          FROM student
+                          GROUP BY deptno);
+```
+<p align="center">
+  <img src="../training/Oracle/2026-07-24/day_05_3.JPG" alt="day_05" width="700">
+</p>
+GROUP BY로 묶은 다음에 추가적으로 조건을 걸고 출력을 해야해서 뒤에 HAVING절이 와야한다.
 
+여기서 헷갈렸던게 앞에 count(*)가 있어서 조건을 입력 했다고 생각했는데 정확하게 어떤 수를 출력할건지 조건을 입력하지 않았기 때문에 HAVING뒤에 COUNT(s.studno)가 와야한다.
+
+그리고 메인 쿼리에 테이블 2개가 있고 서브쿼리가 있는 구조라서 꼭 별칭을 잘 구분해서 입력해야하고 서브쿼리애는 넣지 않아야 한다.
+
+GROUP BY절은 메인쿼리와 서브쿼리에 둘다 들어가야 한다.
+<br/><br/><br/>
+사원과 매니저의 사번 연결 출력
+```sql
+SELECT * FROM emp;
+SELECT e.ename ｜｜'의 사번은'｜｜ e.empno ｜｜'이고, 매니저는'｜｜ 
+       m.ename ｜｜'이고 사번은'｜｜ m.empno ｜｜'입니다'
+FROM emp e, emp m
+where e.mgr = m.empno;
+```
+<p align="center">
+  <img src="../training/Oracle/2026-07-24/day_05_4.JPG" alt="day_05" width="700">
+</p>
+사원의 사번은 ~이고 매니저는 ~이고 사번은 ~입니다라는 결과값을 출력하는 문제였는데 헷갈렸던게 매니저에 해당되는 사원의 조건을 걸때 어떻게 해야하는지 한참 고민했었다.
+
+일단 같은 테이블이라 별칭이 필요없을 줄 알았는데 2번 불러와야해서 별칭이 들어가야하고 where절을 사용해서 사번도 e.mgr과 m.empno으로 조건을 입력해야한다.
+
+점점 쿼리가 길어지고 복잡해지니까 한참을 고민하고 시도해봐야해서 1개의 쿼리에 시간이 많이 필요해지고 있어서 연습을 많이 해야겠다.
