@@ -461,3 +461,21 @@ SELECT NVL2(컬럼명, TO_CHAR(컬럼명), '대체문자') FROM 테이블명;
 ```
 
 컬럼이 NULL이 아니면 문자로 변환하여 출력하고 NULL이면 지정한 문자열을 출력
+
+---
+
+학생 테이블에서 학생들이 태어난 월과 몇 사분기에 태어났는지 출력(이름, 태어난 월, 분기)
+```sql
+SELECT name, to_char(birthdate, 'mm') birthdate, 
+       CASE when to_char(birthdate, 'mm') in (1,2,3) THEN '1/4'
+       when to_char(birthdate,'mm') in (4,5,6) then '2/4'
+       when to_char(birthdate,'mm') in (7,8,9) then '3/4'
+       when to_char(birthdate,'mm') in (10,11,12) then '4/4' 
+       end "Quarter"
+FROM student;
+```
+<p align="center">
+  <img src="../training/Oracle/2026-07-22/day_03_4.JPG" alt="day_03" width="700">
+</p>
+
+
