@@ -486,19 +486,19 @@ ROLLUP 연산자를 이용하여 아래와 같이 부서별, 직업별 전체 �
 
 (아래와 같은 결과가 나오도록)
 
-//DNAME JOB Total Emp Total Sal
+DNAME JOB Total Emp Total Sal
 -------------------- --------- ---------- ----------
-SALES CLERK 1 950
-/SALES MANAGER 1 2850
-SALES SALESMAN 4 5600
-SALES 6 9400
-RESEARCH CLERK 2 1900
-RESEARCH ANALYST 2 6000
-RESEARCH MANAGER 1 2975
-RESEARCH 5 10875
-ACCOUNTING CLERK 1 1300
-ACCOUNTING MANAGER 1 2450
-ACCOUNTING PRESIDENT 1 5000
+<br/>SALES CLERK 1 950
+<br/>SALES MANAGER 1 2850
+<br/>SALES SALESMAN 4 5600
+<br/>SALES 6 9400
+<br/>RESEARCH CLERK 2 1900
+<br/>RESEARCH ANALYST 2 6000
+<br/>RESEARCH MANAGER 1 2975
+<br/>RESEARCH 5 10875
+<br/>ACCOUNTING CLERK 1 1300
+<br/>ACCOUNTING MANAGER 1 2450
+<br/>ACCOUNTING PRESIDENT 1 5000
 
 DNAME JOB Total Emp Total Sal
 -------------------- --------- ---------- ----------
@@ -519,12 +519,13 @@ order by grouping(d.dname), d.dname desc, grouping(e.job);
 GROUP BY ROLLUP, order by grouping을 사용 할때는 뒤에 꼭 ()가 들어가야 한다는 걸 유의해야겠다.
 
 
-//1980, 1981, 1982, 1983년에 입사한 전체 사원 수와 연도별 사원수를 출력하는 SQL 작성
-//(적당한 열레이블을 부여하세요.)
+1980, 1981, 1982, 1983년에 입사한 전체 사원 수와 연도별 사원수를 출력하는 SQL 작성
 
-//TOTAL 1980 1981 1982 1983
+(적당한 열레이블을 부여하세요.)
+
+TOTAL 1980 1981 1982 1983
 ------------------------------------------------------------
-//14 1 10 1 
+14 1 10 1 
 ```sql
 SELECT count(empno) TOTAL, 
        sum(case when to_char(hiredate,'yy')=80 then 1 else 0 end) "1980",
