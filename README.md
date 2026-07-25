@@ -1,5 +1,4 @@
 # Study_Blog
----
 
 ### 📌 교육 정보
 ### 📚 Spring AI 기반 멀티 AI Agent 개발자 양성과정
@@ -35,6 +34,6 @@ Spring AI 기반 Multi AI Agent 서비스
 
 ---
 
-### 📝 Dev-log [➡️](./training/Oracle)
+#### 📝 Dev-log [➡️](./dev-log)
 개발 교육 및 개인 학습 과정에서 배운 내용과 실습 기록을 정리한 공간입니다.  
 교육 실습, 개인 학습, 문제 해결 과정, 팀 프로젝트 및 개인 프로젝트의 개발 과정을 기록합니다.
