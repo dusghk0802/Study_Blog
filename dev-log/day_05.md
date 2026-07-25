@@ -6,6 +6,7 @@ Oracle JOIN 심화 및 서브쿼리
 
 📌 학습 내용: Cartesian Product, CROSS JOIN, EQUI JOIN, NATURAL JOIN, JOIN USING, INNER JOIN, NON-EQUI JOIN, OUTER JOIN, SELF JOIN, 서브쿼리
 
+---
 #### 1. Cartesian Product - 카티션 곱
 
 ```sql
