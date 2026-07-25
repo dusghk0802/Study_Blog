@@ -502,8 +502,8 @@ DNAME JOB Total Emp Total Sal
 
 DNAME JOB Total Emp Total Sal
 -------------------- --------- ---------- ----------
-ACCOUNTING 3 8750
-14 29025
+<br/>ACCOUNTING 3 8750
+<br/>14 29025
 ```sql
 SELECT d.dname, e.job, count(*) "Total Emp", sum(sal) "Total Sal"
 FROM emp e, dept d
@@ -524,8 +524,8 @@ GROUP BY ROLLUP, order by grouping을 사용 할때는 뒤에 꼭 ()가 들어�
 (적당한 열레이블을 부여하세요.)
 
 TOTAL 1980 1981 1982 1983
-------------------------------------------------------------
-14 1 10 1 
+--
+<br/>14 1 10 1 
 ```sql
 SELECT count(empno) TOTAL, 
        sum(case when to_char(hiredate,'yy')=80 then 1 else 0 end) "1980",
@@ -540,4 +540,5 @@ FROM emp;
 조건이 여러개인 합계를 구할때는 SUM 다음에 ()을 사용해서 CASE WHEN 조건 THEN 1 ELSE 0 END을 사용해야 한다.
 
 여기에서 조건을 만족하는 행은 1이고 조건을 만족하지 않으면 0이라는 뜻이다.
+
 꼭 뒤에 end가 와야 제대로 결과값이 출력되니 빼먹지 않도록 조심해야겠다.
