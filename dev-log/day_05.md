@@ -270,3 +270,25 @@ SELECT 테이블별칭1.이름컬럼 || '문자열' || 테이블별칭1.번호�
 ```
 
 SELF JOIN으로 조회한 데이터와 관리자 정보를 문자열 연결 연산자를 이용하여 하나의 문장으로 출력
+
+---
+
+학생의 학번, 이름, 학생의 몸무게, 지도교수 이름, 지도교수 이름, 지도교수 급여, 학과 이름, 학과 위치를 출력
+```sql
+SELECT s.profno, s.name, s.weight, p.name, p.sal, d.dname, d.loc
+FROM student s
+INNER JOIN professor p
+ON s.profno = p.profno
+INNER JOIN department d
+ON s.deptno = d.deptno;
+```
+<p align="center">
+  <img src="../training/Oracle/2026-07-24/day_05_1.JPG" alt="day_03" width="700">
+</p>
+2개이상에 테이블에서 결과값을 출력할때 INNER JOIN를 사용하며, 뒤에는 ON과 별칭.칼럼명이 와야한다.
+
+별칭.칼럼명이 해당되는 테이블에 없으면 오류가 나고 조인할 테이블이랑 공통된 칼라명으로 조건을 입력해야하고 3개이상 테이블과 연결 할때도 INNER JOIN를 테이블별로 각각 사용해야한다.
+
+조건을 제대로 입력해야 제대로 결과값이 나오고 별칭도 잘 지정해야겠다.
+
+
