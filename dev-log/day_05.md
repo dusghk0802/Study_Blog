@@ -283,7 +283,7 @@ INNER JOIN department d
 ON s.deptno = d.deptno;
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-24/day_05_1.JPG" alt="day_05" width="700">
+  <img src="../../training/Oracle/2026-07-24/day_05_1.JPG" alt="day_05" width="700">
 </p>
 2개이상에 테이블에서 결과값을 이어서 출력할때 INNER JOIN를 사용하며, 뒤에는 ON과 별칭.칼럼명이 와야한다.
 
@@ -301,7 +301,7 @@ ON s.deptno = d.deptno
 WHERE s.name='전인하';
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-24/day_05_2.JPG" alt="day_05" width="700">
+  <img src="../../training/Oracle/2026-07-24/day_05_2.JPG" alt="day_05" width="700">
 </p>
 INNER JOIN를 사용하는 경우에도 추가적으로 조건이 있을때는 마지막에 WHERE 뒤에 조건이 와야한다.
 
@@ -318,7 +318,7 @@ HAVING COUNT(s.studno) = (SELECT MAX(COUNT(studno))
                           GROUP BY deptno);
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-24/day_05_3.JPG" alt="day_05" width="700">
+  <img src="../../training/Oracle/2026-07-24/day_05_3.JPG" alt="day_05" width="700">
 </p>
 GROUP BY로 묶은 다음에 추가적으로 조건을 걸고 출력을 해야해서 뒤에 HAVING절이 와야한다.
 
@@ -337,7 +337,7 @@ FROM emp e, emp m
 where e.mgr = m.empno;
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-24/day_05_4.JPG" alt="day_05" width="700">
+  <img src="../../training/Oracle/2026-07-24/day_05_4.JPG" alt="day_05" width="700">
 </p>
 사원의 사번은 ~이고 매니저는 ~이고 사번은 ~입니다라는 결과값을 출력하는 문제였는데 헷갈렸던게 매니저에 해당되는 사원의 조건을 걸때 어떻게 해야하는지 한참 고민했었다.
 
