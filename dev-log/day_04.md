@@ -475,7 +475,68 @@ SELECT name, to_char(birthdate, 'mm') birthdate,
 FROM student;
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-22/day_03_4.JPG" alt="day_03" width="700">
+  <img src="../training/Oracle/2026-07-23/day_04_1.JPG" alt="day_03" width="700">
 </p>
+CASE when 다음에 추가로 조건이 있으면 when으로 시작해야하고 조건이 분기면 in (1,2,3) 이런식으로 해당월을 조건으로 넣어야지 제대로 결과값이 나온다.
+
+그리고 꼭 THEN 다음에 표시할 칼럼명이 와야 제대로 출력되니 유의해야겠다.
 
 
+ROLLUP 연산자를 이용하여 아래와 같이 부서별, 직업별 전체 사원수 및 전체 급여의 합계를 출력
+
+(아래와 같은 결과가 나오도록)
+
+//DNAME JOB Total Emp Total Sal
+-------------------- --------- ---------- ----------
+SALES CLERK 1 950
+/SALES MANAGER 1 2850
+SALES SALESMAN 4 5600
+SALES 6 9400
+RESEARCH CLERK 2 1900
+RESEARCH ANALYST 2 6000
+RESEARCH MANAGER 1 2975
+RESEARCH 5 10875
+ACCOUNTING CLERK 1 1300
+ACCOUNTING MANAGER 1 2450
+ACCOUNTING PRESIDENT 1 5000
+
+DNAME JOB Total Emp Total Sal
+-------------------- --------- ---------- ----------
+ACCOUNTING 3 8750
+14 29025
+```sql
+SELECT d.dname, e.job, count(*) "Total Emp", sum(sal) "Total Sal"
+FROM emp e, dept d
+WHERE e.deptno=d.deptno
+GROUP BY ROLLUP(d.dname, e.job)
+order by grouping(d.dname), d.dname desc, grouping(e.job);
+```
+<p align="center">
+  <img src="../training/Oracle/2026-07-23/day_04_2.JPG" alt="day_03" width="700">
+</p>
+칼럼별 전체 합계를 구할려면 count(*)와 GROUP BY ROLLUP, order by grouping을 사용해야한다.
+
+GROUP BY ROLLUP, order by grouping을 사용 할때는 뒤에 꼭 ()가 들어가야 한다는 걸 유의해야겠다.
+
+
+//1980, 1981, 1982, 1983년에 입사한 전체 사원 수와 연도별 사원수를 출력하는 SQL 작성
+//(적당한 열레이블을 부여하세요.)
+
+//TOTAL 1980 1981 1982 1983
+------------------------------------------------------------
+//14 1 10 1 
+```sql
+SELECT count(empno) TOTAL, 
+       sum(case when to_char(hiredate,'yy')=80 then 1 else 0 end) "1980",
+       sum(case when to_char(hiredate,'yy')=81 then 1 else 0 end) "1981",
+       sum(case when to_char(hiredate,'yy')=82 then 1 else 0 end) "1982",
+       sum(case when to_char(hiredate,'yy')=83 then 1 else 0 end) "1983"
+FROM emp;
+```
+<p align="center">
+  <img src="../training/Oracle/2026-07-23/day_04_3.JPG" alt="day_03" width="700">
+</p>
+조건이 여러개인 합계를 구할때는 SUM 다음에 ()을 사용해서 CASE WHEN 조건 THEN 1 ELSE 0 END을 사용해야 한다.
+
+여기에서 조건을 만족하는 행은 1이고 조건을 만족하지 않으면 0이라는 뜻이다.
+꼭 뒤에 end가 와야 제대로 결과값이 출력되니 빼먹지 않도록 조심해야겠다.
