@@ -475,7 +475,7 @@ SELECT name, to_char(birthdate, 'mm') birthdate,
 FROM student;
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-23/day_04_1.JPG" alt="day_03" width="700">
+  <img src="../training/Oracle/2026-07-23/day_04_1.JPG" alt="day_04" width="700">
 </p>
 CASE when 다음에 추가로 조건이 있으면 when으로 시작해야하고 조건이 분기면 in (1,2,3) 이런식으로 해당월을 조건으로 넣어야지 제대로 결과값이 나온다.
 
@@ -514,7 +514,7 @@ GROUP BY ROLLUP(d.dname, e.job)
 order by grouping(d.dname), d.dname desc, grouping(e.job);
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-23/day_04_2.JPG" alt="day_03" width="700">
+  <img src="../training/Oracle/2026-07-23/day_04_2.JPG" alt="day_04" width="700">
 </p>
 칼럼별 전체 합계를 구할려면 count(*)와 GROUP BY ROLLUP, order by grouping을 사용해야한다.
 
@@ -537,7 +537,7 @@ SELECT count(empno) TOTAL,
 FROM emp;
 ```
 <p align="center">
-  <img src="../training/Oracle/2026-07-23/day_04_3.JPG" alt="day_03" width="700">
+  <img src="../training/Oracle/2026-07-23/day_04_3.JPG" alt="day_04" width="700">
 </p>
 조건이 여러개인 합계를 구할때는 SUM 다음에 ()을 사용해서 CASE WHEN 조건 THEN 1 ELSE 0 END을 사용해야 한다.
 
