@@ -1,7 +1,7 @@
 # Study_Blog
 
 ### 📌 교육 정보
-### 📚 Spring AI 기반 멀티 AI Agent 개발자 양성과정
+### 📚 Spring AI 기반 Multi Agent 개발자 양성과정
 - **교육기간:** 2026.07.20 ~ 2026.12.18
 - **총 교육시간:** 960H
 
