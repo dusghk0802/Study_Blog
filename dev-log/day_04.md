@@ -462,7 +462,7 @@ SELECT NVL2(컬럼명, TO_CHAR(컬럼명), '대체문자') FROM 테이블명;
 
 컬럼이 NULL이 아니면 문자로 변환하여 출력하고 NULL이면 지정한 문자열을 출력
 
-
+---
 학생 테이블에서 학생들이 태어난 월과 몇 사분기에 태어났는지 출력(이름, 태어난 월, 분기)
 ```sql
 SELECT name, to_char(birthdate, 'mm') birthdate, 
@@ -479,8 +479,7 @@ FROM student;
 CASE when 다음에 추가로 조건이 있으면 when으로 시작해야하고 조건이 분기면 in (1,2,3) 이런식으로 해당월을 조건으로 넣어야지 제대로 결과값이 나온다.
 
 그리고 꼭 THEN 다음에 표시할 칼럼명이 와야 제대로 출력되니 유의해야겠다.
-
-
+<br/><br/><br/>
 ROLLUP 연산자를 이용하여 아래와 같이 부서별, 직업별 전체 사원수 및 전체 급여의 합계를 출력
 
 (아래와 같은 결과가 나오도록)
@@ -519,8 +518,7 @@ order by grouping(d.dname), d.dname desc, grouping(e.job);
 칼럼별 전체 합계를 구할려면 count(*)와 GROUP BY ROLLUP, order by grouping을 사용해야한다.
 
 GROUP BY ROLLUP, order by grouping을 사용 할때는 뒤에 꼭 ()가 들어가야 한다는 걸 유의해야겠다.
-
-
+<br/><br/><br/>
 1980, 1981, 1982, 1983년에 입사한 전체 사원 수와 연도별 사원수를 출력하는 SQL 작성
 (적당한 열레이블을 부여하세요.)
 
