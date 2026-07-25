@@ -6,6 +6,7 @@
 
 📌 학습 내용: NVL, NVL2, NULLIF, COALESCE, DECODE, CASE, 그룹 함수, GROUP BY, HAVING, ROLLUP, CUBE, GROUPING, GROUPING SETS, JOIN
 
+---
 #### 1. NVL - NULL 값 변환
 
 ```sql
