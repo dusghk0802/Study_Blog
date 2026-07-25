@@ -501,10 +501,10 @@ ACCOUNTING MANAGER       1       2450
 ACCOUNTING PRESIDENT     1       000
 ```
 ```text
-DNAME JOB Total Emp Total Sal
--------------------- --------- ---------- ----------
-ACCOUNTING 3 8750
-14 29025
+DNAME       JOB Total   Emp Total   Sal
+-----------------------------------------
+ACCOUNTING               3         8750
+                         14        29025
 ```
 ```sql
 SELECT d.dname, e.job, count(*) "Total Emp", sum(sal) "Total Sal"
@@ -527,7 +527,7 @@ GROUP BY ROLLUP, order by grouping을 사용 할때는 뒤에 꼭 ()가 들어�
 ```text
 TOTAL 1980 1981 1982 1983
 -------------------------
-14    1    1    0    1
+  14    1    1    0    1
 ```
 ```sql
 SELECT count(empno) TOTAL, 
