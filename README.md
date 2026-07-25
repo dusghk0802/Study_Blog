@@ -12,16 +12,6 @@
 
 ---
 
-### 📝 Training
-
-#### 01. Oracle [➡️](./training/Oracle)
-
-#### 02. Java
-
-#### 03. Web
-
----
-
 ## 🚀 Projects
 
 ### Mini Project Ⅰ
@@ -32,3 +22,19 @@ Spring Boot + React 기반 미니 프로젝트
 
 ### Final Project
 Spring AI 기반 Multi AI Agent 서비스
+
+---
+
+### 📝 Training
+
+#### 01. Oracle [➡️](./training/Oracle)
+
+#### 02. Java
+
+#### 03. Web
+
+---
+
+### 📝 Dev-log [➡️](./training/Oracle)
+개발 교육 및 개인 학습 과정에서 배운 내용과 실습 기록을 정리한 공간입니다.  
+교육 실습, 개인 학습, 문제 해결 과정, 팀 프로젝트 및 개인 프로젝트의 개발 과정을 기록합니다.
