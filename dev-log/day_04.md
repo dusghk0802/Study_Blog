@@ -504,7 +504,7 @@ ACCOUNTING PRESIDENT     1       000
 DNAME JOB Total Emp Total Sal
 -------------------- --------- ---------- ----------
 ACCOUNTING 3 8750
-<br/>14 29025
+14 29025
 ```
 ```sql
 SELECT d.dname, e.job, count(*) "Total Emp", sum(sal) "Total Sal"
@@ -529,7 +529,6 @@ TOTAL 1980 1981 1982 1983
 -------------------------
   14    1    1    0    1
 ```
-
 ```sql
 SELECT count(empno) TOTAL, 
        sum(case when to_char(hiredate,'yy')=80 then 1 else 0 end) "1980",
