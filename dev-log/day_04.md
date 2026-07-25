@@ -526,7 +526,7 @@ GROUP BY ROLLUP, order by grouping을 사용 할때는 뒤에 꼭 ()가 들어�
 TOTAL 1980 1981 1982 1983
 -------------------------
 14 1 10 1
-```text
+```
 
 ```sql
 SELECT count(empno) TOTAL, 
