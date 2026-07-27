@@ -550,3 +550,17 @@ SELECT 컬럼명1, 컬럼명2 FROM 테이블명 WHERE (컬럼명2, 컬럼명3) I
 
 ---
 
+MERGE 사용
+```sql
+MERGE INTO professor p
+USING professor_temp f
+on (p.profno = f.profno)
+WHEN matched THEN
+UPDATE SET p.position = f.position
+WHEN not MATCHED THEN
+INSERT VALUES(f.profno, f.name, f.userid, f.position, f.sal, f.hiredate, 
+              f.comm, f.deptno);
+```
+```text
+3개 행 이(가) 병합되었습니다.
+```
