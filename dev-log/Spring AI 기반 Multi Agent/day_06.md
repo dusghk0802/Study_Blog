@@ -564,3 +564,28 @@ INSERT VALUES(f.profno, f.name, f.userid, f.position, f.sal, f.hiredate,
 ```text
 3개 행 이(가) 병합되었습니다.
 ```
+<p align="center">
+  <img src="../../training/Oracle/2026-07-27/day_06_1.JPG" alt="day_06" width="700">
+</p>
+MERGE를 사용 할때는 뒤에 on이 와야하고 동등한 비교 조건을 입력 해야하고 그 뒤에 WHEN matched THEN가 와야한다.
+INSERT VALUES()에는 필요한 열을 입력해야 한다.
+여기에서 가장 헷갈렸던게 on 뒤에 오는 동등한 비교 조건과 UPDATE SET 뒤에 오는 동등한 비교 조건이였다.
+아직 좀 더 연습이 필요 할 것 같다.
+
+각 학과별로 입사일이 가장 오래된 교수의 교수번호와 이름, 입사일, 학과명을 출력 (입사일 순으로 정렬하세요.)
+
+--교수 NO. 교수명 입사일 학과
+--===== ===== ===== ===========
+--9901 김도훈 82/06/24 컴퓨터공학과
+--9905 권혁일 86/01/08 멀티미디어학과
+--9908 남은혁 90/11/18 기계공학과
+--9902 이재우 95/04/12 전자공학과
+
+SELECT p.profno "교수NO.", p.name "교수명", p.hiredate "입사일", d.dname "학과명"
+FROM professor p, department d
+WHERE p.deptno=d.deptno
+GROUP BY p.deptno, p.profno, p.name, p.hiredate, d.dname
+HAVING p.hiredate IN (SELECT MIN(hiredate)
+                        FROM professor
+                        GROUP BY deptno)
+ORDER BY hiredate;
