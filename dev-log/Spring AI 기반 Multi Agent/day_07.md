@@ -310,10 +310,8 @@ SIZE 파일크기;
 #### 32. PRIMARY KEY 제약조건 설정
 
 ```sql
-CREATE TABLE 테이블명(
-    컬럼명 데이터형
-        CONSTRAINT 제약조건명 PRIMARY KEY
-);
+CREATE TABLE 테이블명(컬럼명 데이터형
+       CONSTRAINT 제약조건명 PRIMARY KEY);
 ```
 
 컬럼에 중복값과 `NULL`을 허용하지 않는 기본키를 설정한다.
@@ -321,10 +319,8 @@ CREATE TABLE 테이블명(
 #### 33. NOT NULL 제약조건 설정
 
 ```sql
-CREATE TABLE 테이블명(
-    컬럼명 데이터형
-        CONSTRAINT 제약조건명 NOT NULL
-);
+CREATE TABLE 테이블명(컬럼명 데이터형
+       CONSTRAINT 제약조건명 NOT NULL);
 ```
 
 해당 컬럼에 `NULL`이 입력되지 않도록 설정한다.
@@ -332,10 +328,8 @@ CREATE TABLE 테이블명(
 #### 34. CHECK 제약조건 설정
 
 ```sql
-CREATE TABLE 테이블명(
-    컬럼명 데이터형
-        CONSTRAINT 제약조건명 CHECK (조건식)
-);
+CREATE TABLE 테이블명(컬럼명 데이터형
+       CONSTRAINT 제약조건명 CHECK (조건식));
 ```
 
 지정한 조건을 만족하는 값만 입력할 수 있도록 제한한다.
@@ -343,11 +337,9 @@ CREATE TABLE 테이블명(
 #### 35. FOREIGN KEY 제약조건 설정
 
 ```sql
-CREATE TABLE 자식테이블명(
-    외래키컬럼 데이터형
-        CONSTRAINT 제약조건명
-        REFERENCES 부모테이블명(참조컬럼명)
-);
+CREATE TABLE 자식테이블명(외래키컬럼 데이터형
+       CONSTRAINT 제약조건명
+       REFERENCES 부모테이블명(참조컬럼명));
 ```
 
 자식 테이블의 컬럼이 부모 테이블의 기본키 또는 고유키를 참조하도록 설정한다.
