@@ -89,11 +89,9 @@ CREATE TABLE 테이블명(
 #### 9. 기본 테이블 생성
 
 ```sql
-CREATE TABLE 테이블명(
-    컬럼명1 데이터형,
-    컬럼명2 데이터형,
-    컬럼명3 데이터형
-);
+CREATE TABLE 테이블명(컬럼명1 데이터형,
+                     컬럼명2 데이터형,
+                     컬럼명3 데이터형);
 ```
 
 지정한 컬럼과 데이터형으로 새로운 테이블을 생성한다.
@@ -357,11 +355,9 @@ CREATE TABLE 자식테이블명(
 #### 36. 복합 PRIMARY KEY 설정
 
 ```sql
-CREATE TABLE 테이블명(
-    컬럼명1 데이터형,
-    컬럼명2 데이터형,
-    CONSTRAINT 제약조건명 PRIMARY KEY(컬럼명1, 컬럼명2)
-);
+CREATE TABLE 테이블명(컬럼명1 데이터형,
+                     컬럼명2 데이터형,
+                     CONSTRAINT 제약조건명 PRIMARY KEY(컬럼명1, 컬럼명2));
 ```
 
 두 개 이상의 컬럼을 묶어 하나의 기본키로 설정한다.
@@ -380,9 +376,7 @@ UNIQUE(컬럼명);
 
 ```sql
 ALTER TABLE 테이블명
-MODIFY (
-    컬럼명 CONSTRAINT 제약조건명 NOT NULL
-);
+MODIFY (컬럼명 CONSTRAINT 제약조건명 NOT NULL);
 ```
 
 기존 컬럼에 `NOT NULL` 제약조건을 추가한다.
@@ -510,10 +504,7 @@ VALUES(부모테이블에없는값);
 #### 51. 시퀀스와 PRIMARY KEY를 이용한 자동 번호 입력
 
 ```sql
-CREATE TABLE 테이블명(
-    번호컬럼 NUMBER PRIMARY KEY,
-    일반컬럼 데이터형
-);
+CREATE TABLE 테이블명(번호컬럼 NUMBER PRIMARY KEY, 일반컬럼 데이터형);
 
 CREATE SEQUENCE 시퀀스명
 START WITH 시작값
