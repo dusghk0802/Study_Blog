@@ -519,6 +519,12 @@ CREATE SEQUENCE 시퀀스명
 START WITH 시작값
 INCREMENT BY 증가값;
 
+---
+
+<p align="center">
+  <img src="../../training/Oracle/2026-07-27/day_06_2.JPG" alt="day_06" width="700">
+</p>
+
 INSERT INTO 테이블명(번호컬럼, 일반컬럼)
 VALUES(시퀀스명.NEXTVAL, 일반값);
 ```
