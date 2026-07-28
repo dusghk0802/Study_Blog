@@ -570,8 +570,9 @@ Table SUBJECT이(가) 생성되었습니다.
 desc subject;
 ```
 <p align="center">
-  <img src="../../training/Oracle/2026-07-28/day_08_1.JPG" alt="day_07" width="700">
+  <img src="../../training/Oracle/2026-07-28/day_07_1.JPG" alt="day_07" width="700">
 </p>
+<br/><br/><br/>
 
 
 
