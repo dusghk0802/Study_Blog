@@ -542,7 +542,7 @@ alter user hr quota unlimited on indxx;
 시퀀스나 제약조건이 있거나 기본키가 포함된 테이블 등을 생성할 때는 SQL PLUS에서 먼저 권한 부여를 먼저 해야 생성이 가능하다.
 
 conn /as sysdba; 이건 꼭 기억해야겠다.
-
+<br/><br/><br/>
 무결성 제약조건 생성
 ```sql
 CREATE TABLESPACE indxx
@@ -573,7 +573,25 @@ desc subject;
   <img src="../../training/Oracle/2026-07-28/day_07_1.JPG" alt="day_07" width="700">
 </p>
 <br/><br/><br/>
+TABLESPACE를 사용할 때는 datafile 다음에 파일 경로를 입력해야 하고 끝에 .dbf가 꼭 들어가야 생성이 된다.
 
+그리고 NUMBER와 VARCHAR2등은 ()안에 숫자가 들어가고 숫자 이상의 값을 나중에 테이블에 삽입하면 오류가 발생하니 유의해야 한다.
+<br/><br/><br/>
+생성한 EMPLOYEE 테이블의 DEPTNO는 DEPT테이블의 DEPTNO 컬럼을 참조하게 제약 조건을 설정
+```sql
+ALTER TABLE EMPLOYEE
+ADD CONSTRAINT EMPLOYEE_DEPTNO_FK
+FOREIGN KEY (DEPTNO)
+REFERENCES DEPT(DEPTNO);
+```
+```text
+Table EMPLOYEE이(가) 변경되었습니다.
+```
+<p align="center">
+  <img src="../../training/Oracle/2026-07-28/day_07_2.JPG" alt="day_07" width="700">
+</p>
+ADD CONSTRAINT를 사용하여 제약 조건명을 넣고 아래에 조건들을 입력해야 한다.
 
+그리고 DEPT테이블의 DEPTNO 컬럼을 참조하게 하려면 FOREIGN KEY를 사용해야하며 마지막에 REFERENCES 와야한다.
 
-
+여기서 유의해야 할 점은 FOREIGN KEY와 REFERENCES 칼럼명 뒤에는 꼭 ()가 와야 한다는 것이다.
