@@ -519,14 +519,60 @@ CREATE SEQUENCE 시퀀스명
 START WITH 시작값
 INCREMENT BY 증가값;
 
+시퀀스에서 생성한 번호를 기본키 컬럼에 자동으로 입력한다.
+
 ---
 
+SQL PLUS에서 실행
+```sql
+conn /as sysdba;
+연결되었습니다.
+show user;
+USER은 "SYS"입니다
+grant create sequence to hr;
+권한이 부여되었습니다.
+```
+```sql
+conn /as sysdba;
+연결되었습니다.
+alter user hr quota unlimited on indxx;
+또는 alter user hr quota 100M on indxx;
+사용자가 변경되었습니다.
+```
+시퀀스나 제약조건이 있거나 기본키가 포함된 테이블 등을 생성할 때는 SQL PLUS에서 먼저 권한 부여를 먼저 해야 생성이 가능하다.
+
+conn /as sysdba; 이건 꼭 기억해야겠다.
+
+무결성 제약조건 생성
+```sql
+CREATE TABLESPACE indxx
+datafile 'C:\app\kosa\product\21c\oradata\XE\indxx.dbf' size 100m;
+```
+```text
+TABLESPACE INDXX이(가) 생성되었습니다.
+```
+```sql
+CREATE TABLE subject
+ (subno NUMBER(5)
+  CONSTRAINT subject_no_pk PRIMARY KEY
+  DEFERRABLE INITIALLY DEFERRED
+  USING INDEX TABLESPACE indxx,
+  subname VARCHAR2(20)
+  CONSTRAINT subject_name_nn NOT NULL,
+  term VARCHAR2(1)
+  CONSTRAINT subject_term_ck CHECK (term in('1', '2')),
+  type VARCHAR2(6));
+```
+```text
+Table SUBJECT이(가) 생성되었습니다.
+```
+```sql
+desc subject;
+```
 <p align="center">
-  <img src="../../training/Oracle/2026-07-27/day_06_2.JPG" alt="day_06" width="700">
+  <img src="../../training/Oracle/2026-07-28/day_08_1.JPG" alt="day_07" width="700">
 </p>
 
-INSERT INTO 테이블명(번호컬럼, 일반컬럼)
-VALUES(시퀀스명.NEXTVAL, 일반값);
-```
 
-시퀀스에서 생성한 번호를 기본키 컬럼에 자동으로 입력한다.
+
+
