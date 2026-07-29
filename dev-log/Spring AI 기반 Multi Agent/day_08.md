@@ -346,9 +346,15 @@ FROM (SELECT deptno, avg(height) avg_height, avg(weight) avg_weight
 WHERE s.deptno = d.deptno;
 ```
 
-hr 제약조건으로 인해 scott에서 테이블 다시 불러오려고 @C:\Users\kosa\Documents\오라클\table.sql 했더니 아래와 같이 오류가 발생했다.
+hr 제약조건으로 인해 @C:\Users\kosa\Documents\오라클\table.sql 했더니 아래와 같이 오류가 발생했다.
 <p align="center">
   <img src="../../training/Oracle/2026-07-29/day_08_2.JPG" alt="day_08" width="700">
 </p>
 
-그래서 
+그래서 scott에서 테이블 다시 불러와서 실행했더니 아래와 같이 결과값이 정상적으로 출력되었다.
+
+이미 앞에서 제약조건이 걸려있을 경우에는 동일한 테이블을 다시 불러오면 글자가 깨진다는 점을 잘 기억하고 있어야 겠다.
+
+<p align="center">
+  <img src="../../training/Oracle/2026-07-29/day_08_5.JPG" alt="day_08" width="700">
+</p>
