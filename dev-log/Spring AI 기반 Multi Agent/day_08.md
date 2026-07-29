@@ -331,6 +331,7 @@ WHERE dname = '정보미디어학부';
 <p align="center">
   <img src="../../training/Oracle/2026-07-29/day_08_1.JPG" alt="day_08" width="700">
 </p>
+
 sqlplus에서 실행시 set autot on/off/trace하고 실행해야하고 sqldeveloper에서 실행시 F10을 눌러야 위에와 같이 결과가 나온다.
 
 sqlplus에서 실행히면 아래와 같이 나오는데 sqldeveloper에서 더 간편하게 확인할 수 있다.
