@@ -55,8 +55,8 @@ jobs:
 
           weekday="$(TZ=Asia/Seoul date -d "$target_date" +%u)"
 
-          if [[ "$target_date" > "2026-07-31" && "$target_date" < "2026-09-01" && "$weekday" -gt 5 ]]; then
-            echo "$target_date is an August weekend, so no folder will be created."
+          if [[ "$target_date" > "2026-06-30" && "$target_date" < "2026-09-01" && "$weekday" -gt 5 ]]; then
+            echo "$target_date is a July/August weekend, so no folder will be created."
             exit 0
           fi
 
