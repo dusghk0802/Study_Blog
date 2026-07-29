@@ -322,7 +322,7 @@ DROP PUBLIC SYNONYM 동의어명;
 SELECT deptno, dname
 FROM department
 WHERE dname = '정보미디어학부';
-```sql
+```
 <p align="center">
   <img src="../../training/Oracle/2026-07-29/day_08_1.JPG" alt="day_08" width="700">
 </p>
