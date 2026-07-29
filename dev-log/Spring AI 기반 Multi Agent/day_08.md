@@ -337,6 +337,7 @@ sqlplus에서 실행히면 아래와 같이 나오는데 sqldeveloper에서 더 
 </p>
 <br/><br/><br/>
 인라인 뷰를 사용하여 학과별로 학생들의 평균 키와 평균 몸무게, 학과이름을 출력
+
 ```sql
 SELECT dname, avg_height, avg_weight
 FROM (SELECT deptno, avg(height) avg_height, avg(weight) avg_weight
@@ -344,6 +345,7 @@ FROM (SELECT deptno, avg(height) avg_height, avg(weight) avg_weight
       GROUP BY deptno) s, department d
 WHERE s.deptno = d.deptno;
 ```
+
 hr 제약조건으로 인해 scott에서 테이블 다시 불러오려고 @C:\Users\kosa\Documents\오라클\table.sql 했더니 아래와 같이 오류가 발생했다.
 <p align="center">
   <img src="../../training/Oracle/2026-07-29/day_08_2.JPG" alt="day_08" width="700">
