@@ -317,3 +317,10 @@ DROP PUBLIC SYNONYM 동의어명;
 공용 동의어를 삭제한다.
 
 ---
+
+
+
+<p align="center">
+  <img src="../../training/Oracle/2026-07-28/day_07_1.JPG" alt="day_07" width="700">
+</p>
+<br/><br/><br/>
