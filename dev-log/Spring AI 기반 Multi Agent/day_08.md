@@ -326,6 +326,7 @@ WHERE dname = '정보미디어학부';
 <p align="center">
   <img src="../../training/Oracle/2026-07-29/day_08_3.JPG.JPG" alt="day_08" width="700">
 </p>
+
 <p align="center">
   <img src="../../training/Oracle/2026-07-29/day_08_1.JPG" alt="day_08" width="700">
 </p>
