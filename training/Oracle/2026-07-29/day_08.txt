@@ -1,0 +1,485 @@
+//부서테이블에서 name 칼럼을 고유인덱스로 생성
+//단, 고유 인덱스의 이름을 idx_dept_name으로 정의
+CREATE UNIQUE INDEX idx_dept_name 
+ON department(dname);
+//INDEX IDX_DEPT_NAME이(가) 생성되었습니다.
+
+//학생 테이블의 birthdate 칼럼을 비고유 인덱스로 생성
+//비고유 인덱스의 이름은 idx_stud_birthdate로 정의
+CREATE INDEX idx_stud_birthdate
+ON student(birthdate);
+//Index IDX_STUD_BIRTHDATE이(가) 생성되었습니다.
+
+//학생 테이블의 deptno, grade 칼럼을 결합인덱스로 생성
+//결합 인덱스의 이름은 dx_stud_dno_grade로 정의
+CREATE INDEX idx_stud_dno_grade
+ON student(deptno, grade);
+//Index IDX_STUD_DNO_GRADE이(가) 생성되었습니다.
+
+//학생 테이블의 deptno와 name 칼럼으로 결합인덱스를 생성
+//단, deptno 칼럼을 내림차순으로 name 칼럼은 오름차순으로 생성
+CREATE INDEX fix_stud_no_name
+ON student(deptno DESC, name ASC);
+//Index FIX_STUD_NO_NAME이(가) 생성되었습니다.
+
+//함수기반 인덱스 사용
+CREATE INDEX uppercase_idx on emp (upper(ename));
+//Index UPPERCASE_IDX이(가) 생성되었습니다.
+
+SELECT * FROM emp
+WHERE upper(ename) = 'KING';
+
+--실행결과
+--EMPNO   ENAME      JOB         MGR                HIREDATE   SAL   COMM   DEPTNO
+-----------------------------------------------------------------------------------------------
+--7839	    KING	PRESIDENT		81/11/17	5000		10
+
+//학생테이블에서 학생들의 비만도 측정을 위해 표준체중에 대한 함수기반인덱스를 생성
+//표준체중을 구하는 공식은 ‘신장-100(cm)*0.9’
+CREATE INDEX idx_standard_weight 
+on student((height-100)*0.9);
+//Index IDX_STANDARD_WEIGHT이(가) 생성되었습니다.
+
+//학과 테이블에서 학과이름이 ‘정보미디어학부’인 학과번호를 검색한 결과에 대한 실행경로를 분석
+//dname 컬럼에 고유 인덱스가 생성
+SELECT deptno, dname
+FROM department
+WHERE dname = '정보미디어학부';
+//sqlplus에서 실행시 set autot on/off/trace하고 위에 입력후 실행
+//여기에서 실행시 F10
+
+--실행결과
+--EMPNO     DNAME
+----------------------------
+--100	정보미디어학부
+
+DROP INDEX idx_dept_name;
+//Index IDX_DEPT_NAME이(가) 삭제되었습니다.
+
+SELECT name, birthdate
+FROM student
+WHERE birthdate = '79/04/02';
+
+--실행결과
+--NAME     BIRTHDATE
+----------------------------
+--윤진욱	79/04/02
+
+DROP INDEX idx_stud_birthdate;
+//Index IDX_STUD_BIRTHDATE이(가) 삭제되었습니다.
+
+//학생 테이블에 생성된 인덱스를 조회
+SELECT index_name, uniqueness
+FROM user_indexes
+WHERE table_name = 'STUDENT';
+
+--실행결과
+--IDEX_NAME                       UNIQUENESS
+-------------------------------------------------
+--STUD_NO_PK	              UNIQUE
+--STUD_IDUM_UK	              UNIQUE
+--IDX_STUD_DNO_GRADE	NONUNIQUE
+--FIX_STUD_NO_NAME	NONUNIQUE
+--IDX_STANDARD_WEIGHT	NONUNIQUE
+
+
+SELECT index_name, column_name
+FROM user_ind_columns
+WHERE table_name = 'STUDENT';
+
+--실행결과
+--IDEX_NAME                       COLUN_NAME
+-------------------------------------------------
+--STUD_NO_PK	              STUDNO
+--STUD_IDUM_UK	              IDNUM
+--IDX_STUD_DNO_GRADE	DEPTNO
+--IDX_STUD_DNO_GRADE	GRADE
+--FIX_STUD_NO_NAME	SYS_NC00012$
+--FIX_STUD_NO_NAME	NAME
+--IDX_STANDARD_WEIGHT	SYS_NC00013$
+
+//학생 테이블에 생성된 stud_no_pk 인덱스를 재구성
+ALTER INDEX stud_no_pk REBUILD;
+//Index STUD_NO_PK이(가) 변경되었습니다.
+
+//학생 테이블에서 101번학과 학생들의 학번, 이름, 학과번호로 정의되는 단순뷰를 생성
+CREATE VIEW v_stud_dept101 as
+SELECT studno, name, deptno
+FROM student
+WHERE deptno=101;
+//View V_STUD_DEPT101이(가) 생성되었습니다.
+
+SELECT * FROM v_stud_dept101;
+
+--실행결과
+--STUDNO   NAME   DEPTNO
+----------------------------------
+--55555	테스트	101
+
+//학생테이블과부서테이블을조인하여102번학과학생들의학번, 이름, 학년, 학과 이름으로 정의되는 복합뷰를생성
+CREATE view v_stud_dept102
+AS SELECT s.studno, s.name, s.grade, d.dname
+FROM student s, department d
+WHERE s.deptno = d.deptno and s.deptno=102;
+//View V_STUD_DEPT102이(가) 생성되었습니다.
+
+SELECT * FROM v_stud_dept102;
+
+--실행결과
+--STUDNO   NAME   GRADE   DNAME
+-------------------------------------------------------
+--10203	하나리	1	멀티미디어학과
+--10204	윤진욱	3	멀티미디어학과
+--10202	오유석	4	멀티미디어학과
+
+View V_STUD_DEPT102이(가) 생성되었습니다.
+////View V_STUD_DEPT102이(가) 생성되었습니다.
+
+--실행결과
+--STUDNO   NAME   GRADE   DNAME      DEPTNO
+----------------------------------------------------------
+--10203	하나리	1	멀티미디어학과	102
+--10204	윤진욱	3	멀티미디어학과	102
+--10202	오유석	4	멀티미디어학과	102
+
+//교수테이블에서 학과별 평균급여와 총계로 정의되는 뷰를 생성
+CREATE view v_prof_avg_sal
+AS SELECT deptno, sum(sal) sam_sal, avg(sal) avg_sal
+FROM professor
+GROUP BY deptno;
+//View V_PROF_AVG_SAL이(가) 생성되었습니다.
+
+//인라인 뷰를 사용하여 학과별로 학생들의 평균 키와 평균 몸무게, 학과이름을 출력
+//@C:\Users\kosa\Documents\오라클\table.sql
+//hr 제약조건으로 인해 scott에서 테이블 다시 불러오기
+SELECT dname, avg_height, avg_weight
+FROM (SELECT deptno, avg(height) avg_height, avg(weight) avg_weight
+      FROM student
+      GROUP BY deptno) s, department d
+WHERE s.deptno = d.deptno;
+
+--실행결과
+--DNAME   AVG_HEIGHT   AVG_WEIGHT
+---------------------------------------------
+--컴퓨터공학과	171.125	68
+--전자공학과	176	61.75
+--멀티미디어학과	168	69.5
+
+//각 학년의 평균 키를 구하고 평균 키보다 큰 학생의 학년, 이름, 키, 각 학년의 평균 키를 출력
+SELECT s.grade, s.name, s.height, a.avg_height
+FROM student s,(SELECT grade, round(avg(height)) avg_height
+                FROM student
+                GROUP BY grade) a
+WHERE s.grade = a.grade
+AND s.height > a.avg_height
+ORDER BY 1;
+
+--실행결과
+--GRADE   NAME   HEIGHT   AVG_HEIGHT
+-----------------------------------------------
+--1	박동진	182	175
+--1	조명훈	184	175
+--1	서재진	186	175
+--2	김진경	166	165
+--2	임유진	171	165
+--4	오유석	177	176
+
+//emp, dept 테이블을 조회하여 부서 번호와 부서별 최대 급여, 부서명을 출력
+SELECT e.deptno, d.dname, e.sal
+from (SELECT deptno, MAX(sal) sal 
+      FROM emp
+      GROUP BY deptno) e, dept d
+WHERE e.deptno = d.deptno
+order by deptno;
+
+--실행결과
+--DEPTNO   DNAME           SAL
+--------------------------------------
+--10	ACCOUNTING	5000
+--20	RESEARCH	3000
+--30	SALES	            2850
+
+//뷰 생성
+CREATE VIEW v_stud_dept101
+AS SELECT studno, name, deptno, grade
+FROM student
+WHERE deptno = 101;
+
+SELECT * FROM v_stud_dept101
+WHERE name = '김영균';
+
+--실행결과
+--STUDNO   NAME   DEPTNO   GRADE
+-----------------------------------------------
+--10103	김영균	101	3
+
+//사용자가 생성한 모든 뷰에 대한 정의를 저장
+SELECT VIEW_name, text
+FROM user_views;
+
+--실행결과
+--VIEW_NAME         TEXT
+-------------------------------------------------------------------------------------------------------------
+--V_STUD_DEPT101 "SELECT studno, name, deptno, grade FROM student WHERE deptno = 101"
+
+//기존 V_STUD_DEPT101뷰에 idnum을 추가하여 재정의
+CREATE OR REPLACE VIEW v_stud_dept101
+AS SELECT studno, name, deptno, grade, idnum
+FROM student
+WHERE deptno = 101;
+//View V_STUD_DEPT101이(가) 생성되었습니다.
+
+//뷰의 삭제
+DROP VIEW v_stud_dept101;
+//View V_STUD_DEPT101이(가) 삭제되었습니다.
+
+//query rewrite 시스템권한을 scott사용자와 모든사용자에게 부여
+//query rewrite 권한은 함수기반 인덱스를 생성하기 위해 필요한 권한
+//sql plus에서 실행
+//conn /as sysdba
+//연결되었습니다.
+//grant create view to scott;
+//권한이 부여되었습니다.
+//grant query rewrite to public;
+//권한이 부여되었습니다.
+
+SELECT * FROM user_sys_privs;
+
+--실행결과
+--USERNAME   PRIVLEGE   ADMIN_OPTION   COMMON   INHERITED
+-------------------------------------------------------------------------------------------------------------
+--PUBLIC	QUERY REWRITE	NO	NO	NO
+--SCOTT	CREATE VIEW	NO	NO	NO
+--SCOTT	CREATE TABLE	NO	YES	NO
+--SCOTT	CREATE SESSION	NO	YES	NO
+
+
+SELECT * FROM session_privs;
+
+--실행결과
+--PRIVLEGE
+--------------------
+--CREATE SESSION
+--CREATE TABLE
+--CREATE VIEW
+--QUERY REWRITE
+
+//Tiger 사용자에게 scott 소유의 테이블을 SELECT 할수있는 권한을 부여
+//ALTER SESSION SET "_oracle_script"=TRUE;
+//세션이 변경되었습니다.
+//CREATE USER tiger IDENTIFIED BY tiger123
+//default tablespace users
+//temporary tablespace temp;
+//사용자가 생성되었습니다.
+//grant connect, resource to tiger;
+//권한이 부여되었습니다.
+//connect scott/tiger
+//연결되었습니다.
+//grant select on scott.student to tiger;
+//권한이 부여되었습니다.
+//connect tiger/tiger123
+//연결되었습니다.
+
+select * from scott.student;
+
+//Tiger 사용자에게 scott가 소유한 student 테이블의 키와 몸무게를 수정할 수 있는 권한을 부여
+//sql plus에서 실행
+//CONNECT scott/tiger
+//연결되었습니다.
+//GRANT UPDATE(height,weight) ON student TO tiger;
+//권한이 부여되었습니다.
+UPDATE scott.student
+set height = 180, weight = 80
+WHERE deptno = 101;
+//8개 행 이(가) 업데이트되었습니다.
+
+
+//tiger 사용자에게 부여된 사용자객체, 칼럼에 부여된 객체권한을 조회
+SELECT * from user_tab_privs_made;
+
+--실행결과
+--GRANTEE   TABLE_NAME   GRANTOR   PRIVLEGE   GRANTABLE   HIERARCHY   TYPE   INHERITED
+----------------------------------------------------------------------------------------------------------------
+--PUBLIC	TIGER	TIGER	INHERIT PRIVILEGES	NO	NO	NO	USER	NO
+
+SELECT * FROM user_tab_privs_recd;
+
+--실행결과
+--OWNER   TABLE_NAME   GRANTOR   PRIVLEGE   GRANTABLE   HIERARCHY   COMMON   TYPE   INHERITED
+---------------------------------------------------------------------------------------------------------------------------
+--SCOTT	     STUDENT        SCOTT	    SELECT          NO	    NO	          NO      TABLE      NO
+
+//scott에 의해tiger에게 부여된 student 테이블에 대한 SELECT,UPDATE 권한을 철회
+//sql plus에서 실행
+//connect scott/tiger;
+//연결되었습니다.
+//REVOKE UPDATE ON student FROM tiger;
+//권한이 취소되었습니다.
+//REVOKE SELECT ON student FROM tiger;
+//권한이 취소되었습니다.
+//CONNECT tiger/tiger123
+//연결되었습니다.
+
+SELECT * FROM scott.student;
+//ORA-00942: 테이블 또는 뷰가 존재하지 않습니다
+
+//암호를 지정한 롤과 지정하지 않은 롤을 생성
+//sql plus에서 실행
+//CONNECT system/oracle
+연결되었습니다.
+//alter session set "_oracle_script"=true;
+세션이 변경되었습니다.
+//CREATE ROLE hr_clerk;
+//롤이 생성되었습니다.
+//CREATE ROLE hr_mgr IDENTIFIED BY manager;
+롤이 생성되었습니다.
+//grant create session to hr_mgr;
+//권한이 부여되었습니다.
+//grant select, insert, delete on scott.student to hr_clerk;
+//권한이 부여되었습니다.
+
+//롤 부여
+//grant hr_clerk to hr_mgr;
+//권한이 부여되었습니다.
+//grant hr_clerk to tiger;
+//권한이 부여되었습니다.
+//SELECT * FROM scott.student;
+
+//롤에 부여한 시스템 권한 조회
+select * from role_sys_privs;
+
+--실행결과
+--ROLE                PRIVLEGE   ADMIN_OPTION   COMMON   INHERITED
+-----------------------------------------------------------------------------------
+--CONNECT	CREATE SESSION	NO	YES	NO
+--RESOURCE	CREATE TABLE	NO	YES	NO
+--RESOURCE	CREATE CLUSTER	NO	YES	NO
+--RESOURCE	CREATE SEQUENCE	NO	YES	NO
+--RESOURCE	CREATE PROCEDURE	NO	YES	NO
+--RESOURCE	CREATE TRIGGER	NO	YES	NO
+--RESOURCE	CREATE TYPE	NO	YES	NO
+--RESOURCE	CREATE OPERATOR	NO	YES	NO
+--RESOURCE	CREATE INDEXTYPE	NO	YES	NO
+--CONNECT	SET CONTAINER	NO	YES	NO
+
+select * from user_role_privs;
+
+--실행결과
+--USERNAME   GRANTED_ROLE   DELEGATE_OPTION   DEFAILT_ROLE   OS_GRANTED   COMMON   UNHERITED
+-----------------------------------------------------------------------------------------------------------------------------
+--TIGER	            CONNECT	   NO	                 NO	            YES	NO	YES	NO
+--TIGER	            HR_CLERK	   NO	                 NO	            YES	NO	YES	NO
+--TIGER	            RESOURCE	   NO	                 NO	            YES	NO	YES	NO
+
+//SYSTEM사용자 소유의 project 테이블에 my_project 전용 동의어를 생성
+create table project
+(project_id NUMBER(5) constraint pro_id_pk primary key,
+ project_name varchar2(100), studno number(5), profno number(5));
+//Table PROJECT이(가) 생성되었습니다.
+ 
+insert into project values(12345, 'portfolio', 10101, 9901);
+//1 행 이(가) 삽입되었습니다.
+
+SELECT * FROM project;
+
+//동의어 생성 방법
+grant SELECT ON project to scott;
+
+CONNECT scott/tiger;
+
+SELECT * FROM project;
+
+--실행결과
+--PROHECT_ID   PROHECT_NAME   STUDNO   PROFNO
+--------------------------------------------------------------
+--12345	portfolio	10101	9901
+
+SELECT * FROM system.project;
+
+--실행결과
+--PROHECT_ID   PROHECT_NAME   STUDNO   PROFNO
+--------------------------------------------------------------
+--12345	portfolio	10101	9901
+
+grant CREATE SYNONYM to scott;
+//Grant을(를) 성공했습니다.
+
+CREATE SYNONYM my_project for system.project;
+//Synonym MY_PROJECT이(가) 생성되었습니다.
+
+SELECT * FROM my_project;
+
+--실행결과
+--PROHECT_ID   PROHECT_NAME   STUDNO   PROFNO
+--------------------------------------------------------------
+--12345	portfolio	10101	9901
+
+//공용 동의어 생성
+CREATE PUBLIC SYNONYM pub_project FOR project;
+//SYNONYM PUB_PROJECT이(가) 생성되었습니다.
+
+SELECT * FROM pub_project;
+
+--실행결과
+--PROHECT_ID   PROHECT_NAME   STUDNO   PROFNO
+--------------------------------------------------------------
+--12345	portfolio	10101	9901
+
+//동의어 삭제
+DROP PUBLIC SYNONYM pub_project;
+//SYNONYM PUB_PROJECT이(가) 삭제되었습니다.
+
+//kosa라는 테이블 스페이스를 만드세요.
+//sql plus에서 실행
+//CREATE USER kosa IDENTIFIED BY kosa
+//default tablespace users
+//temporary tablespace temp;
+//사용자가 생성되었습니다.
+
+//kosa라는 유저를 만들고 디폴트 테이블스페이스는 kosa를 임시테이블스페이스를 temp를 사용
+//connect system/oracle;
+//연결되었습니다.
+//ALTER SESSION SET "_oracle_script"=TRUE;
+//세션이 변경되었습니다.
+//grant connect, resource to kosa;
+//권한이 부여되었습니다.
+
+//system이 소유의 EMPLOYEE 테이블을 생성하고, 데이터를 하나 입력
+--Name Null Type
+-------------- ------------- --------------------------
+--ID NUMBER(7)
+--LAST_NAME VARCHAR2(25)
+--FIRST_NAME VARCHAR2(25)
+--DEPT_ID NUMBER(7)
+
+CREATE table EMPLOYEE
+(id NUMBER(7) constraint employee_id_pk primary key,
+ last_name varchar2(25), first_name varchar2(25), dept_id number(7));
+ 
+INSERT INTO employee VALUES(12345, '구마', '고', 9999);
+
+SELECT * FROM EMPLOYEE;
+
+//system의 employee테이블에 대해 pub_employee라는 공용 동의어를 생성
+CREATE PUBLIC SYNONYM pub_employee FOR employee;
+//SYNONYM PUB_EMPLOYEE이(가) 생성되었습니다.
+
+//위에서 생성한 공용 동의어에 의해 system소유의 employee 테이블을 kosa 유저가 조회
+grant select on employee TO kosa;
+//Grant을(를) 성공했습니다.
+
+//sql plus에서 실행
+//CONNECT kosa/kosa;
+//연결되었습니다.
+//SELECT *FROM pub_employee;
+
+--        ID LAST_NAME
+---------- --------------------------------------------------
+--FIRST_NAME                                            DEPT_ID
+-------------------------------------------------- ----------
+--     12345 구마
+--고                                                       9999
+
+//공용동의어 pub_employee를 삭제
+DROP PUBLIC SYNONYM pub_employee;
+//SYNONYM PUB_EMPLOYEE이(가) 삭제되었습니다.
