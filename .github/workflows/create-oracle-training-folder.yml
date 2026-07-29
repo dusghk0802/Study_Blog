@@ -53,6 +53,25 @@ jobs:
             exit 0
           fi
 
+          weekday="$(TZ=Asia/Seoul date -d "$target_date" +%u)"
+
+          if [[ "$target_date" > "2026-07-31" && "$target_date" < "2026-09-01" && "$weekday" -gt 5 ]]; then
+            echo "$target_date is an August weekend, so no folder will be created."
+            exit 0
+          fi
+
+          if [[ "$target_date" > "2026-08-31" && "$weekday" -gt 6 ]]; then
+            echo "$target_date is a Sunday, so no folder will be created."
+            exit 0
+          fi
+
+          case "$target_date" in
+            2026-09-24|2026-09-25)
+              echo "$target_date is during the Chuseok holiday, so no folder will be created."
+              exit 0
+              ;;
+          esac
+
           date_folder="${target_date//-/.}"
           folders=()
           created_paths=()
