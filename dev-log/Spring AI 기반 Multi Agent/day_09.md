@@ -637,9 +637,14 @@ AND s.height = m.max_height;
 <p align="center">
   <img src="../../training/Java/2026.07.30/day_09_1.JPG" alt="day_09" width="700">
 </p>
+학과별 최대키를 가진 학생을 1명씩 출력하게 하려면 헷갈렸던게 department d, student s와 인라인뷰를 활용하여 m으로 3가지로 나눠서 지정해야 한다는 것이였다.
 
+그리고 최대키는 m.max_height로 지정을 해야하고 deptno를 기준으로 그룹화를 해야 제대로 결과값이 나온다.
+
+조건이 여러개일 경우를 좀 더 연습 해야 할 것 같다.
+<br/><br/><br/>
 ```java
-public class ScoreAverage {
+public class  _01_Quiz {
     public static void main(String[] args) {
         int java = 88;
         int python = 92;
@@ -655,4 +660,6 @@ public class ScoreAverage {
   <img src="../../training/Java/2026.07.30/day_09_2.JPG" alt="day_09" width="700">
 </p>
 세 과목의 점수를 정수형 변수에 저장한 후 평균을 계산하여 출력한다.
+
+psvm과 sout을 사용하면 쉽고 빠르게 입력 할 수 있고 int 뒤에는 변수명을 입력해야 한다는 것을 유의해야겠다.
 <br/><br/><br/>
