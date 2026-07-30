@@ -1,0 +1,295 @@
+//계층적질의문을 사용하여 부서테이블에서 학과,학부,단과대학을 검색하여 단과대,학부학과순으로
+//top-down 형식의 계층구조로 출력
+//단, 시작데이터는10번부서
+SELECT deptno, dname, college 
+FROM department
+START WITH deptno = 10
+CONNECT BY PRIOR deptno = college;
+
+--출력결과
+--DEPTNO    DNAME       COLLEGE
+---------------------------------------
+--10	공과대학	
+--100	정보미디어학부	10
+--101	컴퓨터공학과	100
+--102	멀티미디어학과	100
+--200	메카트로닉스학부	10
+--201	전자공학과	200
+--202	기계공학과	200
+
+//계층적질의문을사용하여부서테이블에서학과,학부,단과대학을검색하여학과,학부 단대순으로
+//bottom-up 형식의 계층구조로 출력
+//단, 시작데이터는 102번부서
+SELECT deptno, dname, college 
+FROM department
+START WITH deptno = 102
+CONNECT BY PRIOR college = deptno;
+
+--출력결과
+--DEPTNO    DNAME       COLLEGE
+---------------------------------------
+--102	멀티미디어학과	100
+--100	정보미디어학부	10
+--10	공과대학	
+
+//계층적질의문을 사용하여 서테이블에서 부서이름을 검색하여 단대, 학부, 학과순의 top-down 형식으로 출력
+//단, 시작데이터는 ‘공과대학’이고, 각 레벨별로 우측으로 2칸 이동하여 출력
+SELECT level, lpad(' ', (level-1)*2) ｜｜dname 조직도
+FROM department
+START WITH dname = '공과대학'
+CONNECT BY PRIOR deptno = college;
+
+--출력결과
+--LEVEL            조직도
+---------------------------------------
+--1	공과대학
+--2	  정보미디어학부
+--3	    컴퓨터공학과
+--3	    멀티미디어학과
+--2	  메카트로닉스학부
+--3	    전자공학과
+--3	    기계공학과
+
+//4칸 이동시
+SELECT level, lpad(' ', (level-1)*4) ｜｜dname 조직도
+FROM department
+START WITH dname = '공과대학'
+CONNECT BY PRIOR deptno = college;
+
+--출력결과
+--LEVEL            조직도
+-----------------------------------
+--1	공과대학
+--2	    정보미디어학부
+--3	        컴퓨터공학과
+--3	        멀티미디어학과
+--2	    메카트로닉스학부
+--3	        전자공학과
+--3	        기계공학과
+
+//계층적 질의문을 사용하여 부서테이블에서 dname 칼럼을 단대, 학부, 학과순으로 top-down 형식의
+//계층구조로 ‘정보미디어학부’를 제외하고 출력
+SELECT deptno, college, dname, loc
+FROM department
+WHERE dname != '정보미디어학부'
+START WITH college is null
+CONNECT BY PRIOR deptno = college;
+
+--출력결과
+--DEPTNO   COLLEGE    DNAME            LOC
+---------------------------------------------------
+--10		공과대학	
+--101	100	컴퓨터공학과	1호관
+--102	100	멀티미디어학과	2호관
+--200	10	메카트로닉스학부	
+--201	200	전자공학과	3호관
+--202	200	기계공학과	4호관
+
+//****사용시
+SELECT deptno, college, lpad('********', (level-1)*4)｜｜ dname, loc
+FROM department
+WHERE dname != '정보미디어학부'
+START WITH college is null
+CONNECT BY PRIOR deptno = college;
+
+--출력결과
+--DEPTNO   COLLEGE    LPAD('********', (level-1)*4)｜｜ DNAME   LOC
+----------------------------------------------------------------------------
+--10		공과대학	
+--101	100	********컴퓨터공학과	1호관
+--102	100	********멀티미디어학과	2호관
+--200	10	****메카트로닉스학부	
+--201	200	********전자공학과	              3호관
+--202	200	********기계공학과	              4호관
+
+//계층적 질의문을 사용하여 부서테이블에서 dname 칼럼을 단대, 학부, 학과순으로 top-down 형식의
+//계층구조로 ‘정보미디어학부’와‘정보미디어학부’에 속한모든학과를 제외하고 출력
+SELECT deptno, college, dname, loc
+FROM department
+START WITH college is null
+CONNECT BY PRIOR deptno = college
+AND dname != '정보미디어학부';
+
+--출력결과
+--DEPTNO   COLLEGE    DNAME            LOC
+---------------------------------------------------
+--10		공과대학	
+--200	10	메카트로닉스학부	
+--201	200	전자공학과	3호관
+--202	200	기계공학과	4호관
+
+//계층적 질의문을 사용하여 Level이 1인 최상위로우(ROOT Node)의 정보를 얻기 
+SELECT lpad(' ', 4*(level-1))｜｜ ename 사원명, empno 사번, 
+connect_by_root empno 최상위사번, level
+FROM emp
+START WITH job = UPPER('president')
+CONNECT BY PRIOR empno = mgr;
+
+--출력결과
+--사원명   사번   최상위사번   LEVEL
+---------------------------------------------------
+--KING	              7839	7839	1
+--    JONES	7566	7839	2
+--       SCOTT	7788	7839	3
+--            ADAMS	7876	7839	4
+--        FORD	7902	7839	3
+--            SMITH	7369	7839	4
+--    BLAKE	7698	7839	2
+--        ALLEN	7499	7839	3
+--        WARD	7521	7839	3
+--        MARTIN	7654	7839	3
+--        TURNER	7844	7839	3
+--        JAMES	7900	7839	3
+--    CLARK	7782	7839	2
+--        MILLER	7934	7839	3
+
+//계층적 질의문을 사용하여 로우의 최하위 레벨(Leaf) 여부를 반환
+//최하위레벨1, 아니면0 
+SELECT lpad(' ', 4*(level-1))｜｜ ename 사원명, empno 사번, 
+connect_by_isleaf leaf_yn, level
+FROM emp
+START WITH job = UPPER('president')
+CONNECT BY NOCYCLE PRIOR empno = mgr;
+
+--출력결과
+--       사원명          사번   LEAF_YN   LEVEL
+---------------------------------------------------
+--KING	              7839	0	1
+--    JONES	7566	0	2
+--        SCOTT	7788	0	3
+--            ADAMS	7876	1	4
+--        FORD	7902	0	3
+--            SMITH	7369	1	4
+--    BLAKE	7698	0	2
+--        ALLEN	7499	1	3
+--        WARD	7521	1	3
+--        MARTIN	7654	1	3
+--        TURNER	7844	1	3
+--        JAMES	7900	1	3
+--    CLARK	7782	0	2
+--        MILLER	7934	1	3
+
+//계층적 질의문을 사용하여 현재Row까지의 PATH 정보를 쉽게 얻어올 수가 있다.
+SELECT lpad(' ', 4*(level-1))｜｜ ename 사원명, empno 사번, 
+sys_connect_by_path(ename,'/') path
+FROM emp
+START WITH job = UPPER('president')
+CONNECT BY NOCYCLE PRIOR empno = mgr;
+
+--출력결과
+--       사원명          사번   PATH
+---------------------------------------------------
+--KING	              7839	/KING
+--    JONES	7566	/KING/JONES
+--        SCOTT	7788	/KING/JONES/SCOTT
+--            ADAMS	7876	/KING/JONES/SCOTT/ADAMS
+--        FORD	7902	/KING/JONES/FORD
+--            SMITH	7369	/KING/JONES/FORD/SMITH
+--    BLAKE	7698	/KING/BLAKE
+--        ALLEN	7499	/KING/BLAKE/ALLEN
+--        WARD	7521	/KING/BLAKE/WARD
+--        MARTIN	7654	/KING/BLAKE/MARTIN
+--        TURNER	7844	/KING/BLAKE/TURNER
+--        JAMES	7900	/KING/BLAKE/JAMES
+--    CLARK	7782	/KING/CLARK
+--        MILLER	7934	/KING/CLARK/MILLER
+
+//계층적 질의문을 사용하여 Leaf Node만 전체 PATH 정보가 나오도록 할수가 있다. 
+SELECT LEVEL, SYS_CONNECT_BY_PATH(ename,'/') PATH 
+FROM emp
+where CONNECT_BY_ISLEAF = 1
+START WITH mgr is null
+CONNECT BY PRIOR empno = mgr;
+
+--출력결과
+--LEVEL   PATH
+--------------------------------------------
+--4	/KING/JONES/SCOTT/ADAMS
+--4	/KING/JONES/FORD/SMITH
+--3	/KING/BLAKE/ALLEN
+--3	/KING/BLAKE/WARD
+--3	/KING/BLAKE/MARTIN
+--3	/KING/BLAKE/TURNER
+--3	/KING/BLAKE/JAMES
+--3	/KING/CLARK/MILLER
+
+//(ORDERBY를 사용하였을 경우와 결과가다르므로주의해야함)
+//TREE의 상관관계를 그대로 유지하면서 내부요소를 정렬
+SELECT lpad(' ', 4*(level-1))｜｜ ename 사원명, ename ename2, empno 사번, LEVEL
+FROM emp
+START WITH job = UPPER('president')
+CONNECT BY NOCYCLE PRIOR empno = mgr
+ORDER SIBLINGS BY ename;
+
+--출력결과
+--LEVEL   ENAME2   사번   LEVEL
+---------------------------------------------------
+--KING	              KING	7839	1
+--    BLAKE	BLAKE	7698	2
+--        ALLEN	ALLEN	7499	3
+--        JAMES	JAMES	7900	3
+--        MARTIN	MARTIN	7654	3
+--        TURNER	TURNER	7844	3
+--        WARD	WARD	7521	3
+--    CLARK	CLARK	7782	2
+--        MILLER	MILLER	7934	3
+--    JONES	JONES	7566	2
+--        FORD	FORD	7902	3
+--            SMITH	SMITH	7369	4
+--        SCOTT	SCOTT	7788	3
+--            ADAMS	ADAMS	7876	4
+
+//학과별 최대키를 구하고 최대키를 가진 학생의 학과명, 최대키, 이름, 키를 출력
+//서재진 키 186으로 변경
+UPDATE student
+SET height = 186
+WHERE name = '서재진';
+//1 행 이(가) 업데이트되었습니다.
+
+SELECT d.dname 학과명, m.max_height 최대키, s.name 이름, s.height 키
+FROM department d, student s, 
+     (SELECT deptno, max(height) max_height
+      FROM student
+      group by deptno) m
+where d.deptno = s.deptno
+AND s.deptno = m.deptno
+AND s.height = m.max_height;
+
+--출력결과
+--학과명    최대키   이름   키
+---------------------------------------------------
+--컴퓨터공학과	186	서재진	186
+--전자공학과	184	조명훈	184
+--멀티미디어학과	177	오유석	177
+
+//원격연결 예
+//conn hr/hr
+//연결되었습니다.
+// conn hr/hr@xe
+//연결되었습니다.
+
+//sever
+//os
+//database startup
+//listener 구동
+//conn hr/hr@xe
+
+//conn hr/hr
+//연결되었습니다.
+//conn hr/hr@xe
+//연결되었습니다.
+//conn /as sysdba
+//연결되었습니다.
+//shutdown immediate;
+//데이터베이스가 닫혔습니다.
+//데이터베이스가 마운트 해제되었습니다.
+//ORACLE 인스턴스가 종료되었습니다.
+//startup;
+//ORACLE 인스턴스가 시작되었습니다.
+//Total System Global Area 1610609432 bytes
+//Fixed Size                  9855768 bytes
+//Variable Size             553648128 bytes
+//Database Buffers         1040187392 bytes
+//Redo Buffers                6918144 bytes
+//데이터베이스가 마운트되었습니다.
+//데이터베이스가 열렸습니다.
