@@ -635,7 +635,7 @@ AND s.deptno = m.deptno
 AND s.height = m.max_height;
 ```
 <p align="center">
-  <img src="../../training/Oracle/2026-07-29/day_08_4.JPG" alt="day_08" width="700">
+  <img src="../../training/Java/2026.07.30/day_09_1.JPG" alt="day_09" width="700">
 </p>
 
 ```java
@@ -652,7 +652,7 @@ public class ScoreAverage {
 }
 ```
 <p align="center">
-  <img src="../../training/Oracle/2026-07-29/day_08_4.JPG" alt="day_08" width="700">
+  <img src="../../training/Java/2026.07.30/day_09_2.JPG" alt="day_09" width="700">
 </p>
 세 과목의 점수를 정수형 변수에 저장한 후 평균을 계산하여 출력한다.
 <br/><br/><br/>
