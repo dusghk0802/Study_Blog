@@ -612,7 +612,7 @@ System.out.println(변수명);
 
 변수에 저장된 값을 콘솔에 출력한다.
 
-#### 12. Java 실습 예제
+---
 
 ```java
 public class ScoreAverage {
@@ -629,3 +629,4 @@ public class ScoreAverage {
 ```
 
 세 과목의 점수를 정수형 변수에 저장한 후 평균을 계산하여 출력한다.
+
