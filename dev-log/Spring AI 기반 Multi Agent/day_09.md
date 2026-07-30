@@ -630,7 +630,7 @@ FROM department d, student s,
      (SELECT deptno, max(height) max_height
       FROM student
       group by deptno) m
-where d.deptno = s.deptno
+WHERE d.deptno = s.deptno
 AND s.deptno = m.deptno
 AND s.height = m.max_height;
 ```
