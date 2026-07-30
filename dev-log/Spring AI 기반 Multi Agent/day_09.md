@@ -614,6 +614,30 @@ System.out.println(변수명);
 
 ---
 
+학과별 최대키를 구하고 최대키를 가진 학생의 학과명, 최대키, 이름, 키를 출력 (서재진 키 186으로 변경)
+
+```sql
+UPDATE student
+SET height = 186
+WHERE name = '서재진';
+```
+```text
+1 행 이(가) 업데이트되었습니다.
+```
+```java
+SELECT d.dname 학과명, m.max_height 최대키, s.name 이름, s.height 키
+FROM department d, student s, 
+     (SELECT deptno, max(height) max_height
+      FROM student
+      group by deptno) m
+where d.deptno = s.deptno
+AND s.deptno = m.deptno
+AND s.height = m.max_height;
+```
+<p align="center">
+  <img src="../../training/Oracle/2026-07-29/day_08_4.JPG" alt="day_08" width="700">
+</p>
+
 ```java
 public class ScoreAverage {
     public static void main(String[] args) {
@@ -627,6 +651,8 @@ public class ScoreAverage {
     }
 }
 ```
-
+<p align="center">
+  <img src="../../training/Oracle/2026-07-29/day_08_4.JPG" alt="day_08" width="700">
+</p>
 세 과목의 점수를 정수형 변수에 저장한 후 평균을 계산하여 출력한다.
-
+<br/><br/><br/>
