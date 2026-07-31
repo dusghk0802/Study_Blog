@@ -35,7 +35,7 @@ Spring AI 기반 Multi AI Agent 서비스
 ---
 
 #### 📝 Dev-log 
-Spring AI 기반 Multi Agent 교육 일지 [➡️](./training/Spring_AI_기반_멀티_AI)
+Spring AI 기반 Multi Agent 교육 일지 [➡️](./training/Spring_AI_기반_Multi_Agent)
 
 Self-Study 일지 [➡️](./dev-log/Self-Learning)
 
