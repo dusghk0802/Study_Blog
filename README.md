@@ -35,8 +35,8 @@ Spring AI 기반 Multi AI Agent 서비스
 ---
 
 #### 📝 Dev-log 
--[📁 Spring AI 기반 Multi Agent](./dev-log/Spring%20AI%20기반%20Multi%20Agent/)
+- [📁 Spring AI 기반 Multi Agent](./dev-log/Spring%20AI%20기반%20Multi%20Agent/)
 
--[📁 Self-Learning](./dev-log/Self-Learning/)
+- [📁 Self-Learning](./dev-log/Self-Learning/)
 
 교육 실습, 개인 학습, 문제 해결 과정, 팀 프로젝트 및 개인 프로젝트의 개발 과정등에서 배운 내용과 실습 기록을 정리한 공간입니다.
