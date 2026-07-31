@@ -6,6 +6,8 @@
 
 📌 학습 내용 : 변수 명명 규칙, 자료형(Data Type), 상수(Constant), 형변환(Type Casting), 연산자(Operation), 삼항 연산자
 
+---
+
 ### 변수(Variable)
 
 #### 1. 변수 명명 규칙
