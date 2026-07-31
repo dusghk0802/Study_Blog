@@ -28,7 +28,7 @@ Spring AI 기반 Multi AI Agent 서비스
 
 #### 01. Oracle [➡️](./training/Oracle)
 
-#### 02. Java
+#### 02. Java [➡️](./training/Java)
 
 #### 03. Web
 
