@@ -224,3 +224,6 @@ System.out.println(
 int age = 17;
         System.out.println("나이가 " + age + "세이므로 " + (age >= 15 ? "관람 가능합니다." : "관람 불가능합니다."));
 ```
+<p align="center">
+  <img src="../../training/Java/2026.07.30/day_09_2.JPG" alt="day_09" width="700">
+</p>
