@@ -118,10 +118,35 @@ continue;
 
 ---
 
+누적 합이 200을 넘는 최종 합계와 마지막 숫자를 출력
 ```java
-int age = 17;
-        System.out.println("나이가 " + age + "세이므로 " + (age >= 15 ? "관람 가능합니다." : "관람 불가능합니다."));
+public class _Quiz6 {
+    public static void main(String[] args) {
+        int sum = 0;
+        int num = 0;
+
+        for (num = 0; ; num++) {
+            sum += num;
+            if (sum >= 200)
+                break;
+        }
+        System.out.println("num : " + num);
+        System.out.println("sum : " + sum);
+
+        sum = 0;
+        num = 0;
+
+        while (true) {
+            sum += num;
+            if (sum >= 200)
+                break;
+            num++;
+        }
+        System.out.println("num : " + num);
+        System.out.println("sum : " + sum);
+    }
+}
 ```
 <p align="center">
-  <img src="../../training/Java/2026.07.31/day_10.JPG" alt="day_10" width="700">
+  <img src="../../training/Java/2026.08.03/day_11_1.JPG" alt="day_11" width="700">
 </p>
