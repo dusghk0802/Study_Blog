@@ -115,3 +115,13 @@ continue;
 - `switch` 표현식(`->`)을 사용하면 실행 결과를 변수에 저장할 수 있으며, 여러 줄을 실행할 경우 `yield`를 사용한다.
 - `for`문은 반복 횟수가 정해져 있을 때, `while`문은 조건에 따라 반복할 때 사용한다.
 - `break`는 반복을 종료하고, `continue`는 현재 반복만 건너뛰고 다음 반복을 수행한다.
+
+---
+
+```java
+int age = 17;
+        System.out.println("나이가 " + age + "세이므로 " + (age >= 15 ? "관람 가능합니다." : "관람 불가능합니다."));
+```
+<p align="center">
+  <img src="../../training/Java/2026.07.31/day_10.JPG" alt="day_10" width="700">
+</p>
