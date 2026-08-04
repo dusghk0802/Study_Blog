@@ -177,18 +177,53 @@ Subject2 math;
 
 ---
 
-1부터 100까지 수중에서 3의 배수만 출력하는 코드를 완성
+메서드: 함수를 구현하고 호출하는 부분을 구현
 ```java
+package chap05.classpart;
 
+public class FunctionTest {
+    public static void main(String[] args) {
+        int num1 = 10;
+        int num2 = 20;
+
+        int sum = addNum(num1, num2);
+        System.out.println(sum);
+
+        int sub = add(num1, num2);
+        System.out.println(sub);
+
+        int mul = multiply(num1, num2);
+        System.out.println(mul);
+    }
+
+    public static int addNum(int n1, int n2){
+        int result = n1 + n2;
+        return result;
+    }
+
+    public static int add(int n1, int n2) {
+        int result;
+        result = n1 + n2;
+        return result; //결과값 반환
+        //위에와 결과값 같음
+    }
+
+    public static int subtract(int n1, int n2){
+        int result = n1 - n2;
+        return result;
+    }
+
+    public static int multiply(int n1, int n2){
+        int result = n1 * n2;
+        return result;
+    }
+
+}
 ```
 <p align="center">
   <img src="../../training/Java/2026.08.04/day_12_1.JPG" alt="day_12" width="700">
 </p>
-
-training/Java/2026.08.04/day_12_1.JPG
-
-training/Java/2026.08.04/day_12_2.JPG
-
+메서드 함수를 사용하고 구현할 때는 public static int 함수명하고 ()에 int가 꼭 들어가야 한다.
 </br></br></br>
 
 
