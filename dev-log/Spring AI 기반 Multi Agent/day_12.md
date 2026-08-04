@@ -13,8 +13,8 @@
 메서드는 특정 기능을 수행하는 코드의 묶음으로, 필요할 때 여러 번 호출하여 사용할 수 있다.
 
 ```java
-public static int addNum(int n1, int n2) {
-    return n1 + n2;
+public static int 변수명(int 변수명1, int 변수명2) {
+    return 변수명1 +변수명2;
 }
 ```
 
