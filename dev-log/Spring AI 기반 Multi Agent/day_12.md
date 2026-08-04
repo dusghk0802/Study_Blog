@@ -182,9 +182,16 @@ Subject2 math;
 
 ```
 <p align="center">
-  <img src="../../training/Java/2026.08.03/day_11_2.JPG" alt="day_11" width="700">
+  <img src="../../training/Java/2026.08.04/day_12_1.JPG" alt="day_12" width="700">
 </p>
 
+training/Java/2026.08.04/day_12_1.JPG
 
+training/Java/2026.08.04/day_12_2.JPG
 
 </br></br></br>
+
+
+<p align="center">
+  <img src="../../training/Java/2026.08.04/day_12_2.JPG" alt="day_12" width="700">
+</p>
