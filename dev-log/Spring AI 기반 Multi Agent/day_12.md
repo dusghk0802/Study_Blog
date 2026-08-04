@@ -177,3 +177,14 @@ Subject2 math;
 
 ---
 
+1부터 100까지 수중에서 3의 배수만 출력하는 코드를 완성
+```java
+
+```
+<p align="center">
+  <img src="../../training/Java/2026.08.03/day_11_2.JPG" alt="day_11" width="700">
+</p>
+
+
+
+</br></br></br>
