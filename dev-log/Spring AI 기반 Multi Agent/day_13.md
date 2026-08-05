@@ -295,7 +295,7 @@ public class PhoneStoreTest {
 }
 ```
 <p align="center">
-  <img src="../../training/Java/2026.08.04/day_12_2.JPG" alt="day_12" width="700">
+  <img src="../../training/Java/2026.08.05/day_13_1.JPG" alt="day_13" width="700">
 </p>
 
 
@@ -338,3 +338,6 @@ public class Quiz1 {
     }
 }
 ```
+<p align="center">
+  <img src="../../training/Java/2026.08.05/day_13_2.JPG" alt="day_13" width="700">
+</p>
