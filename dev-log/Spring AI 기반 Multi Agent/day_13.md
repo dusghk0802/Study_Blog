@@ -203,4 +203,6 @@ public class 클래스명 {
 
 ---
 
-
+<p align="center">
+  <img src="../../training/Java/2026.08.04/day_12_2.JPG" alt="day_12" width="700">
+</p>
