@@ -297,3 +297,44 @@ public class PhoneStoreTest {
 <p align="center">
   <img src="../../training/Java/2026.08.04/day_12_2.JPG" alt="day_12" width="700">
 </p>
+
+
+</br></br></br>
+1.학생 5명의 점수를 저장할 수 있는 int형 배열
+
+배열에 다음 점수를 저장한 후 for문을 이용하여 모든 점수를 출력
+
+80, 90, 75, 100, 85
+
+2.아래 정수 배열에서 30이상인 값만 출력
+
+int[] data = {10, 40, 20, 50, 30};
+
+3.위의 배열에 저장된 모든 숫자의 합계를 출력
+```java
+package chap07;
+
+public class Quiz1 {
+    public static void main(String[] args) {
+        int[] score = new int[]{80, 90, 75, 100, 85};
+        for (int i = 0; i < score.length; i++) {
+            System.out.println(score[i]);
+        }
+        System.out.println("----------------------------------");
+
+        int[] data = {10, 40, 20, 50, 30};
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] >= 30) {
+                System.out.println(data[i]);
+            }
+        }
+        System.out.println("----------------------------------");
+
+        int sum = 0;
+        for (int i = 0; i <data.length; i++) {
+            sum += data[i];
+        }
+        System.out.println(sum);
+    }
+}
+```
