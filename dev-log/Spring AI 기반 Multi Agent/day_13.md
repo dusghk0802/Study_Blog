@@ -64,13 +64,13 @@ public class 클래스명 {
 ```java
 public class 클래스명 {
 
-    private static 클래스명 인스턴스 = new 클래스명();
+    private static 클래스명 instance = new 클래스명();
 
     private 클래스명() {
     }
 
     public static 클래스명 getInstance() {
-        return 인스턴스;
+        return instance;
     }
 }
 ```
@@ -202,3 +202,5 @@ public class 클래스명 {
 * 객체마다 개별적으로 관리해야 하는 값은 인스턴스 변수로, 모든 객체가 공유해야 하는 값은 static 변수로 선언한다.
 
 ---
+
+
