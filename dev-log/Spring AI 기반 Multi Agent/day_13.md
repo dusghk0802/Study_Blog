@@ -202,7 +202,98 @@ public class 클래스명 {
 * 객체마다 개별적으로 관리해야 하는 값은 인스턴스 변수로, 모든 객체가 공유해야 하는 값은 static 변수로 선언한다.
 
 ---
+```java
+package chap05.encapsulation;
 
+public class Customer {
+    private String name;
+    private double buget;
+
+    public Customer(String name, double buget) {
+        this.name = name;
+        this.buget = buget;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void buyphone(PhoneStore store){
+        Phone phone = store.sellPhone("아이폰", buget);
+        if (phone != null){
+            System.out.println("고객: 핸드폰 구입이 완료되었습니다.");
+        }
+        else {
+            System.out.println("고객: 핻드폰을 구입하지 못했습니다.");
+        }
+    }
+}
+```
+```java
+package chap05.encapsulation;
+
+public class Phone {
+    private String model;
+    private double price;
+
+    public Phone(String model, double price) {
+        this.model = model;
+        this.price = price;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+}
+```
+```java
+package chap05.encapsulation;
+
+public class PhoneStore {
+    private Phone phone; //참조 변수형
+
+    public PhoneStore(Phone phone) {
+        this.phone = phone;
+    }
+
+    public Phone sellPhone(String model, double buget){
+        String phoneModel = phone.getModel();
+
+        if (model.equals(phoneModel) && buget >= phone.getPrice()){
+            registerPayment();
+            discountPromotion();
+            saveDate();
+            return phone;
+        }
+        else return null;
+    }
+    private void registerPayment(){
+        System.out.println("대리점: 요금제 등록을 합니다. 약정을 등록");
+    }
+    private void discountPromotion(){
+        System.out.println("대리점: 프로모션으로 할인합니다.");
+    }
+    private void saveDate(){
+        System.out.println("대리점: 데이터를 저장하고 새로운 폰으로 이동합니다.");
+    }
+}
+```
+```java
+package chap05.encapsulation;
+
+public class PhoneStoreTest {
+    public static void main(String[] args) {
+        Phone phone = new Phone("아이폰", 100000);
+        PhoneStore store = new PhoneStore(phone);
+        Customer customer = new Customer("김코사", 1000000);
+        customer.buyphone(store);
+    }
+}
+```
 <p align="center">
   <img src="../../training/Java/2026.08.04/day_12_2.JPG" alt="day_12" width="700">
 </p>
