@@ -390,3 +390,32 @@ public class CustomerTest2 {
   <img src="../../training/Java/2026.08.06/day_14_1.JPG" alt="day_14" width="700">
 </p>
 기본 생성자 오류로 인해 한참을 해결하려고 고민했는데 다음에는 좀 더 연습해서 이와 같은 오류가 나지 않게 조심해야겠다.
+</br></br></br>
+```java
+package chap08.inheritance;
+
+public class OverridingTest1 {
+    public static void main(String[] args) {
+        Customer customerLee = new Customer(1010,"이순신");
+        customerLee.bonusPoint = 1000;
+
+        VIPCustomer customerKim = new VIPCustomer(1020, "김유신",1000);
+        customerKim.bonusPoint = 1000;
+
+        int price = 10000;
+        System.out.println(customerLee.getCustomerName() + "님이 지불해야 하는 금액은" +
+                customerLee.calcPrice(price) + "원 입니다.");
+
+        System.out.println(customerKim.getCustomerName() + "님이 지불해야 하는 금액은" +
+                customerKim.calcPrice(price) + "원 입니다.");
+    }
+}
+```
+<p align="center">
+  <img src="../../training/Java/2026.08.06/day_14_2.JPG" alt="day_14" width="700">
+</p>
+Overriding을 활용하여 입력을 하였는데 여기서 반드시 calcPrice값을 출력하기 위해서는 다음에 (price)가 와야하고 price 조건값을 입력해야 제대로 값이 출력된다.
+
+연습으로 한거라 @Override이 생략하고 했지만 실전에서는 생략하면 컴파일러가 오류가 날 수 있어 가급적이면 넣는 것이 좋다.
+
+다음에는 꼭 넣어서 연습을 해봐야겠다.
