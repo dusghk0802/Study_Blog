@@ -365,8 +365,6 @@ public class CustomerTest2 {
 그래서 기본 생성자를 Customer클래스와 VIPCustomer클래스에 생성하는 것보다는 조금 더 간단하게 표시하기 위해 아래와 같이 입력하여 정상적으로 결과값이 출력되었다.
 
 그리고 참조 변수형을 이용하여 업캐스팅해 상속테스트를 출력해보았고 정상적으로 아래와 같이 출력되었다.
-
-여기서
 ```java
 package chap08.inheritance;
 
