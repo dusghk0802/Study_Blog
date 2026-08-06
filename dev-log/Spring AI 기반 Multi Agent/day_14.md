@@ -391,6 +391,7 @@ public class CustomerTest2 {
 </p>
 기본 생성자 오류로 인해 한참을 해결하려고 고민했는데 다음에는 좀 더 연습해서 이와 같은 오류가 나지 않게 조심해야겠다.
 </br></br></br>
+
 ```java
 package chap08.inheritance;
 
