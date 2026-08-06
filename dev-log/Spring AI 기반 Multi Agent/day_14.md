@@ -411,6 +411,7 @@ public class OverridingTest1 {
     }
 }
 ```
+
 <p align="center">
   <img src="../../training/Java/2026.08.06/day_14_2.JPG" alt="day_14" width="700">
 </p>
