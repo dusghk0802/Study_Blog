@@ -254,9 +254,141 @@ public 반환형 메서드명(자료형 변수명) {
 * 다형성은 부모 타입으로 여러 자식 객체를 참조할 수 있는 객체지향의 특징이며, 업 캐스팅과 다운 캐스팅을 통해 형 변환을 수행할 수 있다.
 
 ---
+```java
+package chap08.inheritance;
+
+public class Customer {
+    protected int customerID;
+    protected String customerName;
+    protected String customerGrade;
+    int bonusPoint;
+    double bonusRatio;
+
+    public Customer(int customerID, String customerName){
+        this.customerID = customerID;
+        this.customerName = customerName;
+        customerGrade = "SILVER";
+        bonusRatio = 0.01;
+
+        System.out.println("Customer() 생성자 호출");
+    }
+
+    public  int calcPrice(int price) {
+        bonusPoint += price * bonusRatio;
+        return price;
+    }
+    public String showCustomerInfo(){
+        return customerName + "님의 등급은" + customerGrade + "이며, 보너스 포인트는" + bonusPoint + "입니다.";
+    }
+
+    public int getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerGrade() {
+        return customerGrade;
+    }
+
+    public void setCustomerGrade(String customerGrade) {
+        this.customerGrade = customerGrade;
+    }
+}
+```
+```java
+package chap08.inheritance;
+
+public class VIPCustomer extends Customer {
+    private int agentID;
+    double salerRatio;
+
+    public VIPCustomer(int customerID, String customerName, int agentID){
+        super(customerID, customerName);
+        customerGrade = "VIP";
+        salerRatio = 0.05;
+        bonusRatio = 0.1;
+        this.agentID = agentID;
+        System.out.println("VIPCustomer() 생성자 호출");
+    }
+
+    public  int calcPrice(int price) {
+        bonusPoint += price * bonusRatio;
+        return price - (int)(price * salerRatio);
+    }
+
+    public int getAgentID() {
+        return agentID;
+    }
+}
+```
+매개 변수를 이용해서 Customer클래스와 Customer클래스에 상속된 VIPCustomer클래스를 만들었다.
+
+그런데 매개변수를 이용해서 생성자를 만들었더니 기본 생성자가 Customer클래스와 VIPCustomer클래스에 없어서 오류가 났었다.
+```java
+package chap08.inheritance;
+
+public class CustomerTest2 {
+    public static void main(String[] args) {
+
+        Customer customerLee = new Customer();
+        customerLee.setCustomerID(1000);
+        customerLee.setCustomerName("이순신");
+        customerLee.bonusPoint = 10000;
+
+        VIPCustomer customerKim = new VIPCustomer();
+        customerKim.setCustomerID(1001);
+        customerKim.setCustomerName("김유신");
+        customerKim.bonusPoint = 10000;
+
+        Customer vc = new VIPCustomer();
+        vc.setCustomerID(1001);
+        vc.setCustomerName("상속 테스트");
+        vc.bonusPoint = 10000;
+
+        System.out.println(customerLee.showCustomerInfo());
+        System.out.println(customerKim.showCustomerInfo());
+        System.out.println(vc.showCustomerInfo());
+    }
+}
+```
+그래서 기본 생성자를 Customer클래스와 VIPCustomer클래스에 생성하는 것보다는 조금 더 간단하게 표시하기 위해 아래와 같이 입력하여 정상적으로 결과값이 출력되었다.
+
+그리고 참조 변수형을 이용하여 업캐스팅해 상속테스트를 출력해보았고 정상적으로 아래와 같이 출력되었다.
+
+여기서
+```java
+package chap08.inheritance;
+
+public class CustomerTest2 {
+    public static void main(String[] args) {
+
+        Customer customerLee = new Customer(1010,"이순신");
+        customerLee.bonusPoint = 10000;
+
+        VIPCustomer customerKim = new VIPCustomer(1020,"김유신",1001);
+        customerKim.bonusPoint = 10000;
+
+        Customer vc = new VIPCustomer(1001, "상속 테스트",10000);
+        vc.bonusPoint = 10000;
+
+        System.out.println(customerLee.showCustomerInfo());
+        System.out.println(customerKim.showCustomerInfo());
+        System.out.println(vc.showCustomerInfo());
+    }
+}
+```
 <p align="center">
-  <img src="../../training/Java/2026.08.05/day_13_1.JPG" alt="day_13" width="700">
+  <img src="../../training/Java/2026.08.06/day_14_1.JPG" alt="day_14" width="700">
 </p>
-
-
-</br></br></br>
+기본 생성자 오류로 인해 한참을 해결하려고 고민했는데 다음에는 좀 더 연습해서 이와 같은 오류가 나지 않게 조심해야겠다.
