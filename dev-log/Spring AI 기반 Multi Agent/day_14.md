@@ -1,6 +1,6 @@
 # 14일차 (1)
 
-## Java 배열(Array), 객체 배열(Object Array), ArrayList,Java 상속(Inheritance), super, 메서드 오버라이딩, 다형성
+## Java 배열, 상속과 다형성
 
 📌 학습일 : 2026.08.06
 
