@@ -414,7 +414,6 @@ public class OverridingTest1 {
 <p align="center">
   <img src="../../training/Java/2026.08.06/day_14_2.JPG" alt="day_14" width="700">
 </p>
-
 Overriding을 활용하여 입력을 하였는데 여기서 반드시 calcPrice값을 출력하기 위해서는 다음에 (price)가 와야하고 price 조건값을 입력해야 제대로 값이 출력된다.
 
 연습으로 한거라 @Override이 생략하고 했지만 실전에서는 생략하면 컴파일러가 오류가 날 수 있어 가급적이면 넣는 것이 좋다.
