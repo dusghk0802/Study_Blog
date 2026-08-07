@@ -231,12 +231,10 @@ public class AnimalTest {
     }
 
     public void moveAnimal(Animal animal) {
-        animal.move(); //다양성을 나타냄
-        //Animal animal = new Human() ==> 상속 전
-        //Animal animal = new Human() ==> (Animal animal) ==> 상속 후
-
+        animal.move(); 
+  
        /* Huamn huamn = (Huamn) animal;
-        huamn.reBook(); ==> 눈으로는 보이지만 자바가 다운됨.*/
+        huamn.reBook(); */
 
         //instanceof은 다운캐스팅에 사용함
         if (animal instanceof Huamn){
@@ -256,7 +254,11 @@ public class AnimalTest {
 }
 ```
 <p align="center">
-  <img src="../../training/Java/2026.08.06/day_14_1.JPG" alt="day_14" width="700">
+  <img src="../../training/Java/2026.08.07/day_15_1.JPG" alt="day_15" width="700">
 </p>
+다운 캐스팅을 사용하여 실습을 해보았는데
+상속 전인 Animal animal = new Human()과 다운 캐스팅한 (Animal animal)은 같은 것으로 부모클래스명과 자식클래스명 순으로 입력해야한다.
+
+그리고 Huamn huamn = (Huamn) animal;과 huamn.reBook();을 입력하면 결과값이 출력되긴 하지만 잘못하면 프로그램 실행중 예외가 발생하여 자바가 다운될 수 있어 배제시켰다.
 
 </br></br></br>
