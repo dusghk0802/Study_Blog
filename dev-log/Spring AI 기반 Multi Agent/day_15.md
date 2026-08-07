@@ -256,9 +256,116 @@ public class AnimalTest {
 <p align="center">
   <img src="../../training/Java/2026.08.07/day_15_1.JPG" alt="day_15" width="700">
 </p>
-다운 캐스팅을 사용하여 실습을 해보았는데
-상속 전인 Animal animal = new Human()과 다운 캐스팅한 (Animal animal)은 같은 것으로 부모클래스명과 자식클래스명 순으로 입력해야한다.
+다운 캐스팅을 사용하여 실습을 해보았는데 상속 전인 Animal animal = new Human()과 다운 캐스팅한 (Animal animal)은 같은 것으로 부모클래스명과 자식클래스명 순으로 입력해야한다.
 
 그리고 Huamn huamn = (Huamn) animal;과 huamn.reBook();을 입력하면 결과값이 출력되긴 하지만 잘못하면 프로그램 실행중 예외가 발생하여 자바가 다운될 수 있어 배제시켰다.
-
 </br></br></br>
+```java
+package chap10.Quiz;
+
+public interface Sort {
+    public void ascedning(int[] arr);
+    public void descending(int[] arr);
+    public void description();
+}
+
+package chap10.Quiz;
+
+import java.util.Arrays;
+
+public class BubbleSort implements Sort {
+
+    @Override
+    public void ascedning(int[] arr) {
+        System.out.println("BubbleSort ascedning");
+    }
+
+    @Override
+    public void descending(int[] arr) {
+        System.out.println("HeapSort descending");
+    }
+
+    @Override
+    public void description() {
+        System.out.println("숫자를 정렬하는 알고리즘입니다.");
+    }
+}
+
+package chap10.Quiz;
+
+public class HeapSort implements Sort{
+    @Override
+    public void ascedning(int[] arr) {
+        System.out.println("BubbleSort ascedning");
+    }
+
+    @Override
+    public void descending(int[] arr) {
+        System.out.println("HeapSort descending");
+    }
+
+    @Override
+    public void description() {
+        System.out.println("숫자를 정렬하는 알고리즘입니다.");
+    }
+}
+
+package chap10.Quiz;
+
+public class QuickSort implements Sort{
+
+    @Override
+    public void ascedning(int[] arr) {
+        System.out.println("BubbleSort ascedning");
+    }
+
+    @Override
+    public void descending(int[] arr) {
+        System.out.println("HeapSort descending");
+    }
+
+    @Override
+    public void description() {
+        System.out.println("숫자를 정렬하는 알고리즘입니다.");
+    }
+}
+
+package chap10.Quiz;
+
+import java.io.IOException;
+
+public class SortTest {
+    public static void main(String[] args) throws IOException {
+        System.out.println("정렬 방식을 선택하세요.");
+        System.out.println("B : BubbleSort");
+        System.out.println("H : HeapSort");
+        System.out.println("Q: QuickSort");
+
+        int ch = System.in.read();
+        Sort sort = null;
+
+        if (ch == 'B' || ch == 'b') {
+            sort = new BubbleSort();
+        } else if (ch == 'H' || ch == 'h') {
+            sort = new HeapSort();
+        }
+        else if (ch == 'Q' || ch == 'q') {
+            sort = new BubbleSort();
+        }
+        else {
+            System.out.println("지원되지 않는 기능입니다.");
+            return;
+        }
+        int[] arr = new int[10];
+        sort.ascedning(arr);
+        sort.descending(arr);
+        sort.description();
+    }
+}
+```
+<p align="center">
+  <img src="../../training/Java/2026.08.07/day_15_2.JPG" alt="day_15" width="700">
+</p>
+오름차순과 내림차순으로 숫자를 정렬하는 문제였는데 숫자이기 때문에 반드시 int[] arr가 들어가야하며 대문자와 소문자 상관없이 출력하려면 if문을 활용해서 입력해야한다.
+
+위에 코드를 입력하고 실행결과창에 Q, B, H중에 하나를 입력하면 그 순서대로 출력된다.
