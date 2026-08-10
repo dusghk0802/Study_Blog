@@ -447,7 +447,4 @@ padding: 10px 20px;
 </body>
 </html>
 ```
-### 실행 결과
 
-![카메라 이미지](../../training/Web/2026.08.10/images/mic.jpg)
-<img src="../../training/Web/2026.08.10/images/mic.jpg" alt="카메라 이미지">
