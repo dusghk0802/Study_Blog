@@ -447,4 +447,3 @@ padding: 10px 20px;
 </body>
 </html>
 ```
-
