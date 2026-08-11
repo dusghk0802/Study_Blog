@@ -371,72 +371,26 @@ HashSet<String> 집합 =
 ```java
 package chap11._01_object;
 
-class Student {
-    int studentId;
-    String studentName;
+class Book{
+    int bookNumber;
+    String bookTitle;
 
-    public Student(int studentId, String studentName) {
-        this.studentId = studentId;
-        this.studentName = studentName;
+    public Book(int bookNumber, String bookTitle) {
+        this.bookNumber = bookNumber;
+        this.bookTitle = bookTitle;
     }
 
     @Override
     public String toString() {
-        return studentId + "," + studentName;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Student) {
-            Student std = (Student) obj;
-
-            if (studentId == std.studentId)
-                return true;
-            else
-                return false;
-        }
-
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return studentId;
+        return bookTitle + "," + bookNumber;
     }
 }
-
-public class EqualsTest {
+public class ToStringEX {
     public static void main(String[] args) {
-
-        Student studentLee = new Student(100, "이상원");
-        Student studentLee2 = studentLee;
-        Student studentSang = new Student(100, "이상원");
-
-        System.out.println(studentLee == studentLee2);
-        System.out.println(studentLee.equals(studentLee2));
-
-        System.out.println(studentLee == studentSang);
-        System.out.println(studentLee.equals(studentSang));
-
-        System.out.println(
-                "studentLee의 hashCode : "
-                        + studentLee.hashCode()
-        );
-
-        System.out.println(
-                "studentSang의 hashCode : "
-                        + studentSang.hashCode()
-        );
-
-        System.out.println(
-                "studentLee의 실제 주소값 : "
-                        + System.identityHashCode(studentLee)
-        );
-
-        System.out.println(
-                "studentSang의 실제 주소값 : "
-                        + System.identityHashCode(studentSang)
-        );
+        Book book1 = new Book(200,"개미");
+        System.out.println(book1);
+        System.out.println(book1.toString());
+        //16진수 주소값 출력 -> 재정의하여 주소값 변겅됨
     }
 }
 ```
