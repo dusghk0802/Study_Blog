@@ -4,7 +4,7 @@
 
 📌 학습일 : 2026.08.11
 
-📌 학습 내용 : Object 클래스, equals(), hashCode(), toString(), String, StringBuffer, Record, 제네릭(Generic), ArrayList, Queue, Stack, LinkedList, HashSet
+📌 학습 내용 : Object class, equals(), hashCode(), toString(), String, StringBuffer, Record, Generic, ArrayList, Queue, Stack, LinkedList, HashSet
 
 ---
 
