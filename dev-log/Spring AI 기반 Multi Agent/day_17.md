@@ -471,3 +471,20 @@ public record StudentInfo(int id, String name) {
     }
 }
 ```
+**Student**
+<p align="center">
+  <img src="../../training/Java/2026.08.11/day_17_3.JPG" alt="day_17" width="700">
+</p>
+
+**StudentInfo**
+<p align="center">
+  <img src="../../training/Java/2026.08.11/day_17_4.JPG" alt="day_17" width="700">
+</p>
+Record의 데이터는 생성된 이후 변경할 수 없도록 설계되어 있어 일반 클래스처럼 Setter를 만들어 값을 변경하는 용도가 아니라 값을 저장하고 전달하는 용도의 데이터 객체를 간단하게 만들 때 사용한다.
+
+이름과 아이디가 같아도 같은 객체로 인식하지 못하기 때문에 이름과 id가 같으면 같은 객체로 인식하게 하기 위해 재정의가 필요하다.
+
+이때 조건을 2개를 적용해야하기 때문에 ||와 !=을 사용해서 넣어야 한다.
+
+그리고 Object 타입이기 때문에 Student타입으로 변경하려면 다운캐스팅을 이용해야 하며, name이 null이면 NullPointerException이 발생할 수 있기 때문에 Objects.equals(name, student.name)으로 해야한다.
+
