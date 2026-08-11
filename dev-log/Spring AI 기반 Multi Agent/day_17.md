@@ -394,15 +394,80 @@ public class ToStringEX {
     }
 }
 ```
-
+**재정의 전**
 <p align="center">
   <img src="../../training/Java/2026.08.11/day_17_1.JPG" alt="day_17" width="700">
 </p>
 
-`==`와 `equals()`를 사용하여 객체의 동일성을 비교해보았다.
+**재정의 후**
+<p align="center">
+  <img src="../../training/Java/2026.08.11/day_17_2.JPG" alt="day_17" width="700">
+</p>
+주소값을 재정의 하는 것을 실습했는데 재정의 전에는 클래스명@해시코드(16진수)로 주소값이 출력되고 재정의 후에는 개발자가 지정한 객체 정보를 문자열로 출력된다.
 
-`==`는 객체가 저장된 참조값을 기준으로 비교하지만 `equals()`는 메서드를 재정의하여 학번과 같은 특정 값을 기준으로 같은 객체인지 비교할 수 있었다.
-
-또한 `hashCode()`를 재정의한 값과 `System.identityHashCode()`를 이용한 객체 자체의 식별값이 서로 다를 수 있다는 것을 확인하였다.
-
+그리고 toString()의 반환형은 반드시 String이 와야하니 주의해야겠다.
 </br></br></br>
+```java
+package chap11._03_recordclass;
+
+import java.util.Objects;
+
+public class Student {
+    private int id;
+    private String name;
+
+    public Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Student student = (Student) obj;
+        return id == student.id && Objects.equals(name, student.name); //alt + enter -> import
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
+    public static void main(String[] args) {
+        Student studentLee = new Student(12345, "이순신");
+        Student studentLee2 = new Student(12345, "이순신");
+
+        System.out.println(studentLee);
+        System.out.println(studentLee.equals(studentLee2));
+
+
+    }
+}
+
+package chap11._03_recordclass;
+
+public record StudentInfo(int id, String name) {
+    public static void main(String[] args) {
+
+        StudentInfo studentInfo = new StudentInfo(12345, "이순신");
+        StudentInfo studentInfo2 = new StudentInfo(12345, "이순신");
+
+        System.out.println(studentInfo.equals(studentInfo2));
+        System.out.println(studentInfo.name());
+        System.out.println(studentInfo);
+    }
+}
+```
