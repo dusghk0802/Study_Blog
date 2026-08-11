@@ -438,7 +438,7 @@ public class Student {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Student student = (Student) obj;
-        return id == student.id && Objects.equals(name, student.name); //alt + enter -> import
+        return id == student.id && Objects.equals(name, student.name);
     }
 
     @Override
@@ -488,3 +488,6 @@ Record의 데이터는 생성된 이후 변경할 수 없도록 설계되어 있
 
 그리고 Object 타입이기 때문에 Student타입으로 변경하려면 다운캐스팅을 이용해야 하며, name이 null이면 NullPointerException이 발생할 수 있기 때문에 Objects.equals(name, student.name)으로 해야한다.
 
+이렇게 다 입력하고 오류가 나서 이것저것 확인해보니 Object가 import가 안되어 있었다.
+
+보통은 자동으로 되지만 안되어 있을 때는 Object에서 alt + enter하면 된다.
