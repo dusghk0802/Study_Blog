@@ -448,99 +448,81 @@ try {
 ---
 
 ```java
-package chap12._02_collection._01_arraylist;
+package chap13._02_lambda;
 
-import chap12._02_collection._04_treeset.Member;
-
-import java.util.ArrayList;
-
-public class MemberArrayList {
-
-    private ArrayList<Member> arrayList;
-
-    public MemberArrayList() {
-        arrayList = new ArrayList<Member>();
-    }
-
-    public void addMember(Member member) {
-        arrayList.add(member);
-    }
-
-    public boolean removeMember(int memberId) {
-
-        for (int i = 0; i < arrayList.size(); i++) {
-
-            Member member = arrayList.get(i);
-            int tempId = member.getMemberId();
-
-            if (tempId == memberId) {
-                arrayList.remove(i);
-                return true;
-            }
-        }
-
-        System.out.println(memberId + "가 존재하지 않습니다.");
-
-        return false;
-    }
-
-    public void showAllMember() {
-
-        for (Member member : arrayList) {
-            System.out.println(member);
-        }
-
-        System.out.println();
-    }
+interface PrintString{
+    void showString(String string);
 }
-```
 
-```java
-package chap12._02_collection._01_arraylist;
-
-import chap12._02_collection._04_treeset.Member;
-
-public class MemberArrayListTest {
-
+public class TestLambda {
     public static void main(String[] args) {
+        PrintString lambdaStr = s -> System.out.println(s);
+        lambdaStr.showString("hello test1");
 
-        MemberArrayList memberArrayList =
-                new MemberArrayList();
+        showMyString(lambdaStr);
+    }
 
-        Member memberLee =
-                new Member(1001, "이순신");
+    public static void showMyString(PrintString p){p.showString("hello test2");}
 
-        Member memberSon =
-                new Member(1002, "손순신");
+    public static PrintString returnString(){return s -> System.out.println(s + "world");
 
-        Member memberPark =
-                new Member(1003, "박순신");
-
-        Member memberHong =
-                new Member(1004, "홍순신");
-
-        memberArrayList.addMember(memberLee);
-        memberArrayList.addMember(memberSon);
-        memberArrayList.addMember(memberPark);
-        memberArrayList.addMember(memberHong);
-
-        memberArrayList.showAllMember();
-
-        memberArrayList.removeMember(
-                memberHong.getMemberId()
-        );
-
-        memberArrayList.showAllMember();
     }
 }
 ```
-
 <p align="center">
   <img src="../../training/Java/2026.08.12/day_18_1.JPG" alt="day_18" width="700">
 </p>
 
-`ArrayList`에 객체를 저장한 후 `get()`을 이용하여 객체를 하나씩 확인하고, 원하는 회원 번호와 일치하면 `remove()`를 이용하여 해당 객체를 삭제하는 방법을 실습하였다.
+PrintString 함수형 인터페이스를 만들고 s -> System.out.println(s) 형태의 람다식을 PrintString 타입 변수에 저장하여 showString() 메서드를 실행했다.
 
-일반 `for`문은 인덱스를 이용하여 데이터를 조회할 수 있었고, 모든 객체를 출력할 때는 향상된 `for`문을 이용하여 더 간단하게 작성할 수 있었다.
+또한 저장한 람다식을 showMyString() 메서드의 매개변수로 전달하여 다른 메서드에서도 동일한 기능을 실행할 수 있다는 것을 확인했다.
+
+처음에는 람다식을 변수에 저장하고 다른 메서드로 전달한다는 개념이 조금 생소했지만, 하나의 기능을 변수처럼 저장하고 전달하거나 반환하는 것으로 이해하고 연습해보았다.
 
 </br></br></br>
+
+```java
+package chap13._03_stream;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class UserInfo{
+    private String name;
+    private int age;
+
+    public UserInfo(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+public class UserInfoMapTest {
+    public static void main(String[] args) {
+        UserInfo userKim = new UserInfo("김영희", 30);
+        UserInfo userLee = new UserInfo("이철수", 40);
+        UserInfo userSong = new UserInfo("송영수", 55);
+
+        List<UserInfo> userInfoList = new ArrayList<>();
+        userInfoList.add(userKim);
+        userInfoList.add(userLee);
+        userInfoList.add(userSong);
+
+        userInfoList.stream()
+                .filter(user -> user.getAge() >= 40)
+                .map(UserInfo::getName)
+                .forEach(s -> System.out.println(s));
+        //클래스명 :: 인스턴스메서드
+    }
+}
+```
+<p align="center">
+  <img src="../../training/Java/2026.08.12/day_18_2.JPG" alt="day_18" width="700">
+</p>
