@@ -519,10 +519,51 @@ public class UserInfoMapTest {
                 .filter(user -> user.getAge() >= 40)
                 .map(UserInfo::getName)
                 .forEach(s -> System.out.println(s));
-        //클래스명 :: 인스턴스메서드
     }
 }
 ```
 <p align="center">
   <img src="../../training/Java/2026.08.12/day_18_2.JPG" alt="day_18" width="700">
 </p>
+UserInfo 객체를 ArrayList에 저장한 뒤 stream()을 사용하여 데이터를 순차적으로 하고 filter()는 조건에 맞는 나이가 40세 이상인 사용자만 선택했다.
+
+map()은 데이터를 다른 형태로 변환하거나 필요한 값만 추출할 때 사용하고 forEach()를 사용하여 남아 있는 이름을 하나씩 출력하였다.
+
+여기서는 클래스명 :: 인스턴스메서드는 UserInfo 객체 전체에서 사용자의 name만 가져오는 메서드 참조 방식이다.
+
+아직 람다나 메거드 참조 방식 처음이라 실수를 좀 해서 오류가 나긴 했지만 금방 수정하였고 앞으로 좀 더 연습이 필요할 것 같다.
+
+package chap14;
+
+```java
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+public class ThrowsException {
+    public Class loadClass(String fileName, String className) throws FileNotFoundException,
+    ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Class c = Class.forName(className);
+        return c;
+    }
+
+    public static void main(String[] args) {
+        ThrowsException test = new ThrowsException();
+        try {
+            test.loadClass("a.tx", "java.lang.String");
+        } catch (FileNotFoundException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+```
+<p align="center">
+  <img src="../../training/Java/2026.08.12/day_18_3.JPG" alt="day_18" width="700">
+</p>
+throws를 사용하여 메서드를 호출한 곳으로 예외 처리를 넘기는 방법을 실습했는데 new FileInputStream(fileName)은 지정한 파일을 찾을 수 없는 경우 FileNotFoundException이 발생할 수 있고, Class.forName(className)은 지정한 클래스를 찾을 수 없는 경우 ClassNotFoundException이 발생할 수 있다.
+
+loadClass()에서는 예외를 직접 처리하지 않고 throws를 사용하여 호출한 쪽에서 처리하도록 넘겼고, catch에서 |를 사용하면 여러 종류의 예외를 하나의 catch문에서 함께 처리할 수 있다는 것도 실습해 보았다.
+
+이번 실습에서 class와 Class의 차이도 헷갈려서 잘못 입력해서 오류 찾는데 시간이 좀 걸렸는데 소문자 class는 클래스를 선언할 때 사용하는 Java 예약어이고, 대문자 Class는 클래스의 정보를 다루기 위해 Java에서 제공하는 실제 클래스라는 차이를 알게 되었다.
+
+그래서 반드시 loadClass 앞에는 대문자인 Class가 와야하니 조심해야 겠다.
