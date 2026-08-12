@@ -1,10 +1,10 @@
 # 18일차
 
-## Java 컬렉션 활용, 스트림(Stream), 예외 처리(Exception Handling)
+## Java 컬렉션 활용, Stream, Exception Handling
 
 📌 학습일 : 2026.08.12
 
-📌 학습 내용 : ArrayList, HashSet, Stream, Lambda, filter(), map(), sorted(), limit(), reduce(), sum(), count(), 메서드 참조, 예외 처리, try-catch, finally, throws
+📌 학습 내용 : ArrayList, HashSet, Stream, Lambda, filter(), map(), sorted(), limit(), reduce(), sum(), count(), 메서드 참조, Exception Handling, try-catch, finally, throws
 
 ---
 
