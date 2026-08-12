@@ -1,0 +1,546 @@
+# 18일차
+
+## Java 컬렉션 활용, 스트림(Stream), 예외 처리(Exception Handling)
+
+📌 학습일 : 2026.08.12
+
+📌 학습 내용 : ArrayList, HashSet, Stream, Lambda, filter(), map(), sorted(), limit(), reduce(), sum(), count(), 메서드 참조, 예외 처리, try-catch, finally, throws
+
+---
+
+#### 1. ArrayList를 이용한 객체 관리
+
+`ArrayList`는 여러 객체를 순서대로 저장하고 추가, 조회, 삭제할 수 있는 컬렉션이다.
+
+```java
+ArrayList<클래스명> 목록 =
+        new ArrayList<클래스명>();
+
+목록.add(객체명);
+```
+
+특정 객체를 삭제하려면 반복문으로 목록을 조회하면서 원하는 값을 찾은 후 `remove()`를 사용할 수 있다.
+
+```java
+for (int i = 0; i < 목록.size(); i++) {
+
+    클래스명 객체명 = 목록.get(i);
+
+    if (객체명.get번호() == 번호) {
+        목록.remove(i);
+        return true;
+    }
+}
+```
+
+`get()`을 이용하여 특정 위치의 객체를 가져오고, 조건이 일치하면 `remove()`를 이용하여 삭제할 수 있다.
+
+#### 2. 향상된 for문을 이용한 객체 출력
+
+컬렉션에 저장된 모든 객체를 순서대로 출력할 때 향상된 `for`문을 사용할 수 있다.
+
+```java
+for (클래스명 객체명 : 목록) {
+    System.out.println(객체명);
+}
+```
+
+인덱스를 직접 사용하지 않아도 목록에 저장된 객체를 처음부터 끝까지 순서대로 조회할 수 있다.
+
+#### 3. HashSet을 이용한 객체 관리
+
+`HashSet`은 중복되지 않는 데이터를 관리하는 컬렉션이다.
+
+```java
+HashSet<클래스명> 집합 =
+        new HashSet<클래스명>();
+
+집합.add(객체명);
+```
+
+모든 객체를 출력할 때도 향상된 `for`문을 사용할 수 있다.
+
+```java
+for (클래스명 객체명 : 집합) {
+    System.out.println(객체명);
+}
+```
+
+`HashSet`은 데이터를 추가한 순서를 보장하지 않으며 중복 데이터 관리에 적합하다.
+
+#### 4. Stream
+
+Stream은 배열이나 컬렉션의 데이터를 반복문 대신 연속적인 연산으로 처리할 수 있도록 하는 기능이다.
+
+```java
+목록.stream()
+        .중간연산()
+        .최종연산();
+```
+
+Stream 연산은 크게 **중간 연산**과 **최종 연산**으로 구분할 수 있다.
+
+```text
+중간 연산
+filter()
+map()
+sorted()
+distinct()
+limit()
+
+최종 연산
+forEach()
+count()
+min()
+max()
+sum()
+reduce()
+```
+
+중간 연산은 데이터를 가공하고, 최종 연산은 가공된 데이터를 이용하여 실제 결과를 만든다.
+
+#### 5. filter()
+
+`filter()`는 조건에 맞는 데이터만 선택하는 중간 연산이다.
+
+```java
+목록.stream()
+        .filter(값 -> 값 > 0)
+        .forEach(값 -> System.out.println(값));
+```
+
+조건식의 결과가 `true`인 데이터만 다음 연산으로 전달된다.
+
+#### 6. Predicate
+
+`Predicate<T>`는 하나의 값을 전달받아 조건을 검사하고 `boolean` 값을 반환하는 함수형 인터페이스이다.
+
+```java
+Predicate<Integer> 조건 =
+        값 -> 값 > 0;
+```
+
+Stream의 `filter()`와 함께 사용할 수 있다.
+
+```java
+목록.stream()
+        .filter(조건)
+        .forEach(값 -> System.out.println(값));
+```
+
+#### 7. sum()과 count()
+
+숫자 배열을 Stream으로 변환하면 합계와 개수를 구할 수 있다.
+
+```java
+int 합계 = Arrays.stream(배열).sum();
+
+long 개수 = Arrays.stream(배열).count();
+```
+
+`sum()`은 모든 숫자의 합을 계산하고, `count()`는 Stream에 포함된 데이터의 개수를 반환한다.
+
+#### 8. reduce()
+
+`reduce()`는 여러 데이터를 하나의 결과값으로 만드는 최종 연산이다.
+
+```java
+String 결과 = Arrays.stream(배열)
+        .reduce("", (값1, 값2) -> {
+
+            if (값1.length() >= 값2.length())
+                return 값1;
+            else
+                return 값2;
+        });
+```
+
+두 값을 차례대로 비교하면서 하나의 결과값으로 줄여나간다.
+
+별도의 클래스로 연산 방식을 구현하여 사용할 수도 있다.
+
+```java
+class 비교 implements BinaryOperator<String> {
+
+    @Override
+    public String apply(String 값1, String 값2) {
+
+        if (값1.length() >= 값2.length())
+            return 값1;
+        else
+            return 값2;
+    }
+}
+```
+
+#### 9. sorted()
+
+`sorted()`는 Stream의 데이터를 정렬하는 중간 연산이다.
+
+```java
+목록.stream()
+        .sorted()
+        .forEach(값 -> System.out.println(값));
+```
+
+기본 정렬 기준에 따라 오름차순으로 정렬된다.
+
+정렬 기준을 직접 지정할 수도 있다.
+
+```java
+목록.stream()
+        .sorted((값1, 값2) ->
+                Integer.compare(
+                        값1.length(),
+                        값2.length()
+                )
+        )
+        .forEach(값 -> System.out.println(값));
+```
+
+#### 10. limit()
+
+`limit()`은 Stream에서 원하는 개수만큼의 데이터만 가져오는 중간 연산이다.
+
+```java
+목록.stream()
+        .sorted()
+        .limit(2)
+        .forEach(값 -> System.out.println(값));
+```
+
+위 코드는 데이터를 정렬한 후 앞에서부터 2개의 데이터만 처리한다.
+
+#### 11. map()
+
+`map()`은 Stream에 저장된 데이터를 다른 형태의 데이터로 변환하는 중간 연산이다.
+
+```java
+목록.stream()
+        .map(객체명 -> 객체명.get이름())
+        .forEach(값 -> System.out.println(값));
+```
+
+객체 전체가 아닌 객체가 가지고 있는 특정 값만 추출하여 사용할 수 있다.
+
+#### 12. mapToInt()
+
+`mapToInt()`는 객체의 특정 값을 `int` 형태의 Stream으로 변환할 때 사용한다.
+
+```java
+int 합계 = 목록.stream()
+        .mapToInt(객체명 -> 객체명.get값())
+        .sum();
+```
+
+객체의 숫자 데이터를 꺼내 합계와 같은 숫자 연산을 수행할 수 있다.
+
+#### 13. Stream 연산 연결
+
+Stream은 여러 중간 연산과 최종 연산을 연결하여 사용할 수 있다.
+
+```java
+목록.stream()
+        .filter(객체명 -> 객체명.get값() >= 기준값)
+        .map(객체명 -> 객체명.get이름())
+        .sorted()
+        .forEach(값 -> System.out.println(값));
+```
+
+위 코드는 다음 순서로 실행된다.
+
+```text
+전체 데이터
+↓
+조건에 맞는 데이터 선택
+↓
+필요한 값 추출
+↓
+정렬
+↓
+출력
+```
+
+여러 반복문을 작성하지 않고 하나의 흐름으로 데이터를 처리할 수 있다.
+
+#### 14. 메서드 참조(Method Reference)
+
+람다식에서 기존 메서드를 그대로 호출하는 경우 `::`를 이용하여 간단하게 표현할 수 있다.
+
+```java
+목록.stream()
+        .map(클래스명::get이름)
+        .forEach(System.out::println);
+```
+
+다음과 같은 람다식을
+
+```java
+객체명 -> 객체명.get이름()
+```
+
+메서드 참조를 이용하면 다음처럼 표현할 수 있다.
+
+```java
+클래스명::get이름
+```
+
+#### 15. 예외(Exception)
+
+예외는 프로그램 실행 중 발생할 수 있는 비정상적인 상황이다.
+
+예외를 처리하지 않으면 프로그램이 해당 위치에서 종료될 수 있기 때문에 `try-catch`를 이용하여 처리할 수 있다.
+
+#### 16. try-catch
+
+예외가 발생할 가능성이 있는 코드를 `try` 블록에 작성하고, 발생한 예외를 `catch`에서 처리한다.
+
+```java
+try {
+
+    예외발생가능코드;
+
+} catch (예외클래스명 변수명) {
+
+    예외처리코드;
+
+}
+```
+
+예외가 발생하지 않으면 `try` 블록이 정상적으로 실행되고, 예외가 발생하면 해당 예외와 일치하는 `catch` 블록이 실행된다.
+
+#### 17. ArrayIndexOutOfBoundsException
+
+배열의 존재하지 않는 인덱스에 접근하면 `ArrayIndexOutOfBoundsException`이 발생한다.
+
+```java
+int[] 배열 = {1, 2, 3, 4, 5};
+
+try {
+
+    for (int i = 0; i <= 5; i++) {
+        System.out.println(배열[i]);
+    }
+
+} catch (ArrayIndexOutOfBoundsException e) {
+
+    System.out.println(e);
+    System.out.println("예외 처리");
+
+}
+```
+
+배열의 인덱스는 `0`부터 `배열.length - 1`까지 존재하므로 범위를 벗어나면 예외가 발생한다.
+
+하지만 `catch`에서 예외를 처리하면 프로그램 전체가 즉시 종료되지 않고 다음 코드를 계속 실행할 수 있다.
+
+#### 18. FileNotFoundException
+
+존재하지 않는 파일을 읽으려고 하면 `FileNotFoundException`이 발생할 수 있다.
+
+```java
+try {
+
+    FileInputStream 입력 =
+            new FileInputStream("파일명");
+
+} catch (FileNotFoundException e) {
+
+    System.out.println(e);
+
+}
+```
+
+파일 입출력처럼 예외가 발생할 가능성이 있는 작업은 예외 처리가 필요하다.
+
+#### 19. finally
+
+`finally` 블록은 예외 발생 여부와 관계없이 항상 실행되는 영역이다.
+
+```java
+try {
+
+    실행코드;
+
+} catch (예외클래스명 e) {
+
+    예외처리코드;
+
+} finally {
+
+    항상실행할코드;
+
+}
+```
+
+파일이나 네트워크와 같은 자원을 사용한 후 정리하는 작업에 활용할 수 있다.
+
+```java
+finally {
+
+    if (입력 != null) {
+        입력.close();
+    }
+}
+```
+
+#### 20. throws
+
+`throws`는 메서드 내부에서 예외를 직접 처리하지 않고 메서드를 호출한 쪽으로 예외 처리를 넘기는 방법이다.
+
+```java
+public 반환형 메서드명()
+        throws 예외클래스명 {
+
+    실행코드;
+
+}
+```
+
+여러 예외를 전달할 수도 있다.
+
+```java
+public 반환형 메서드명()
+        throws 예외클래스명1,
+               예외클래스명2 {
+
+}
+```
+
+메서드를 호출하는 쪽에서는 전달된 예외를 `try-catch`로 처리해야 한다.
+
+#### 21. 다중 catch
+
+여러 예외를 동일한 방식으로 처리하는 경우 `|`를 이용하여 하나의 `catch`에서 처리할 수 있다.
+
+```java
+try {
+
+    메서드명();
+
+} catch (예외클래스명1 | 예외클래스명2 e) {
+
+    예외처리코드;
+
+}
+```
+
+여러 예외에 동일한 처리가 필요한 경우 코드를 간결하게 작성할 수 있다.
+
+---
+
+#### 핵심 정리
+
+* `ArrayList`는 객체를 순서대로 저장하고 `add()`, `get()`, `remove()` 등을 이용하여 데이터를 관리할 수 있다.
+* `HashSet`은 중복 데이터를 허용하지 않으며 데이터 저장 순서를 보장하지 않는다.
+* Stream은 배열이나 컬렉션의 데이터를 연속적인 연산으로 처리할 수 있도록 한다.
+* `filter()`는 조건에 맞는 데이터를 선택하고 `map()`은 데이터를 다른 형태로 변환한다.
+* `sorted()`는 데이터를 정렬하고 `limit()`은 처리할 데이터의 개수를 제한한다.
+* `sum()`은 숫자의 합계를 구하고 `count()`는 데이터의 개수를 반환한다.
+* `reduce()`는 여러 데이터를 하나의 결과값으로 만드는 최종 연산이다.
+* `Predicate`와 `BinaryOperator` 같은 함수형 인터페이스를 람다식과 함께 사용할 수 있다.
+* `클래스명::메서드명` 형태의 메서드 참조를 사용하면 일부 람다식을 간결하게 표현할 수 있다.
+* 예외는 프로그램 실행 중 발생할 수 있는 비정상적인 상황이며 `try-catch`를 이용하여 처리할 수 있다.
+* `finally`는 예외 발생 여부와 관계없이 실행되며 자원을 정리할 때 활용할 수 있다.
+* `throws`는 메서드에서 발생할 수 있는 예외를 호출한 쪽으로 전달한다.
+* 여러 예외를 같은 방식으로 처리할 경우 `|`를 이용하여 하나의 `catch`에서 처리할 수 있다.
+
+---
+
+```java
+package chap12._02_collection._01_arraylist;
+
+import chap12._02_collection._04_treeset.Member;
+
+import java.util.ArrayList;
+
+public class MemberArrayList {
+
+    private ArrayList<Member> arrayList;
+
+    public MemberArrayList() {
+        arrayList = new ArrayList<Member>();
+    }
+
+    public void addMember(Member member) {
+        arrayList.add(member);
+    }
+
+    public boolean removeMember(int memberId) {
+
+        for (int i = 0; i < arrayList.size(); i++) {
+
+            Member member = arrayList.get(i);
+            int tempId = member.getMemberId();
+
+            if (tempId == memberId) {
+                arrayList.remove(i);
+                return true;
+            }
+        }
+
+        System.out.println(memberId + "가 존재하지 않습니다.");
+
+        return false;
+    }
+
+    public void showAllMember() {
+
+        for (Member member : arrayList) {
+            System.out.println(member);
+        }
+
+        System.out.println();
+    }
+}
+```
+
+```java
+package chap12._02_collection._01_arraylist;
+
+import chap12._02_collection._04_treeset.Member;
+
+public class MemberArrayListTest {
+
+    public static void main(String[] args) {
+
+        MemberArrayList memberArrayList =
+                new MemberArrayList();
+
+        Member memberLee =
+                new Member(1001, "이순신");
+
+        Member memberSon =
+                new Member(1002, "손순신");
+
+        Member memberPark =
+                new Member(1003, "박순신");
+
+        Member memberHong =
+                new Member(1004, "홍순신");
+
+        memberArrayList.addMember(memberLee);
+        memberArrayList.addMember(memberSon);
+        memberArrayList.addMember(memberPark);
+        memberArrayList.addMember(memberHong);
+
+        memberArrayList.showAllMember();
+
+        memberArrayList.removeMember(
+                memberHong.getMemberId()
+        );
+
+        memberArrayList.showAllMember();
+    }
+}
+```
+
+<p align="center">
+  <img src="../../training/Java/2026.08.12/day_18_1.JPG" alt="day_18" width="700">
+</p>
+
+`ArrayList`에 객체를 저장한 후 `get()`을 이용하여 객체를 하나씩 확인하고, 원하는 회원 번호와 일치하면 `remove()`를 이용하여 해당 객체를 삭제하는 방법을 실습하였다.
+
+일반 `for`문은 인덱스를 이용하여 데이터를 조회할 수 있었고, 모든 객체를 출력할 때는 향상된 `for`문을 이용하여 더 간단하게 작성할 수 있었다.
+
+</br></br></br>
