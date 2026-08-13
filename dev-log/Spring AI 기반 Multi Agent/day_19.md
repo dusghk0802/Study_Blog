@@ -593,7 +593,6 @@ BufferedInputStream과 BufferedOutputStream을 이용하여 파일을 복사하�
 Buffered Stream은 데이터를 바로 하나씩 처리하는 대신 버퍼를 이용하기 때문에 입출력 성능을 높일 수 있다.
 
 System.currentTimeMillis()를 작업 시작 전과 종료 후에 사용하여 파일 복사에 걸린 시간도 확인하였는데 i = fis.read()을 할때보다 i = bis.read()를 할때가 소요시간이 더 걸렸고,
-
 압축 파일 크기가 커질수록 소요시간 차이가 더 커진다는 것을 알게 되었다.
 </br></br></br>
 문제 1)
