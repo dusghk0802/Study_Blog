@@ -19,14 +19,14 @@
 `href` 속성에는 이동할 페이지의 주소를 지정한다.
 
 ```html
-<a href="order.html">주문하기</a>
-<a href="https://www.naver.com">네이버 방문하기</a>
+<a href="page.html">페이지 이동</a>
+<a href="https://www.example.com">외부 사이트 이동</a>
 ```
 
 `target="_blank"`를 사용하면 링크를 새로운 탭에서 열 수 있다.
 
 ```html
-<a href="order.html" target="_blank">주문서 작성하기</a>
+<a href="page.html" target="_blank">새 탭에서 페이지 열기</a>
 ```
 
 #### 2. 이미지를 이용한 링크
@@ -34,48 +34,48 @@
 `<a>` 태그 안에 `<img>` 태그를 넣으면 이미지를 클릭했을 때 다른 페이지로 이동하도록 만들 수 있다.
 
 ```html
-<a href="order.html">
-  <img src="images/product.jpg" alt="상품 이미지">
+<a href="page.html">
+  <img src="images/image.jpg" alt="이미지">
 </a>
 ```
 
-이미지 자체가 링크 역할을 하기 때문에 상품 이미지나 배너 등을 클릭하여 페이지를 이동할 때 사용할 수 있다.
+이미지 자체가 링크 역할을 하기 때문에 이미지나 배너 등을 클릭하여 다른 페이지로 이동할 때 사용할 수 있다.
 
 #### 3. 앵커를 이용한 페이지 내부 이동
 
-페이지의 특정 위치로 바로 이동하려면 이동할 요소에 `id`를 지정하고 `<a>` 태그의 `href`에 `#아이디`를 작성한다.
+페이지의 특정 위치로 이동하려면 이동할 요소에 `id`를 지정하고 `<a>` 태그의 `href`에 `#아이디`를 작성한다.
 
 ```html
 <ul>
-  <li><a href="#info">상품 정보</a></li>
-  <li><a href="#recipe">상품 레시피</a></li>
-  <li><a href="#product">상품 구성</a></li>
+  <li><a href="#section1">첫 번째 영역</a></li>
+  <li><a href="#section2">두 번째 영역</a></li>
+  <li><a href="#section3">세 번째 영역</a></li>
 </ul>
 
-<h2 id="info">상품 정보</h2>
-<h2 id="recipe">상품 레시피</h2>
-<h2 id="product">상품 구성</h2>
+<h2 id="section1">첫 번째 영역</h2>
+<h2 id="section2">두 번째 영역</h2>
+<h2 id="section3">세 번째 영역</h2>
 ```
 
-같은 페이지의 내용이 많을 때 원하는 위치로 빠르게 이동할 수 있다.
+페이지의 내용이 많을 때 원하는 위치로 빠르게 이동할 수 있다.
 
 #### 4. 오디오 삽입
 
 웹 페이지에 오디오 파일을 삽입할 때 `<audio>` 태그를 사용한다.
 
 ```html
-<audio src="medias/music.mp3" controls></audio>
+<audio src="medias/audio.mp3" controls></audio>
 ```
 
 주요 속성은 다음과 같다.
 
-* `controls` : 재생 및 볼륨 등의 컨트롤 표시
+* `controls` : 재생, 일시정지, 볼륨 등의 컨트롤 표시
 * `autoplay` : 페이지가 열리면 자동 재생
 * `loop` : 반복 재생
 * `muted` : 음소거 상태로 재생
 
 ```html
-<audio src="medias/music.mp3" autoplay loop></audio>
+<audio src="medias/audio.mp3" autoplay loop></audio>
 ```
 
 #### 5. 비디오 삽입
@@ -86,7 +86,7 @@
 <video src="medias/video.mp4" controls width="700"></video>
 ```
 
-동영상이 재생되기 전에 표시할 이미지는 `poster` 속성으로 지정할 수 있다.
+`poster` 속성을 사용하면 동영상이 재생되기 전에 표시할 이미지를 지정할 수 있다.
 
 ```html
 <video
@@ -110,15 +110,17 @@
 
 #### 6. embed 태그
 
-`<embed>` 태그를 사용하면 오디오, 비디오 등의 외부 콘텐츠를 웹 페이지에 삽입할 수 있다.
+`<embed>` 태그는 외부 콘텐츠를 웹 페이지에 삽입할 때 사용한다.
 
 ```html
-<embed src="medias/music.mp3">
+<embed src="medias/audio.mp3">
 ```
+
+오디오, 비디오 등의 외부 파일을 웹 페이지에 포함할 수 있다.
 
 #### 7. form 태그
 
-사용자로부터 정보를 입력받는 영역을 만들 때 `<form>` 태그를 사용한다.
+사용자로부터 정보를 입력받기 위한 영역을 만들 때 `<form>` 태그를 사용한다.
 
 ```html
 <form>
@@ -130,24 +132,22 @@
 
 #### 8. fieldset과 legend
 
-`<fieldset>`은 폼에서 관련된 입력 요소들을 하나의 그룹으로 묶을 때 사용한다.
+`<fieldset>`은 폼에서 관련된 입력 요소를 하나의 그룹으로 묶을 때 사용한다.
 
-`<legend>`는 해당 그룹의 제목을 표시한다.
+`<legend>`는 그룹의 제목을 표시한다.
 
 ```html
 <form>
   <fieldset>
-    <legend>배송 정보</legend>
+    <legend>사용자 정보</legend>
 
-    <label>
-      이름
-      <input type="text">
-    </label>
+    <label for="user-name">이름</label>
+    <input type="text" id="user-name">
   </fieldset>
 </form>
 ```
 
-폼의 내용이 많을 때 상품 정보, 개인정보, 배송 정보 등의 영역을 구분하기 좋다.
+입력 항목이 많을 경우 사용자 정보, 선택 정보, 추가 정보 등으로 영역을 구분할 수 있다.
 
 #### 9. label 태그
 
@@ -158,108 +158,127 @@
 <input type="text" id="user-name">
 ```
 
-`label`의 `for` 값과 `input`의 `id` 값을 동일하게 지정하면 서로 연결된다.
+`label`의 `for` 값과 `input`의 `id` 값을 동일하게 지정하면 두 요소가 연결된다.
 
 ```html
-<label for="phone">연락처</label>
-<input type="tel" id="phone">
+<label for="user-phone">연락처</label>
+<input type="tel" id="user-phone">
 ```
 
-#### 10. 텍스트와 비밀번호 입력
+#### 10. 텍스트 입력
 
-일반적인 한 줄 텍스트는 `type="text"`를 사용한다.
+일반적인 한 줄의 텍스트를 입력받을 때 `type="text"`를 사용한다.
 
 ```html
 <input type="text">
 ```
 
-비밀번호처럼 입력 내용을 화면에서 숨기려면 `type="password"`를 사용한다.
+입력 칸의 크기는 `size` 속성을 이용하여 지정할 수 있다.
 
 ```html
-<input type="password">
+<input type="text" size="20">
 ```
 
-입력 칸의 크기는 `size` 속성으로 지정할 수 있다.
+#### 11. 비밀번호 입력
+
+입력한 내용을 화면에서 숨겨야 할 경우 `type="password"`를 사용한다.
 
 ```html
-<input type="text" size="10">
+<label for="user-password">비밀번호</label>
+<input type="password" id="user-password">
 ```
 
-#### 11. 체크박스
+사용자가 입력한 문자가 화면에서 그대로 표시되지 않는다.
+
+#### 12. 체크박스
 
 여러 항목 중 하나 이상을 선택할 수 있도록 만들 때 `checkbox`를 사용한다.
 
 ```html
 <label>
-  <input type="checkbox" value="product1">
-  상품 1
+  <input type="checkbox" value="option1">
+  선택 항목 1
 </label>
 
 <label>
-  <input type="checkbox" value="product2">
-  상품 2
+  <input type="checkbox" value="option2">
+  선택 항목 2
 </label>
 ```
 
 체크박스는 여러 항목을 동시에 선택할 수 있다.
 
-#### 12. 라디오 버튼
+#### 13. 라디오 버튼
 
 여러 항목 중 하나만 선택하도록 만들 때 `radio`를 사용한다.
 
 ```html
 <label>
-  <input type="radio" name="gift" value="yes">
-  포장함
+  <input type="radio" name="option" value="yes">
+  선택 1
 </label>
 
 <label>
-  <input type="radio" name="gift" value="no">
-  포장 안함
+  <input type="radio" name="option" value="no">
+  선택 2
 </label>
 ```
 
-같은 `name` 값을 지정하면 해당 그룹에서는 하나의 항목만 선택할 수 있다.
+같은 `name` 값을 가진 라디오 버튼은 하나의 그룹으로 묶이며 해당 그룹에서는 하나의 항목만 선택할 수 있다.
 
-#### 13. 숫자와 범위 입력
+#### 14. 숫자 입력
 
-숫자를 입력할 때는 `type="number"`를 사용한다.
-
-```html
-<input type="number" min="0" max="5">
-```
-
-`min`과 `max`를 사용하여 입력 가능한 최소값과 최대값을 지정할 수 있다.
-
-범위에서 값을 선택하도록 만들 때는 `type="range"`를 사용할 수 있다.
+숫자를 입력할 때 `type="number"`를 사용한다.
 
 ```html
-<input type="range" min="0" max="5">
+<input type="number" min="0" max="10">
 ```
 
-#### 14. 이메일과 전화번호 입력
+* `min` : 입력 가능한 최소값
+* `max` : 입력 가능한 최대값
 
-이메일 주소를 입력할 때는 `type="email"`을 사용한다.
+숫자의 입력 범위를 제한해야 할 때 사용할 수 있다.
+
+#### 15. 범위 입력
+
+일정한 범위 안에서 값을 선택하도록 만들 때 `type="range"`를 사용한다.
 
 ```html
-<input type="email">
+<input type="range" min="0" max="100">
 ```
 
-전화번호를 입력할 때는 `type="tel"`을 사용한다.
+슬라이더 형태로 값을 선택할 수 있다.
+
+#### 16. 이메일 입력
+
+이메일 주소를 입력받을 때 `type="email"`을 사용한다.
 
 ```html
-<input type="tel">
+<label for="user-email">이메일</label>
+<input type="email" id="user-email">
 ```
 
-입력 방법을 안내하고 싶다면 `placeholder`를 사용할 수 있다.
+이메일 형식의 데이터를 입력받는 폼에서 사용할 수 있다.
+
+#### 17. 전화번호 입력
+
+전화번호를 입력받을 때 `type="tel"`을 사용한다.
+
+```html
+<label for="user-phone">연락처</label>
+<input type="tel" id="user-phone">
+```
+
+`placeholder`를 사용하면 입력 방법을 안내할 수 있다.
 
 ```html
 <input
   type="tel"
-  placeholder="하이픈을 빼고 입력해 주세요.">
+  id="user-phone"
+  placeholder="숫자만 입력하세요">
 ```
 
-#### 15. textarea 태그
+#### 18. 여러 줄의 텍스트 입력
 
 여러 줄의 내용을 입력받을 때 `<textarea>`를 사용한다.
 
@@ -270,35 +289,25 @@
 * `rows` : 입력 영역의 세로 크기
 * `cols` : 입력 영역의 가로 크기
 
-`placeholder`를 사용하여 입력 안내 문구를 표시할 수도 있다.
+`placeholder`를 사용하여 입력할 내용에 대한 안내 문구를 표시할 수 있다.
 
 ```html
 <textarea
   rows="5"
-  cols="60"
-  placeholder="내용을 입력해 주세요.">
+  cols="50"
+  placeholder="내용을 입력하세요">
 </textarea>
 ```
 
-#### 16. 날짜와 시간 입력
+#### 19. 날짜 입력
 
-HTML의 `input` 타입을 이용하면 날짜와 시간을 선택할 수 있는 입력 요소를 만들 수 있다.
+날짜를 선택할 수 있는 입력 요소를 만들 때 `type="date"`를 사용한다.
 
 ```html
 <input type="date">
-<input type="time">
-<input type="week">
-<input type="datetime-local">
 ```
 
-각 타입의 역할은 다음과 같다.
-
-* `date` : 날짜 선택
-* `time` : 시간 선택
-* `week` : 연도와 주 선택
-* `datetime-local` : 날짜와 시간 선택
-
-날짜의 선택 범위는 `min`과 `max` 속성으로 제한할 수 있다.
+`min`과 `max`를 사용하여 선택할 수 있는 날짜 범위를 제한할 수 있다.
 
 ```html
 <input
@@ -307,23 +316,52 @@ HTML의 `input` 타입을 이용하면 날짜와 시간을 선택할 수 있는 
   max="2026-12-31">
 ```
 
-#### 17. 파일 첨부
+#### 20. 시간 입력
+
+시간을 선택할 때 `type="time"`을 사용한다.
+
+```html
+<input type="time">
+```
+
+날짜와 시간을 함께 선택할 때는 `datetime-local`을 사용할 수 있다.
+
+```html
+<input type="datetime-local">
+```
+
+특정 주를 선택할 때는 `week`를 사용한다.
+
+```html
+<input type="week">
+```
+
+주요 날짜 및 시간 입력 타입은 다음과 같다.
+
+* `date` : 날짜 선택
+* `time` : 시간 선택
+* `week` : 연도와 주 선택
+* `datetime-local` : 날짜와 시간 선택
+
+#### 21. 파일 첨부
 
 사용자가 파일을 선택하여 첨부하도록 만들 때 `type="file"`을 사용한다.
 
 ```html
-<input type="file">
+<label for="user-file">파일 첨부</label>
+<input type="file" id="user-file">
 ```
 
-사진이나 문서 등을 첨부받아야 하는 폼에서 사용할 수 있다.
+이미지, 문서 등의 파일을 선택할 수 있는 입력 요소를 생성한다.
 
-#### 18. 입력 필드 주요 속성
+#### 22. 입력 필드 주요 속성
 
-폼의 입력 요소에는 사용자의 입력을 제어하기 위한 여러 속성을 사용할 수 있다.
+입력 요소에는 사용자의 입력을 제어하기 위한 다양한 속성을 사용할 수 있다.
 
 ```html
 <input
   type="text"
+  placeholder="내용을 입력하세요"
   autofocus
   required>
 ```
@@ -337,109 +375,168 @@ HTML의 `input` 타입을 이용하면 날짜와 시간을 선택할 수 있는 
 * `max` : 입력 가능한 최대값 지정
 * `size` : 입력 영역의 표시 크기 지정
 
-#### 19. 전송과 초기화 버튼
+#### 23. 전송 버튼
 
 폼에 입력한 정보를 전송할 때 `type="submit"`을 사용한다.
 
 ```html
-<input type="submit" value="접수하기">
+<input type="submit" value="제출">
 ```
 
-입력한 내용을 초기화할 때는 `type="reset"`을 사용한다.
+`submit` 버튼을 클릭하면 `<form>`에 입력된 데이터를 전송한다.
+
+#### 24. 초기화 버튼
+
+폼에 입력한 내용을 초기 상태로 되돌릴 때 `type="reset"`을 사용한다.
 
 ```html
-<input type="reset" value="다시쓰기">
+<input type="reset" value="초기화">
 ```
 
-두 버튼을 함께 사용할 수도 있다.
+전송 버튼과 초기화 버튼을 함께 사용할 수 있다.
 
 ```html
 <div>
-  <input type="submit" value="주문하기">
-  <input type="reset" value="취소하기">
+  <input type="submit" value="제출">
+  <input type="reset" value="초기화">
 </div>
 ```
 
-#### 20. 일반 버튼
+#### 25. 일반 버튼
 
-`type="button"`을 사용하면 기본 동작이 없는 일반 버튼을 만들 수 있다.
+기본적인 동작이 없는 버튼을 만들 때 `type="button"`을 사용한다.
 
 ```html
-<input type="button" value="공지 창 열기">
+<input type="button" value="버튼">
 ```
 
-JavaScript와 함께 사용하면 버튼을 클릭했을 때 특정 기능을 실행할 수 있다.
+JavaScript와 함께 사용하면 버튼을 클릭했을 때 특정 기능을 실행하도록 만들 수 있다.
 
 ```html
 <input
   type="button"
-  value="공지 창 열기"
-  onclick="window.open('notice.html')">
+  value="새 창 열기"
+  onclick="window.open('page.html')">
 ```
 
-#### 21. 이미지 버튼
+`window.open()`은 지정한 페이지를 새로운 창이나 탭으로 열 때 사용할 수 있다.
 
-이미지를 버튼처럼 사용하려면 `type="image"`를 사용할 수 있다.
+#### 26. 이미지 버튼
+
+이미지를 버튼으로 사용하려면 `type="image"`를 사용한다.
 
 ```html
 <input
   type="image"
-  src="images/login.png"
-  alt="로그인">
+  src="images/button.png"
+  alt="전송">
 ```
 
-일반적인 텍스트 버튼 대신 이미지를 이용하여 폼을 전송할 수 있다.
+이미지를 클릭하면 `submit` 버튼과 같이 폼을 전송하는 기능을 수행한다.
 
-#### 22. HTML 폼 기본 구조
+#### 27. HTML 폼 기본 구조
 
-폼에서는 입력 항목의 종류와 목적에 따라 여러 입력 요소를 조합하여 사용할 수 있다.
+폼에서는 입력받을 정보의 종류에 따라 여러 입력 요소를 조합하여 사용할 수 있다.
 
 ```html
 <form>
   <fieldset>
-    <legend>개인 정보</legend>
+    <legend>사용자 정보</legend>
 
     <label for="user-name">이름</label>
     <input
       type="text"
       id="user-name"
+      placeholder="이름을 입력하세요"
       required>
 
-    <label for="phone">연락처</label>
+    <label for="user-password">비밀번호</label>
+    <input
+      type="password"
+      id="user-password"
+      required>
+
+    <label for="user-email">이메일</label>
+    <input
+      type="email"
+      id="user-email">
+
+    <label for="user-phone">연락처</label>
     <input
       type="tel"
-      id="phone"
-      placeholder="01012345678">
+      id="user-phone"
+      placeholder="숫자만 입력하세요">
 
-    <label for="memo">메모</label>
+    <label for="user-memo">내용</label>
     <textarea
-      id="memo"
+      id="user-memo"
       rows="5"
-      cols="30">
+      cols="30"
+      placeholder="내용을 입력하세요">
     </textarea>
   </fieldset>
 
-  <input type="submit" value="제출하기">
-  <input type="reset" value="취소하기">
+  <input type="submit" value="제출">
+  <input type="reset" value="초기화">
 </form>
 ```
 
 #### 핵심 정리
 
-* `<a>` 태그를 사용하여 다른 HTML 페이지나 외부 사이트로 이동할 수 있다.
+* `<a>` 태그를 사용하여 다른 페이지나 외부 사이트로 이동할 수 있다.
 * `target="_blank"`를 사용하면 링크를 새로운 탭에서 열 수 있다.
 * `href="#아이디"`와 `id`를 이용하면 현재 페이지의 특정 위치로 이동할 수 있다.
 * `<a>` 태그 안에 `<img>`를 넣으면 이미지를 링크로 사용할 수 있다.
-* `<audio>`와 `<video>`를 사용하여 웹 페이지에 오디오와 동영상을 삽입할 수 있다.
-* `<form>`은 사용자로부터 정보를 입력받기 위한 영역을 만든다.
-* `<fieldset>`과 `<legend>`를 이용하면 관련된 입력 항목을 하나의 그룹으로 구분할 수 있다.
-* `<label>`은 입력 요소의 설명을 표시하며 `for`와 `id`를 이용하여 입력 요소와 연결할 수 있다.
+* `<audio>`와 `<video>`를 사용하여 오디오와 동영상을 웹 페이지에 삽입할 수 있다.
+* `<embed>`를 사용하여 외부 콘텐츠를 웹 페이지에 삽입할 수 있다.
+* `<form>`은 사용자로부터 정보를 입력받기 위한 영역이다.
+* `<fieldset>`과 `<legend>`를 이용하면 관련된 입력 요소를 하나의 그룹으로 구분할 수 있다.
+* `<label>`의 `for`와 입력 요소의 `id`를 연결하여 입력 항목을 명확하게 지정할 수 있다.
+* `text`는 일반 텍스트, `password`는 비밀번호 입력에 사용한다.
 * `checkbox`는 여러 항목을 선택할 수 있고 `radio`는 같은 그룹에서 하나의 항목만 선택할 수 있다.
-* `text`, `password`, `number`, `range`, `email`, `tel` 등 다양한 `input` 타입을 목적에 맞게 사용할 수 있다.
+* `number`는 숫자 입력, `range`는 일정 범위의 값을 선택할 때 사용한다.
+* `email`은 이메일 주소, `tel`은 전화번호를 입력받을 때 사용한다.
+* `<textarea>`는 여러 줄의 내용을 입력받을 때 사용한다.
 * `date`, `time`, `week`, `datetime-local`을 이용하여 날짜와 시간을 입력받을 수 있다.
-* `<textarea>`는 여러 줄의 텍스트를 입력받을 때 사용한다.
-* `file` 타입을 이용하면 사용자가 파일을 첨부할 수 있다.
-* `required`, `autofocus`, `placeholder`, `min`, `max` 등의 속성을 이용하여 입력 조건을 설정할 수 있다.
-* `submit`은 폼을 전송하고 `reset`은 입력 내용을 초기화한다.
-* `button`은 JavaScript 등의 기능을 실행하는 일반 버튼으로 사용할 수 있다.
+* `file` 타입을 사용하면 사용자가 파일을 첨부할 수 있다.
+* `required`, `autofocus`, `placeholder`, `min`, `max`, `size` 등의 속성을 이용하여 입력 조건을 설정할 수 있다.
+* `submit`은 폼 데이터를 전송하고 `reset`은 입력 내용을 초기화한다.
+* `button`은 JavaScript 등과 연결하여 특정 기능을 실행할 때 사용할 수 있다.
 * `image` 타입을 사용하면 이미지를 폼 전송 버튼으로 사용할 수 있다.
+
+---
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>좋아하는 음식</title>
+</head>
+<body>
+  <ol>
+    <h1>좋아하는 음식</h1>
+    <li>샐러드 채소를 씻고 물기를 제거한 후 준비 합니다.</li>
+    <li>샐러드 채소를 씻고 물기를 제거한 후 준비 합니다.</li>
+    <li>샐러드 채소를 씻고 물기를 제거한 후 준비 합니다.</li>
+  </ol>
+<img src="images/salad.jpg" alt="샐러드 이미지">
+<!-- <object width="900" height="800" data="product.pdf" type=""></object> -->
+<!-- cttl + ? : 주석처리 -->
+ <hr>
+ <a href="order.html" target="_blank">주문서 하기</a><br>
+ <a href="https://www.naver.com" target="_blank">네이버 사이트 방문</a><br>
+
+ <a href="oreder.html"><img src="images/tangerines.jpg" alt="레드향"></a>
+
+ <br><br>
+ <embed src="medias/spring.mp3" type="">
+<audio src="medias/spring.mp3" autoplay loop></audio>
+<video src="medias/salad.mp4" controls width="700" poster="images/salad.jpg" muted loop></video>
+<br><br>
+
+
+</body>
+</html>
+```
