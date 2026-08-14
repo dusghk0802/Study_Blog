@@ -6,6 +6,8 @@
 
 📌 학습 내용 : 링크, 앵커, 이미지 링크, 오디오, 비디오, form, fieldset, legend, label, input, textarea, checkbox, radio, 날짜·시간 입력, 파일 첨부, 입력 속성
 
+---
+
 #### 1. 링크 연결
 
 `<a>` 태그는 다른 페이지나 외부 사이트로 이동할 수 있는 링크를 만들 때 사용한다.
