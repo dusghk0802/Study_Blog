@@ -539,7 +539,7 @@ JavaScript와 함께 사용하면 버튼을 클릭했을 때 특정 기능을 �
 </html>
 ```
 <p align="center">
-  <img src="../../training/Java/2026.08.13/day_20_1.JPG" alt="day_20" width="700">
+  <img src="../../training/Web/2026.08.14/day_20_1.JPG" alt="day_20" width="700">
 </p>
 영상을 삽입할때 썸네일 이미지를 설정하고 싶다면 controls width하고 크기를 지정한 뒤에 poster=하고 이미지 경로를 입력한 다음에 muted loop하면 삽입한 이미지가 썸네일로 지정된다.
 
@@ -593,10 +593,15 @@ JavaScript와 함께 사용하면 버튼을 클릭했을 때 특정 기능을 �
 </html>
 ```
 <p align="center">
-  <img src="../../training/Java/2026.08.13/day_20_2.JPG" alt="day_20" width="700">
+  <img src="../../training/Web/2026.08.14/day_20_2.JPG" alt="day_20" width="700">
 </p>
-input을 할 때 뒤에 placeholder=조건을 입력한 다음 required을 하면 필드에 글자가 나타나고 한 글자로 입력하지 않으면 경고 메세지가 뜬다.
+input을 할 때 뒤에 placeholder=조건을 입력한 다음 required을 하면 필드에 글자가 나타나고 한 글자로 입력하지 않으면 아래처럼 경고 메세지가 뜬다.
+
+<p align="center">
+  <img src="../../training/Web/2026.08.14/day_20_3.JPG" alt="day_20" width="700">
+</p>
 
 그리고 textarea를 사용하여 텍스트 영역 필드를 삽입 할 수 있으며 rows는 줄 개수고 cols 글자수를 의미하니 입력 할 때 유의해야겠다.
 
 html은 그래도 다른 프로그램보다 할만한 것 같다.
+
