@@ -522,8 +522,6 @@ JavaScript와 함께 사용하면 버튼을 클릭했을 때 특정 기능을 �
     <li>샐러드 채소를 씻고 물기를 제거한 후 준비 합니다.</li>
   </ol>
 <img src="images/salad.jpg" alt="샐러드 이미지">
-<!-- <object width="900" height="800" data="product.pdf" type=""></object> -->
-<!-- cttl + ? : 주석처리 -->
  <hr>
  <a href="order.html" target="_blank">주문서 하기</a><br>
  <a href="https://www.naver.com" target="_blank">네이버 사이트 방문</a><br>
@@ -536,6 +534,60 @@ JavaScript와 함께 사용하면 버튼을 클릭했을 때 특정 기능을 �
 <video src="medias/salad.mp4" controls width="700" poster="images/salad.jpg" muted loop></video>
 <br><br>
 
+
+</body>
+</html>
+```
+<p align="center">
+  <img src="../../training/Java/2026.08.13/day_20_1.JPG" alt="day_20" width="700">
+</p>
+영상을 삽입할때 썸네일 이미지를 설정하고 싶다면 controls width하고 크기를 지정한 뒤에 poster=하고 이미지 경로를 입력한 다음에 muted loop하면 삽입한 이미지가 썸네일로 지정된다.
+
+단, 이미지를 썸네일로 넣고 나면 영상을 사이트 접속 시 플레이 할 수 있는 옵션은 사용 불가능하다.
+</br></br></br>
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프론트엔드 개발자 지원서</title>
+</head>
+<h1> 프론트엔드 개발자 지원서 </h1>
+<body>
+<p> HTML, CSS, JavaScript에 대한 기술적 이해와 경험이 있는 분을 찾습니다. </p>
+<hr>
+<form>
+
+ <h3>개인정보</h3>
+<ul>
+  <li style="list-style-type: none;">
+   <label for="name"> 이름 </label>
+   <input  type="text" id="name" placeholder="공백 없이 입력하세요" required><br>
+
+   <label for="phone"> 연락처 </label>
+   <input type="tel" id="phone">
+  </li>
+</ul>
+
+<h3>지원 분야</h3>
+<ul>
+  <li style="list-style-type: none;">
+   <label> <input type="radio" size="10"> 웹 퍼블리싱 </label><br>
+   <label> <input type="radio" size="10"> 웹 애플리케이션 개발 </label><br>
+   <label> <input type="radio" size="10"> 개발 환경 개선 </label>
+</li>
+</ul>
+
+<h3>지원동기</h3>
+<label for="memo"></label>
+<textarea id="memo" rows="5" cols="60" placeholder="본사 지원 동기를 간략히 써주세요"></textarea><br>
+
+<div>
+  <input type="submit" value="접수하기">
+  <input type="reset" value="다시쓰기">
+</div>
+</form>
 
 </body>
 </html>
