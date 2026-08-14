@@ -592,3 +592,11 @@ JavaScript와 함께 사용하면 버튼을 클릭했을 때 특정 기능을 �
 </body>
 </html>
 ```
+<p align="center">
+  <img src="../../training/Java/2026.08.13/day_20_2.JPG" alt="day_20" width="700">
+</p>
+input을 할 때 뒤에 placeholder=조건을 입력한 다음 required을 하면 필드에 글자가 나타나고 한 글자로 입력하지 않으면 경고 메세지가 뜬다.
+
+그리고 textarea를 사용하여 텍스트 영역 필드를 삽입 할 수 있으며 rows는 줄 개수고 cols 글자수를 의미하니 입력 할 때 유의해야겠다.
+
+html은 그래도 다른 프로그램보다 할만한 것 같다.
