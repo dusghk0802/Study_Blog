@@ -1156,3 +1156,6 @@ HTML 요소는 사각형 형태의 영역을 가지며 이를 박스 모델이�
 </body>
 </html>
 ```
+| <img src="./images/result01.png" width="250"> | <img src="./images/result02.png" width="250"> | <img src="./images/result03.png" width="250"> |
+| :---: | :---: | :---: |
+| **이미지 삽입**<br>이미지를 화면에 출력 | **링크 연결**<br>다른 페이지로 이동 | **동영상 삽입**<br>동영상을 화면에 출력 |
