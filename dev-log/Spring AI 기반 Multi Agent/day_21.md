@@ -1130,9 +1130,8 @@ HTML 요소는 사각형 형태의 영역을 가지며 이를 박스 모델이�
 			height:100px;
 			display:inline-block;
 			margin:15px;			
-			border-style:solid;  /* 테두리 스타일 - 실선 */
+			border-style:solid;  
 		}
-		/* Do it! 테두리 두께 지정하기 */
 		#box1{
 			border-width: 2px;
 		}
@@ -1156,6 +1155,39 @@ HTML 요소는 사각형 형태의 영역을 가지며 이를 박스 모델이�
 </body>
 </html>
 ```
-| <img src="../../training/Web/2026.08.17/day_21_1.JPG" width="400"> | <img src="../../training/Web/2026.08.17/day_21_2.JPG" width="400"> |
+| <img src="../../training/Web/2026.08.17/day_21_1.JPG" width="500"> | <img src="../../training/Web/2026.08.17/day_21_2.JPG" width="500"> |
 | :---: | :---: |
-| **이미지 삽입**<br>이미지를 화면에 출력 | **링크 연결**<br>다른 페이지로 이동 |
+|**테두리 두께 지정 전** | **테두리 두께 지정 후** |
+
+테두리 두께를 지정하기 위해서는 border-style과 border-width을 지정해야 하며 두께는 차례대로 입력하면 위에서부터 시계방향 순서대로 지정된다.
+
+여기서 주의 해야 할 점이 body 안에도 id=으로 지정해야 제대로 출력되니 잘 기억해야겠다.
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>연습문제 1</title>
+	<style>	
+		#container {
+			width:350px;
+			margin:30px auto;
+		}
+
+		#circle {
+			border-radius: 50%;
+			border: 1px solid #ccc;
+			box-shadow: 5px 5px 30px 2px #000;
+		}
+
+	</style>
+</head>
+<body>
+<div id="container">
+	<img src="images/bear.jpg" id="circle" alt="곰인형 사진">
+</div>
+</body>
+</html>
+```
