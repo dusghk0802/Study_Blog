@@ -1191,3 +1191,6 @@ HTML 요소는 사각형 형태의 영역을 가지며 이를 박스 모델이�
 </body>
 </html>
 ```
+<p align="center">
+  <img src="../../training/Web/2026.08.17/day_21_3.JPG" alt="day_20" width="700">
+</p>
