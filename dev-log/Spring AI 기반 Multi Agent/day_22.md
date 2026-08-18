@@ -1191,7 +1191,7 @@ a:hover {
 </html>
 ```
 <p align="center">
-  <img src="../../training/Web/2026.08.18/day_22_2.JPG" alt="day_22" width="700">
+  <img src="../../training/Web/2026.08.18/day_22_1.JPG" alt="day_22" width="700">
 </p>
 카드안에 소셜 아이콘과 내용, 이미지 등을 가로로 배치하기 위해서 css파일에서 display: flex을 꼭 입력해야하고 아래로 flex-direction와 justify-content, align-items 등을 사용하여 정렬한게 제대로 출력된다.
 @media screen and을 이용하여 조건들을 입력해야 반응형 페이지를 만들 수 있으니 주의해야겠다.
