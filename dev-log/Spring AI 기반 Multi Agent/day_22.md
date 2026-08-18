@@ -1030,8 +1030,14 @@ HTML 구조와 스타일을 서로 다른 파일로 관리할 수 있다.
 
 ---
 
+문제2) 멤버별 프로필 페이지 구현
 
 | <img src="../../training/Web/2026.08.18/day_22_2.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_3.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_4.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_5.JPG" width="500"> |
 | :---: | :---: | :---: | :---: |
 
 <p align="center"><b>4개 프로필 적용 시</b></p>
+
+| <img src="../../training/Web/2026.08.18/day_22_6.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_7.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_8.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_9.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_10.JPG" width="500"> |
+| :---: | :---: | :---: | :---: | :---: |
+
+<p align="center"><b>5개 프로필 적용 시</b></p>
