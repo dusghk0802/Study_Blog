@@ -63,7 +63,7 @@
   <title>배경 이미지</title>
   <style>
     body {
-      background-image: url('images/background.jpg');
+      background-image: url('이미지 경로');
     }
   </style>
 </head>
@@ -84,7 +84,7 @@
   <title>배경 이미지 반복</title>
   <style>
     body {
-      background-image: url('images/background.jpg');
+      background-image: url('이미지 경로');
       background-repeat: no-repeat;
     }
   </style>
@@ -111,7 +111,7 @@
   <title>배경 이미지 위치</title>
   <style>
     body {
-      background-image: url('images/background.jpg');
+      background-image: url('이미지 경로');
       background-repeat: no-repeat;
       background-position: right top;
     }
@@ -134,7 +134,7 @@
   <title>배경 이미지 고정</title>
   <style>
     body {
-      background-image: url('images/background.jpg');
+      background-image: url('이미지 경로');
       background-repeat: no-repeat;
       background-position: right top;
       background-attachment: fixed;
@@ -164,7 +164,7 @@
       height: 200px;
       padding: 20px;
       border: 20px solid #ccc;
-      background-image: url('images/background.jpg');
+      background-image: url('이미지 경로');
       background-repeat: no-repeat;
     }
 
@@ -203,7 +203,7 @@
     .box {
       width: 300px;
       height: 300px;
-      background: url('images/background.jpg') no-repeat;
+      background: url('이미지 경로') no-repeat;
     }
 
     .size1 {
@@ -255,7 +255,7 @@
     li {
       padding-left: 40px;
       line-height: 40px;
-      background-image: url('images/icon.png');
+      background-image: url('이미지 아이콘 경로');
       background-repeat: no-repeat;
       background-position: left center;
     }
@@ -430,7 +430,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="images/image.jpg" alt="이미지">
+    <img src="이미지 경로" alt="이미지">
   </div>
 </body>
 </html>
@@ -458,13 +458,13 @@
   <title>미디어 쿼리</title>
   <style>
     body {
-      background: url('images/background.jpg') no-repeat fixed;
+      background: url('이미지 경로') no-repeat fixed;
       background-size: cover;
     }
 
     @media screen and (max-width: 767px) {
       body {
-        background: url('images/mobile.jpg') no-repeat fixed;
+        background: url('이미지 경로') no-repeat fixed;
         background-size: cover;
       }
     }
@@ -996,7 +996,7 @@ HTML 구조와 스타일을 서로 다른 파일로 관리할 수 있다.
 
     <article class="profile">
       <img
-        src="images/profile.jpg"
+        src="이미지 경로"
         alt="프로필 이미지">
 
       <h1>사용자 이름</h1>
@@ -1027,3 +1027,6 @@ HTML 구조와 스타일을 서로 다른 파일로 관리할 수 있다.
 * `grid-template`, `grid-column`, `grid-row`, `grid-area` 등을 이용하여 다양한 Grid 레이아웃을 구성할 수 있다.
 * `gap`을 이용하면 Flex와 Grid 항목 사이의 간격을 쉽게 지정할 수 있다.
 * 외부 스타일 파일을 연결하여 HTML 구조와 스타일을 분리해서 관리할 수 있다.
+
+---
+
