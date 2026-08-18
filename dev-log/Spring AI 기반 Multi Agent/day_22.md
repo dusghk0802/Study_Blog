@@ -1244,7 +1244,7 @@ a:hover {
 			<a href="member2.html"></a>
 			<a href="member3.html"></a>
 			<a href="member4.html"></a>
-			<a href="member5.html"></a>
+     		⭐<a href="member5.html"></a>
 		</nav>
 	</section>
 </body>
@@ -1409,7 +1409,7 @@ section nav.others a:nth-of-type(4) {
 	background-color: #a794fd;
 	box-shadow: 5px 5px 10px rgba(167, 148, 253, 0.7); 
 }
-section nav.others a:nth-of-type(5) {
+⭐section nav.others a:nth-of-type(5) {
 	background-color: #ffb347;
 	box-shadow: 5px 5px 10px rgba(255, 149, 0, 0.7);
 }
@@ -1459,10 +1459,10 @@ body.member4 section a.btnView {
 	background: linear-gradient(45deg, #8e74ff, #a011ff);   
 	box-shadow: 5px 10px 20px rgba(160, 17, 255, 0.4);
 }
-<mark>/* member5 */
+/*⭐ member5 */
 body.member5 {
 	background-color: #fff8eb;
-}</mark>
+}
 
 body.member5 section article.profile img {
 	box-shadow: 5px 15px 20px rgba(255, 179, 71, 0.25);
@@ -1483,3 +1483,9 @@ body.member5 section a.btnView {
 | :---: | :---: | :---: | :---: | :---: |
 
 <p align="center"><b>5개 프로필 적용 시</b></p>
+
+아래에 있는 아이콘을 누르면 자동으로 각 맴버의 프로필로 넘어가는 페이지를 구현하는 문제였는데 맴버별로 각각 맨위 member1파일처럼 5까지의 html 파일을 만들고 css를 통해 연동하는 방식으로 하는 문제였다.
+
+4개만 적용할 시에는 ⭐표시 되어 있는 부분을 제외하고 입력하고 5개의 프로필 적용시에는 ⭐표시 되어 있는 부분까지 입력하면 된다.
+
+여기서 주의 할점이 멤버별로 아이콘을 누르면 똑같이 아이콘이 4개 또는 5개가 표시되어야 하기 때문에  member1~5까지의 html 파일에 nav class="others"부분에 꼭 모든 맴버의 href=파일명이 들어가야한다.
