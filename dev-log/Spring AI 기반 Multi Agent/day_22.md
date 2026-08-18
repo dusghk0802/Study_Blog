@@ -1029,7 +1029,175 @@ HTML 구조와 스타일을 서로 다른 파일로 관리할 수 있다.
 * 외부 스타일 파일을 연결하여 HTML 구조와 스타일을 분리해서 관리할 수 있다.
 
 ---
+문제2) 플렉스 박스를 이용한 반응형 페이지 만들기
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #f5f5f5;
+}
+#container {
+  padding: 1em 7em;
+}
+h1 {
+  font-size: 3.5em;
+  text-align: center;
+}
+.column {
+  width: 100%;
+  padding: 0.5em 0;
+}
+.card {
+  background-color: #fff;
+  color: #222;
+  padding: 3.5em 1em;
+  border-radius: 0.6em;
+  box-shadow: 0 0 2.4em rgba(25, 0, 58, 0.1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card .img-container {
+  width:8em;
+  height: 8em;
+  background-color: #a993ff;
+  padding: 0.5em;
+  border-radius: 50%;
+  margin-bottom: 2em;
+}
+.card img {
+  width: 100%;
+  border-radius: 50%;
+}
+.card h2 {
+  font-weight: 500;
+}
+.card p {
+  font-weight: 300;
+  text-transform: uppercase;
+  margin: 0.5em 0 2em 0;
+  letter-spacing: 2px;
+}
+.social {
+  width: 50%;
+  text-transform: uppercase;
+  margin: 0.5em 0 2em 0;
+  letter-spacing: 2px;
+  justify-content: space-between;
+}
+@media screen and (min-width: 1024px) {
+  #container{
+    padding: 1em;
+  }
+  .row{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2em 1em;
+    text-align: center;
+  }
+  .card{
+    padding: 5em 1em;
+  }
+  .column{
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+    padding: 0 1em;
+  }
+}
+.card:hover {
+  background: linear-gradient(#6045ea, #8567f7);
+  color: #fff;
+}
+.card:hover a {
+  color:#fff;
+}
+a {
+  text-decoration: none;
+  color: #222;
+}
+a:hover {
+  color: #fff;
+}
+```
 
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Team</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/our-team1.css">
+</head>
+<body>
+  <div id="container">
+    <h1>Our Team</h1>
+    <div class="row">
+      <div class="column">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/member-1.png">
+          </div>
+          <h2>James Turner</h2>
+          <p>Founder</p>
+          <div class="social">
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/member-2.png">
+          </div>
+          <h2>Luna Hall</h2>
+          <p>Developer</p>
+          <div class="social">
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <div class="img-container">
+            <img src="images/member-3.png">
+          </div>
+          <h2>Hope Carpenter</h2>
+          <p>Designer</p>
+          <div class="social">
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+```
+<p align="center">
+  <img src="../../training/Web/2026.08.18/day_22_2.JPG" alt="day_22" width="700">
+</p>
+카드안에 소셜 아이콘과 내용, 이미지 등을 가로로 배치하기 위해서 css파일에서 display: flex을 꼭 입력해야하고 아래로 flex-direction와 justify-content, align-items 등을 사용하여 정렬한게 제대로 출력된다.
+@media screen and을 이용하여 조건들을 입력해야 반응형 페이지를 만들 수 있으니 주의해야겠다.
+
+아직은 처음 배우는 게 많아서 좀 더 연습이 필요 할 것 같다.
+</br></br></br>
 문제2) 멤버별 프로필 페이지 구현
 
 | <img src="../../training/Web/2026.08.18/day_22_2.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_3.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_4.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_5.JPG" width="500"> |
