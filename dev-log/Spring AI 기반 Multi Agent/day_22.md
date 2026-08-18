@@ -1032,5 +1032,5 @@ HTML 구조와 스타일을 서로 다른 파일로 관리할 수 있다.
 
 
 | <img src="../../training/Web/2026.08.18/day_22_2.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_3.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_4.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_5.JPG" width="500"> |
-| :---: | :---: | :---: | :---: |
+
 **4개 프로필 적용 시**
