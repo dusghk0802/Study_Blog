@@ -1199,6 +1199,280 @@ a:hover {
 아직은 처음 배우는 게 많아서 좀 더 연습이 필요 할 것 같다.
 </br></br></br>
 문제2) 멤버별 프로필 페이지 구현
+```html
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>profile 1</title>
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+	<script src="https://kit.fontawesome.com/c47106c6a7.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<script defer src="js/ie.js"></script>
+</head>
+<body class="member1">
+	<section>
+		<nav class="menu">
+			<a href="#"><i class="fas fa-bars"></i></a>
+			<a href="#"><i class="far fa-sticky-note"></i></a>
+		</nav>
+
+		<article class="profile">
+			<img src="img/member1.jpg" alt="프로필 이미지" >
+
+			<h1>DCODELAB</h1>
+			<h2>UI/UX INTERACTIVE DEVELOPER</h2>
+
+			<a href="#" class="btnView">VIEW MORE</a>
+		</article>		
+
+		<ul class="contact">
+			<li>
+				<i class="fab fa-facebook-f"></i>
+				<span>Visit My Facebook page.</span>
+			</li>
+			<li>
+				<i class="fas fa-envelope "></i>
+				<span>hadaboni80@naver.com</span>
+			</li>			
+		</ul>
+
+		<nav class="others">
+			<a href="member1.html" class="on"></a>
+			<a href="member2.html"></a>
+			<a href="member3.html"></a>
+			<a href="member4.html"></a>
+			<a href="member5.html"></a>
+		</nav>
+	</section>
+</body>
+</html>
+```
+```css
+@charset 'utf-8';
+/*https://fonts.google.com/ 에서 검색 Orbitron /*
+@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
+
+/* 3단계 - CSS 초기화 */
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+ul, ol {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+}
+
+/* 3단계 - 프로필 박스 만들기 */
+body {
+  background-color: #ebfaff;
+} 
+
+section {
+	width: 340px;
+	padding: 30px;
+	background-color: #fff;
+	margin: 50px auto;
+	box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+}
+
+/* 4단계 - 상단 버튼 만들기 */
+section nav.menu {
+	width: 100%;
+}
+section nav.menu::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+section nav.menu a {
+	font-size: 20px;
+	color: #666;
+}
+section nav.menu a:nth-of-type(1) {
+	float: left;
+}
+section nav.menu a:nth-of-type(2) {
+	float: right;
+}
+
+/* 5단계 - 프로필 영역 만들기 */
+section article.profile {
+	width: 100%;
+	text-align: center;
+}
+section article.profile img {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	margin-bottom: 20px;	
+}
+
+section article.profile h1 {
+	font-weight: bold;
+	font-size: 22px;
+	font-family: "arial";
+	line-height: 1;
+	color: #555;
+	margin-bottom: 5px;
+}
+section article.profile h2 {
+	font-weight: normal;
+	font-size: 12px;
+	font-family: "arial";
+	color: #bbb;
+	margin-bottom: 30px;
+}
+section a.btnView {
+	display: block;
+	width: 180px;
+	height: 32px;
+	margin: 0px auto 20px;
+	background-color:#444;
+	border-radius: 16px;
+	font-weight: bold;
+	font-size: 10px;
+	font-family: "arial";
+	color: #fff;
+	line-height: 32px;
+	text-align: center;
+	/*
+	background: linear-gradient(45deg, #4affff, #35e0f7);
+	box-shadow: 5px 10px 20px rgba(0, 255, 255, 0.493); 
+	 */
+}
+
+/* 6단계 - 연락처 목록 만들기 */
+section ul.contact {
+	margin-bottom: 25px; 
+}
+section ul.contact li {
+	width: 100%;
+	padding: 10px 0px;
+	border-bottom: 1px solid #eee;
+}
+section ul.contact li:last-child {
+	border-bottom: none;
+}
+section ul.contact li i {
+	width: 20%;
+	text-align: center;
+	color: #555;
+	font-size: 15px;
+	text-shadow: 2px 2px 2px #ddd;
+}
+section ul.contact li span {
+	font-weight: normal;
+	font-size: 11px;
+	font-family: "orbitron";
+	color: #555;
+	letter-spacing: 1px;
+}
+
+/* 7단계 - 멤버별 링크 만들기 */
+section nav.others {
+	width: 100%;
+	text-align: center;
+}
+section nav.others a {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin: 0px 10px;
+	opacity: 0.4;	/* 8단계 버튼 활성화하기 */
+	filter: saturate(0.7); /* 8단계 버튼 활성화하기 */
+}
+section nav.others a.on {
+	opacity: 1; /* 8단계 버튼 활성화하기 */
+	filter: saturate(1); /* 8단계 버튼 활성화하기 */
+}
+section nav.others a:nth-of-type(1) {
+	background-color: #35e0f7;
+	box-shadow: 5px 5px 10px rgba(74, 255, 255, 0.7); 
+}
+section nav.others a:nth-of-type(2) {
+	background-color: #55f5cd;
+	box-shadow: 5px 5px 10px rgba(85, 245, 178, 0.7); 
+}
+section nav.others a:nth-of-type(3) {
+	background-color: #ff80df;
+	box-shadow: 5px 5px 10px rgba(255, 128, 223, 0.7); 
+}
+section nav.others a:nth-of-type(4) {
+	background-color: #a794fd;
+	box-shadow: 5px 5px 10px rgba(167, 148, 253, 0.7); 
+}
+section nav.others a:nth-of-type(5) {
+	background-color: #ffb347;
+	box-shadow: 5px 5px 10px rgba(255, 149, 0, 0.7);
+}
+
+/* 9단계 - 멤버별 프로필 완성하기 */
+/* member1 */
+body.member1 {
+	background-color: #ebfaff;
+}
+body.member1 section article.profile img {
+	box-shadow: 5px 15px 30px rgba(173, 216, 230, 0.8);
+}
+body.member1 section a.btnView {
+	background: linear-gradient(45deg, #4affff, #35e0f7);
+	box-shadow: 5px 10px 20px rgba(0, 255, 255, 0.493);
+}
+/* member2 */
+body.member2 {
+	background-color: #edffeb;
+}
+body.member2 section article.profile img {
+	box-shadow: 5px 15px 20px #bdccb783; 
+}
+body.member2 section a.btnView {
+	background: linear-gradient(45deg, #a0ff9d, #55f5b2);   
+    box-shadow: 5px 10px 20px rgba(33, 250, 105, 0.3); 
+}
+/* member3 */
+body.member3 {
+	background-color: #fff3fd;
+}
+body.member3 section article.profile img {
+	box-shadow: 5px 15px 20px  rgba(252, 99, 214, 0.2); 
+}
+body.member3 section a.btnView {
+	background: linear-gradient(45deg, #ef74ff, #ff11c4);   
+	box-shadow: 5px 10px 20px rgba(255, 17, 196, 0.357); 
+}
+/* member4 */
+body.member4 {
+	background-color: #f5f0ff;
+}
+body.member4 section article.profile img {
+	box-shadow: 5px 15px 20px rgba(183, 82, 250, 0.2);
+}
+body.member4 section a.btnView {
+	background: linear-gradient(45deg, #8e74ff, #a011ff);   
+	box-shadow: 5px 10px 20px rgba(160, 17, 255, 0.4);
+}
+<mark>/* member5 */
+body.member5 {
+	background-color: #fff8eb;
+}</mark>
+
+body.member5 section article.profile img {
+	box-shadow: 5px 15px 20px rgba(255, 179, 71, 0.25);
+}
+
+body.member5 section a.btnView {
+	background: linear-gradient(45deg, #ffd36b, #ff9f43);
+	box-shadow: 5px 10px 20px rgba(255, 149, 0, 0.7);
+}
+```
 
 | <img src="../../training/Web/2026.08.18/day_22_2.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_3.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_4.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_5.JPG" width="500"> |
 | :---: | :---: | :---: | :---: |
