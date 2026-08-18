@@ -1250,6 +1250,7 @@ a:hover {
 </body>
 </html>
 ```
+**위와 같은 구조의 맴버파일을 총 5개 만들어야함(색상과 프로필 이미지는 다르게)**
 ```css
 @charset 'utf-8';
 /*https://fonts.google.com/ 에서 검색 Orbitron /*
