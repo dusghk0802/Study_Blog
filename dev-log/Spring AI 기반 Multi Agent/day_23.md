@@ -1199,3 +1199,5 @@ blur=흐림, brightness=밝기, contrast=대비, drop-shadow=그림자, grayscal
 | **효과 적용 전** | **효과 적용 후** |
 
 ::before 가상 요소와 :hover, transition, transform을 활용하여 마우스를 올렸을 때 버튼의 색상과 배경이 자연스럽게 변화하는 동적인 효과를 구현하는 방법을 알게 되었다.
+
+여기서 주의 할 점이 .button:hover::before에서 전에 반드시 .button::before에 대한 조건이 와야하고  content 부분에 필요한 조건이 없더라도 공백으로 ""이렇게 입력해야 오류없이 정상적으로 출력된다.
