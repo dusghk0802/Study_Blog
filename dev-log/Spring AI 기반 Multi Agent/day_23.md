@@ -1034,6 +1034,7 @@ HTML 요소의 `id` 값을 기준으로 JavaScript에서 해당 요소를 가져
 
 ---
 
+문제1)
 ```html
 <!DOCTYPE html>
 <html lang="ko">
@@ -1063,7 +1064,6 @@ HTML 요소의 `id` 값을 기준으로 JavaScript에서 해당 요소를 가져
     background: #f9f9f9;
   }
 
-  /* Do it! filter 함수 사용해서 스타일 지정하기 */
   .blur {filter: blur(5px);}
   .brightness {filter: brightness(2);}
   .contrast {filter: contrast(200%);}
@@ -1135,4 +1135,67 @@ HTML 요소의 `id` 값을 기준으로 JavaScript에서 해당 요소를 가져
 | :---: | :---: |
 | **filter 함수 적용 전** | **filter 함수 적용 후** |
 
+filter 속성을 이용하여 이미지의 밝기, 대비, 흐림, 투명도, 색상 등을 CSS만으로 조절할 수 있고 반드시 {}을 사용해서 입력해야 한다는 것을 알게 되었다.
 
+blur=흐림, brightness=밝기, contrast=대비, drop-shadow=그림자, grayscale=흑백, invert=색상 반전, sepia=세피아톤, opacity=투명도, hue-rotate=색상 회전, saturate=채도 조절을 의미하며 반드시 앞에 점을 입력하고 filter앞에 입력해야하고 각각의 정도는 ()안에 표시하면 된다.
+</br></br></br>
+
+문제2)
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>버튼에 동적인 효과 만들기</title>
+  <style>
+    body {
+      background-image: linear-gradient(to right, #ff5e62, #ff9966);
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;      
+    }
+    .button {
+      text-decoration: none;
+      font-size: 1.5em;
+      letter-spacing: 2px;
+      color: #fff;
+      outline: 2px solid #fff;  
+      padding:20px 60px;
+      position: relative;
+      overflow: hidden;
+      transition: color is;
+    }
+    .button::before{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -50px;
+      width: 0;
+      height: 100%;
+      background-color: #fff;
+      z-index: -10;
+      transform: skewX(35deg);
+      transition: width 1s;
+    }
+    .button:hover{
+      color: #ff5e62;
+    }
+    .button:hover::before{
+      width: 150%;
+    }
+
+  </style>
+</head>
+
+<body>
+	<a href="#" class="button">둘러보기</a>
+</body>
+</html>
+```
+| <img src="../../training/Web/2026.08.19/day_23_3.JPG" width="500"> | <img src="../../training/Web/2026.08.19/day_23_4.JPG" width="500"> |
+| :---: | :---: |
+| **효과 적용 전** | **효과 적용 후** |
+
+::before 가상 요소와 :hover, transition, transform을 활용하여 마우스를 올렸을 때 버튼의 색상과 배경이 자연스럽게 변화하는 동적인 효과를 구현하는 방법을 알게 되었다.
