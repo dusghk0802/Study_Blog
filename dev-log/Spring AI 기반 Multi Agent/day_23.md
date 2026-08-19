@@ -1034,4 +1034,7 @@ HTML 요소의 `id` 값을 기준으로 JavaScript에서 해당 요소를 가져
 
 ---
 
+| <img src="../../training/Web/2026.08.18/day_22_1.JPG" width="500"> | <img src="../../training/Web/2026.08.18/day_22_2.JPG" width="500"> |
+| :---: | :---: |
 
+<p align="center"><b>4개 프로필 적용 시</b></p>
