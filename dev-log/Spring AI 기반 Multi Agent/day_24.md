@@ -1036,6 +1036,35 @@ HTML 요소의 `id` 값을 기준으로 JavaScript에서 해당 요소를 가져
 
 ---
 
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>세션 선택 - switch문</title>
+	<link rel="stylesheet" href="css/switch.css">
+</head>
+<body>	
+	<script>
+		// Do it! switch문으로 조건 체크하기
+		let session = prompt("관심 세션을 선택해 주세요. 1-마케팅, 2-개발, 3-디자인");
+
+		switch(session){
+			case "1" : document.write("<p>마케팅 세션은 <strong>201호</strong>에서 진행됩니다.</p>")
+			 break;
+			case "2" : document.write("<p>마케팅 세션은 <strong>203호</strong>에서 진행됩니다.</p>")
+			 break;
+			case "3" : document.write("<p>마케팅 세션은 <strong>205호</strong>에서 진행됩니다.</p>")
+			 break;
+		default: alert("잘못 입력!")
+		}
+```
+
+	</script>
+</body>
+</html>
+
 | <img src="../../training/Web/2026.08.20/day_24_1.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_2.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_3.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_4.JPG" width="500"> |
 | :---: | :---: | :---: | :---: |
-| **효과 적용 전** | **효과 적용 후** | **효과 적용 후** | **효과 적용 후** |
+| **데이터 입력** | **1** | **2** | **3** |
