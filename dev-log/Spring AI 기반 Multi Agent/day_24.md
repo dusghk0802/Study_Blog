@@ -1061,6 +1061,7 @@ HTML 요소의 `id` 값을 기준으로 JavaScript에서 해당 요소를 가져
 		}
 ```
 
+
 	</script>
 </body>
 </html>
