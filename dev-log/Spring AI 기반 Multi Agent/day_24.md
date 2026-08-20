@@ -1067,7 +1067,9 @@ HTML 요소의 `id` 값을 기준으로 JavaScript에서 해당 요소를 가져
   <img src="../../training/Web/2026.08.20/day_24_1.JPG" alt="day_22" width="700">
 </p>
 
-switch문을 사용할때는 case와  document.write를 
+switch문을 사용할때는 case와  document.write를 사용해서 케이스 별로 조건값을 입력하면 케이스에 따라 출력값이 나온다.
+
+여기서 주의할 점이 반드시 각 조건마다 break를 입력해야 한다.
 
 | <img src="../../training/Web/2026.08.20/day_24_2.JPG" width="700"> | <img src="../../training/Web/2026.08.20/day_24_3.JPG" width="700"> |
 | :---: | :---: |
