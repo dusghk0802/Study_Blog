@@ -1072,5 +1072,6 @@ HTML 요소의 `id` 값을 기준으로 JavaScript에서 해당 요소를 가져
 
 | <img src="../../training/Web/2026.08.20/day_24_2.JPG" width="700"> | <img src="../../training/Web/2026.08.20/day_24_3.JPG" width="700"> |
 | <img src="../../training/Web/2026.08.20/day_24_4.JPG" width="700"> | <img src="../../training/Web/2026.08.20/day_24_5.JPG" width="700"> |
+| :---: | :---: |
 | **1** | **2** |
 | **3** | **공백일 경우** |
