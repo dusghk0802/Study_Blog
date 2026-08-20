@@ -1047,7 +1047,6 @@ HTML 요소의 `id` 값을 기준으로 JavaScript에서 해당 요소를 가져
 </head>
 <body>	
 	<script>
-		// Do it! switch문으로 조건 체크하기
 		let session = prompt("관심 세션을 선택해 주세요. 1-마케팅, 2-개발, 3-디자인");
 
 		switch(session){
@@ -1068,6 +1067,7 @@ HTML 요소의 `id` 값을 기준으로 JavaScript에서 해당 요소를 가져
   <img src="../../training/Web/2026.08.20/day_24_1.JPG" alt="day_22" width="700">
 </p>
 
+switch문을 사용할때는 case와  document.write를 
 
 | <img src="../../training/Web/2026.08.20/day_24_2.JPG" width="700"> | <img src="../../training/Web/2026.08.20/day_24_3.JPG" width="700"> |
 | :---: | :---: |
