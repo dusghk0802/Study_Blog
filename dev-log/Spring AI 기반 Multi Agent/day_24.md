@@ -1036,3 +1036,6 @@ HTML 요소의 `id` 값을 기준으로 JavaScript에서 해당 요소를 가져
 
 ---
 
+| <img src="../../training/Web/2026.08.20/day_24_1.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_2.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_3.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_4.JPG" width="500"> |
+| :---: | :---: | :---: | :---: |
+| **효과 적용 전** | **효과 적용 후** | **효과 적용 후** | **효과 적용 후** |
