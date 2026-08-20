@@ -1065,6 +1065,6 @@ HTML 요소의 `id` 값을 기준으로 JavaScript에서 해당 요소를 가져
 </body>
 </html>
 
-| <img src="../../training/Web/2026.08.20/day_24_1.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_2.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_3.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_4.JPG" width="500"> |
-| :---: | :---: | :---: | :---: |
-| **데이터 입력** | **1** | **2** | **3** |
+| <img src="../../training/Web/2026.08.20/day_24_1.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_2.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_3.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_4.JPG" width="500"> | <img src="../../training/Web/2026.08.20/day_24_5.JPG" width="500"> |
+| :---: | :---: | :---: | :---: | :---: |
+| **데이터 입력** | **1** | **2** | **3** | **입력을 안했을 경우** |
