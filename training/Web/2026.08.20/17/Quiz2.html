@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<!-- 2. 점수를 매개변수로 전달받아 합격 여부를 반환하는 checkScore() 함수를 작성하세요.
+
+조건
+- 60점 이상 → "합격입니다."
+- 60점 미만 → "불합격입니다."
+checkScore(75)를 호출하여 결과를 출력하세요. -->
+<script>
+
+  function checkScore(score) {
+    if (score >= 60) {
+      return "합격입니다.";
+    } else {
+      return "불합격입니다.";
+    }
+  }
+
+  document.write(checkScore(75));
+  </script>
+
+</body>
+</html>
