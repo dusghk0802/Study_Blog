@@ -713,3 +713,6 @@ JavaScript에서 이미지의 `src` 속성을 변경하면 다른 이미지로 �
 </body>
 </html>
 ```
+<p align="center">
+  <img src="../../training/Web/2026.08.21/day_25_1.JPG" alt="day_25" width="700">
+</p>
