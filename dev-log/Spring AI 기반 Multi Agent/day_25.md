@@ -716,3 +716,12 @@ JavaScript에서 이미지의 `src` 속성을 변경하면 다른 이미지로 �
 <p align="center">
   <img src="../../training/Web/2026.08.21/day_25_1.JPG" alt="day_25" width="700">
 </p>
+
+querySelector()와 querySelectorAll()을 이용해 CSS 선택자 방식으로 HTML 요소를 선택할 수 있으며, 하나의 요소와 여러 요소를 선택하는 방법의 차이를 알게 되었다.
+
+여기서 주의 할점은 반드시 괄호 안에 `#`가 들어가야 한다.
+
+
+<p align="center">
+  <img src="../../training/Web/2026.08.21/day_25_2.JPG" alt="day_25" width="700">
+</p>
