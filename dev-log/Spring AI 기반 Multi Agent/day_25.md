@@ -721,7 +721,49 @@ querySelector()와 querySelectorAll()을 이용해 CSS 선택자 방식으로 HT
 
 여기서 주의 할점은 반드시 괄호 안에 `#`가 들어가야 한다.
 
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM event 객체</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }    
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="images/cat.jpg" id="cat">		
+  </div>
+
+	<script>
+    let cat = document.querySelector("#cat");
+    cat.onclick = () => alert("이미지를 클릭했군요");
+
+	</script>
+</body>
+</html>
+```
 
 <p align="center">
   <img src="../../training/Web/2026.08.21/day_25_2.JPG" alt="day_25" width="700">
 </p>
+
+dom을 이용한 이벤트 처리방법으로 선택한 이미지를 클릭했을 때 실행할 이벤트를 화살표 함수를 사용하여 클릭 시 실행할 동작을 작성했다.
+
+실제로 실행해서 위에 처럼 이미지를 선택하면 "이미지를 클릭했군요"라는 팝업창이 뜬다.
+
+여기서 주의할 점은 querySelector()에서 괄호안에 반드시 "#"가 들어가야 한다는 점이다.
+
+아직은 배우는 과정이라 좀 더 연습해서 익혀야 할 것 같다.
