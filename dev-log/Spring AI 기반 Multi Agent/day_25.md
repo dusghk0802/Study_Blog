@@ -6,6 +6,8 @@
 
 📌 학습 내용 : Array 객체, concat(), join(), push(), unshift(), pop(), shift(), splice(), Date 객체, getTime(), Window 객체, open(), close(), DOM, querySelector(), innerText, src, onclick, addEventListener(), mouseover, mouseout, class
 
+---
+
 #### 1. Array 객체
 
 배열은 여러 개의 값을 하나의 변수에 저장하여 관리할 때 사용한다.
@@ -644,6 +646,8 @@ JavaScript에서 이미지의 `src` 속성을 변경하면 다른 이미지로 �
 
 실습 파일에서는 체크박스와 비활성화된 버튼의 HTML 구조까지 작성하고, JavaScript를 이용해 버튼을 활성화하는 부분은 실습 과제로 남겨두었다.
 
+---
+
 #### 핵심 정리
 
 * Array 객체의 메서드를 이용하여 배열을 **합치거나, 문자열로 변환하고, 요소를 추가·삭제**할 수 있다.
@@ -653,3 +657,6 @@ JavaScript에서 이미지의 `src` 속성을 변경하면 다른 이미지로 �
 * DOM을 이용하면 JavaScript에서 HTML 요소를 선택하고 텍스트와 이미지 등의 내용을 변경할 수 있다.
 * `onclick`과 `addEventListener()`를 이용하여 사용자의 동작에 따라 기능을 실행할 수 있다.
 * `mouseover`, `mouseout` 등의 이벤트를 활용하면 마우스 움직임에 따라 화면 요소를 동적으로 변경할 수 있다.
+
+---
+
