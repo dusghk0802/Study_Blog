@@ -126,3 +126,5 @@ if (conn != null) {
 
 ---
 
+
+projects/mini-project-01/2026.08.24/day_26_1.png
