@@ -126,5 +126,7 @@ if (conn != null) {
 
 ---
 
+<p align="center">
+  <img src="../../projects/mini-project-01/2026.08.24/day_26_1.png" alt="day_26" width="700">
+</p>
 
-projects/mini-project-01/2026.08.24/day_26_1.png
