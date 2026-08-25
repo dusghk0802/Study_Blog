@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>공지사항 작성 | CINEHUB</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- 홈 이동 -->
+  <header>
+    <h1>
+      <a href="../index.html">CINEHUB</a>
+    </h1>
+  </header>
+
+  <main>
+
+    <!-- 관리자 전체 영역 -->
+    <section class="admin-container">
+
+      <!-- 관리자 메뉴 -->
+      <nav class="admin-menu">
+        <a href="dashboard.html">관리자 홈</a>
+        <a href="users.html">회원 관리</a>
+        <a href="reports.html">신고 관리</a>
+        <a href="boards.html">게시판 관리</a>
+        <a href="notices.html">공지사항 관리</a>
+      </nav>
+
+
+      <!-- 공지사항 작성 영역 -->
+      <section class="admin-content">
+
+        <!-- 상단 -->
+        <div class="notice-form-header">
+
+          <h2>공지사항 작성</h2>
+
+          <div class="notice-form-actions">
+
+            <!-- 취소 -->
+            <button
+              type="button"
+              onclick="location.href='dashboard.html'"
+            >
+              취소
+            </button>
+
+            <!-- 등록 -->
+            <button
+              type="button"
+              onclick="
+                if (confirm('공지사항을 등록하시겠습니까?')) {
+                  location.href='../post/list.html';
+                }
+              "
+            >
+              등록
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- 공지사항 작성 폼 -->
+        <form id="notice-form">
+
+          <!-- 제목 -->
+          <div class="notice-form-group">
+
+            <label for="notice-title">
+              제목
+            </label>
+
+            <input
+              type="text"
+              id="notice-title"
+              name="title"
+              placeholder="공지사항 제목을 입력하세요"
+              required
+            >
+
+          </div>
+
+
+          <!-- 상단 고정 -->
+          <div class="notice-form-group">
+
+            <label class="notice-pin">
+
+              <input
+                type="checkbox"
+                id="notice-pinned"
+                name="pinned"
+              >
+
+              상단 고정
+
+            </label>
+
+          </div>
+
+
+          <!-- 본문 에디터 도구 -->
+          <div class="editor-toolbar">
+
+            <!-- 글꼴 -->
+            <select aria-label="글꼴">
+              <option>기본 글꼴</option>
+              <option>Arial</option>
+              <option>Georgia</option>
+            </select>
+
+            <!-- 글자 크기 -->
+            <select aria-label="글자 크기">
+              <option>기본 크기</option>
+              <option>작게</option>
+              <option>보통</option>
+              <option>크게</option>
+            </select>
+
+            <!-- 글자 서식 -->
+            <button type="button">
+              <strong>B</strong>
+            </button>
+
+            <button type="button">
+              <em>I</em>
+            </button>
+
+            <button type="button">
+              <u>U</u>
+            </button>
+
+            <button type="button">
+              <s>S</s>
+            </button>
+
+            <!-- 정렬 -->
+            <button type="button">
+              왼쪽
+            </button>
+
+            <button type="button">
+              가운데
+            </button>
+
+            <button type="button">
+              오른쪽
+            </button>
+
+            <!-- 추가 기능 -->
+            <button type="button">
+              목록
+            </button>
+
+            <button type="button">
+              링크
+            </button>
+
+            <button type="button">
+              이미지
+            </button>
+
+            <button type="button">
+              😊
+            </button>
+
+            <button type="button">
+              Ω
+            </button>
+
+          </div>
+
+
+          <!-- 내용 -->
+          <div class="notice-form-group">
+
+            <label for="notice-content">
+              내용
+            </label>
+
+            <textarea
+              id="notice-content"
+              name="content"
+              class="content-editor"
+              placeholder="공지사항 내용을 입력하세요"
+              required
+            ></textarea>
+
+          </div>
+
+        </form>
+
+      </section>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

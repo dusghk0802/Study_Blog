@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>게시글 수정 | CINEHUB</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- 홈 이동 -->
+  <header>
+    <h1>
+      <a href="../index.html">CINEHUB</a>
+    </h1>
+  </header>
+
+
+  <main>
+
+    <!-- 게시글 수정 전체 영역 -->
+    <section class="write-container">
+
+      <!-- 게시글 수정 상단 -->
+      <div class="write-header">
+
+        <h2>게시글 수정</h2>
+
+        <div class="write-actions">
+
+          <!-- 취소 -->
+          <button
+            type="button"
+            onclick="location.href='detail.html'"
+          >
+            취소
+          </button>
+
+          <!-- 수정 완료 -->
+          <button
+            type="button"
+            onclick="
+              if (confirm('수정 완료하시겠습니까?')) {
+                location.href='list.html';
+              }
+            "
+          >
+            수정 완료
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- 게시글 수정 폼 -->
+      <form id="post-edit-form">
+
+
+        <!-- 카테고리 -->
+        <div class="write-group">
+
+          <label for="category">
+            카테고리
+          </label>
+
+          <select
+            id="category"
+            name="category"
+            required
+          >
+
+            <option value="review" selected>
+              영화리뷰
+            </option>
+
+            <option value="recommend">
+              영화추천
+            </option>
+
+            <option value="free">
+              자유토론
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- 제목 -->
+        <div class="write-group">
+
+          <label for="title">
+            제목
+          </label>
+
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="title-input"
+            value="엔딩 팽이 씬에 대한 3가지 해석"
+            required
+          >
+
+        </div>
+
+
+        <!-- 영화 첨부 -->
+        <div class="write-group">
+
+          <h3>영화 첨부</h3>
+
+          <!-- 현재 첨부된 영화 -->
+          <div class="selected-movie">
+
+            <span>
+              인셉션 (2010)
+            </span>
+
+            <!-- 첨부된 영화 제거 -->
+            <button type="button">
+              X
+            </button>
+
+          </div>
+
+
+          <!-- 영화 검색 -->
+          <div class="movie-search">
+
+            <input
+              type="text"
+              placeholder="영화 제목을 검색하세요"
+            >
+
+            <button type="button">
+              영화 검색
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- 본문 에디터 도구 -->
+        <div class="editor-toolbar">
+
+          <!-- 글꼴 -->
+          <select aria-label="글꼴">
+            <option>기본 글꼴</option>
+            <option>Arial</option>
+            <option>Georgia</option>
+          </select>
+
+
+          <!-- 글자 크기 -->
+          <select aria-label="글자 크기">
+            <option>기본 크기</option>
+            <option>작게</option>
+            <option>보통</option>
+            <option>크게</option>
+          </select>
+
+
+          <!-- 글자 서식 -->
+          <button type="button">
+            <strong>B</strong>
+          </button>
+
+          <button type="button">
+            <em>I</em>
+          </button>
+
+          <button type="button">
+            <u>U</u>
+          </button>
+
+          <button type="button">
+            <s>S</s>
+          </button>
+
+
+          <!-- 정렬 -->
+          <button type="button">
+            왼쪽
+          </button>
+
+          <button type="button">
+            가운데
+          </button>
+
+          <button type="button">
+            오른쪽
+          </button>
+
+
+          <!-- 추가 기능 -->
+          <button type="button">
+            목록
+          </button>
+
+          <button type="button">
+            링크
+          </button>
+
+          <button type="button">
+            이미지
+          </button>
+
+          <button type="button">
+            😊
+          </button>
+
+          <button type="button">
+            Ω
+          </button>
+
+        </div>
+
+
+        <!-- 본문 -->
+        <div class="write-group">
+
+          <label for="content">
+            내용
+          </label>
+
+          <textarea
+            id="content"
+            name="content"
+            class="content-editor"
+            required
+          >인셉션의 마지막 팽이 장면은 영화에서 가장 인상적인 장면 중 하나라고 생각합니다.
+
+이 장면에 대해서는 여러 가지 해석이 가능한데, 개인적으로는 세 가지 정도로 생각해볼 수 있을 것 같습니다.</textarea>
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
