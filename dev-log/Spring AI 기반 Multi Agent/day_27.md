@@ -66,17 +66,16 @@ CINEHUB 서비스에서 필요한 데이터를 관리하기 위해 데이터베�
 ---
 
 ```html
-<button
-  type="button"
-  onclick="location.href='board-edit.html'"
->
+<button type="button" onclick="location.href='board-edit.html'">
   수정
 </button>
 
-<button
-  type="button"
-  onclick="confirm('정말 삭제하시겠습니까?')"
->
+<button type="button" onclick="confirm('정말 삭제하시겠습니까?')">
   삭제
 </button>
 ```
+
+미니 프로젝트의 관리자 페이지를 구현하면서 각 기능에 맞는 HTML 페이지를 구분하고 서로 연결하는 부분이 어려웠다. 
+게시판 관리 화면에서 수정 버튼을 누르면 수정 페이지로 이동하도록 구성하고, 삭제 버튼에는 삭제 전 확인창이 나타나도록 구현하였다.
+
+아직은 데이터를 넣지 않고 구조만 하고 있지만 처음이라 조금 헤메고 있는 것 같다.
