@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>커뮤니티 | CINEHUB</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- 홈 이동 -->
+  <header>
+    <a href="../index.html">
+      <h1>CINEHUB</h1>
+    </a>
+  </header>
+
+  <main>
+
+    <section>
+
+      <!-- 커뮤니티 카테고리 -->
+      <nav class="community-category">
+        <a href="#">전체</a>
+        <a href="#">공지사항</a>
+        <a href="#">영화리뷰</a>
+        <a href="#">영화추천</a>
+        <a href="#">자유토론</a>
+        <a href="#">인기글</a>
+      </nav>
+
+      <!-- 검색 / 글쓰기 -->
+      <div class="search-area">
+        <input
+          type="text"
+          placeholder="게시글을 검색하세요"
+        >
+
+        <button type="button">검색</button>
+
+        <button
+          type="button"
+          onclick="location.href='form.html'"
+        >
+          글쓰기
+        </button>
+      </div>
+
+      <!-- 공지사항 -->
+      <div class="notice-post">
+       <a href="detail.html">
+       [공지] CINEHUB 이용 안내
+       </a>
+
+       <span>관리자</span>
+       <span>2026.08.25</span>
+       </div>
+
+      <!-- 게시글 목록 -->
+      <section class="post-list">
+        <h3>게시글 목록</h3>
+
+        <div>
+          <a href="detail.html">
+            [영화리뷰] 엔딩 팽이 씬에 대한 3가지 해석
+          </a>
+
+          <span>유저A</span>
+          <span>조회 1420</span>
+          <span>추천 45</span>
+          <span>댓글 12</span>
+        </div>
+
+        <div>
+          <a href="detail.html">
+            [영화추천] 주말에 볼 SF 영화 추천해주세요
+          </a>
+
+          <span>유저B</span>
+          <span>조회 520</span>
+          <span>추천 21</span>
+          <span>댓글 8</span>
+        </div>
+      </section>
+
+      <!-- 페이징 -->
+      <div class="pagination">
+        <button type="button">이전</button>
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <button type="button">다음</button>
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
