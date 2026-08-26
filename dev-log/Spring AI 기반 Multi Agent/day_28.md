@@ -175,40 +175,33 @@ POSTS
 ---
 
 ```html
-<script>
-  const categoryLinks = document.querySelectorAll(".community-category a");
+<nav class="community-category">
+  <a href="list.html"
+    class="active">
+    전체
+  </a>
 
-  const postItems = document.querySelectorAll(".post-list-item");
+  <a href="list.html?category=notice">
+  </a>
 
-  categoryLinks.forEach(link => {
-    link.addEventListener("click", function(event) {
-      event.preventDefault();
+  <a href="list.html?category=review">
+    영화리뷰
+  </a>
 
-      categoryLinks.forEach(item => {
-        item.classList.remove("active");
-      });
+  <a href="list.html?category=recommend">
+    영화추천
+  </a>
 
+  <a href="list.html?category=free">
+    자유토론
+  </a>
 
-      this.classList.add("active");
+  <a href="list.html?sort=popular">
+    인기글
+  </a>
 
-
-      const category = this.textContent.trim();
-
-      postItems.forEach(post => {
-
-        if (category === "전체") {
-          post.style.display = "block";
-          return;
-        }
-
-        if (post.textContent.includes(`[${category}]`)) {
-          post.style.display = "block";
-        } else {
-          post.style.display = "none";
-        }
-
-      });
-    });
-  });
-</script>
+</nav>
 ```
+전체적인 건 다 구현되었다고 생각했는데 자세히 보다보니 전체 버튼을 누르면 전체글이 보여야하고 인기글 버튼을 누르면 인기글만 보여야 하는데 모든게 똑같이 전체글이 보이게 구현되는 오류가 있어서 고민하면서 찾다보니 필터기능을 안넣어서 오류가 발생한다는 것을 알게되었다.
+
+처음에는 그냥 아예 따로 글을 분류해서 넣어야하나 고민하다가 일단은 필터 기능을 넣어놓기는 했는데..다시 sql 테이블을 고민해보고 내일 그대로 필터 기능을 이용해서 할지 아니면 따로 분류해서 데이터를 관리할건지를 결정해야 할 것 같다.
