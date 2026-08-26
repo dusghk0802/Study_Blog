@@ -1,10 +1,12 @@
-# 29일차
+# 28일차
 
 ## CINEHUB 미니 프로젝트 프론트엔드 UI 개선 및 DB 연동 구조 정리
 
 📌 학습일 : 2026.08.26
 
 📌 학습 내용 : CINEHUB 화면 구성, HTML/CSS UI 통일, 메뉴 활성화 효과, 게시글 상세 UI 수정, 데이터베이스 테이블 구조, Java·Oracle 연동 흐름
+
+---
 
 #### 1. CINEHUB 프론트엔드 화면 구성 및 디자인 통일
 
@@ -170,12 +172,43 @@ POSTS
 - Qdrant와 같은 벡터 DB를 이용하여 유사한 영화 검색 기능 구현 가능
 - 프론트 단계에서는 실제 영화 포스터나 추천 데이터를 고정하지 않고 추후 백엔드 데이터로 교체할 수 있도록 영역만 구성
 
-#### 핵심 정리
+---
 
-- CINEHUB의 여러 페이지 디자인을 CSS 중심으로 통일하였다.
-- 메뉴의 현재 선택 상태를 `active` 클래스로 표시하는 방법을 적용하였다.
-- 게시글 상세 페이지의 수정·삭제 버튼과 댓글 버튼 스타일을 통일하였다.
-- 프론트엔드가 DB에 직접 연결되는 것이 아니라 Java 백엔드를 거쳐 Oracle과 통신한다는 구조를 이해하였다.
-- DB 연동은 `Java ↔ Oracle` 연결을 먼저 완료한 뒤 `프론트 ↔ Java`를 연결하는 순서로 진행한다.
-- 커뮤니티 카테고리는 화면을 여러 개 만드는 방식보다 DB 조회 조건을 변경하는 방식으로 구현할 수 있다.
-- 영화 데이터와 AI 검색 기능은 추후 백엔드 및 벡터 DB와 연동할 수 있도록 확장 구조를 확인하였다.
+```html
+<script>
+  const categoryLinks = document.querySelectorAll(".community-category a");
+
+  const postItems = document.querySelectorAll(".post-list-item");
+
+  categoryLinks.forEach(link => {
+    link.addEventListener("click", function(event) {
+      event.preventDefault();
+
+      categoryLinks.forEach(item => {
+        item.classList.remove("active");
+      });
+
+
+      this.classList.add("active");
+
+
+      const category = this.textContent.trim();
+
+      postItems.forEach(post => {
+
+        if (category === "전체") {
+          post.style.display = "block";
+          return;
+        }
+
+        if (post.textContent.includes(`[${category}]`)) {
+          post.style.display = "block";
+        } else {
+          post.style.display = "none";
+        }
+
+      });
+    });
+  });
+</script>
+```
