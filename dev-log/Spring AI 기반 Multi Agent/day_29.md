@@ -7,6 +7,8 @@
 📌 학습 내용 : CINEHUB UI 개선, 마이페이지, JDBC, DAO, Java HTTP 서버,
 JSON, Fetch API
 
+---
+
 #### 1. CINEHUB UI 개선
 
 -   메인, 커뮤니티, 게시글 상세, 마이페이지 화면 디자인 수정
