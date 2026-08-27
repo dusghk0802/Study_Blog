@@ -273,18 +273,6 @@ CINEHUB는 사용자가 직접 모든 영화를 탐색해야 하는 불편함을
 
 CINEHUB의 데이터베이스는 회원, 영화, 커뮤니티를 중심으로 구성합니다.
 
-```text
-USERS
-  │
-  ├──── FAVORITES ──── MOVIES
-  │
-  └──── POSTS
-          │
-          ├──── COMMENTS
-          ├──── LIKES
-          └──── REPORTS
-```
-
 ### 주요 테이블
 
 |     테이블     | 역할       |
