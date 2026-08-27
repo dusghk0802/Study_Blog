@@ -303,9 +303,9 @@ USERS
 
 |    팀원    |            담당           | 주요 역할                                                         |
 | :------: | :---------------------: | ------------------------------------------------------------- |
-|  **팀장**  | AI / System Integration | AI 기반 영화 추천 기능 구현 · Front-End/Back-End 기능 통합 · 프로젝트 전체 시스템 구성 |
-| **팀원 1** |   Front-End / Database  | UI 화면 구현 · DB 테이블 구조 설계 및 생성                                  |
-| **팀원 2** |         Back-End        | 서버 로직 구현 · Java-Oracle DB 연동 · 서비스 기능 구현                      |
+|  **노건우(팀장)**  | AI / Integration | AI 기반 영화 추천 기능 구현 · Front-End/Back-End 기능 통합 · 프로젝트 전체 시스템 구성 |
+| **이연화** |   Front-End / DB  | UI 화면 구현 · DB 테이블 구조 설계 및 생성                                  |
+| **조문희** |         Back-End / DB     | 서버 로직 구현 · Java-Oracle DB 연동 · 서비스 기능 구현                      |
 
 <br>
 
