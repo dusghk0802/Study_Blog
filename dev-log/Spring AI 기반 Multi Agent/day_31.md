@@ -3,6 +3,7 @@
 Java JDBC 게시판 기능 구현 및 CINEHUB 화면설계서 정리
 
 📌 학습일 : 2026.08.31
+
 📌 학습 내용 : Post 클래스 확장, 게시글 목록·상세 조회,
 PreparedStatement, ResultSet, NULL 처리, 게시글 작성 기능 구현, CINEHUB
 화면설계서 요구사항·API·DB 매핑 및 기능 명세 수정
