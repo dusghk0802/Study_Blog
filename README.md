@@ -8,7 +8,7 @@
 
 ### 🚀 Projects
 
-#### Mini Project Ⅰ
+#### Mini Project Ⅰ[➡️](https://github.com/Kosa-Project1/1st_project)
 Java & Web 기반 미니 프로젝트
 
 #### Mini Project Ⅱ
