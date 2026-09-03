@@ -6,6 +6,8 @@
 
 📌 학습 내용 : DI(Dependency Injection), Interface, Spring Bean, @Component, @Autowired, @Order, @PostConstruct, AOP, @Async, CompletableFuture, Lombok, Logging, Oracle 테이블 생성 및 데이터 입력
 
+---
+
 #### 1. 의존성 주입 전 객체 생성 방식
 
 ```java
@@ -390,6 +392,8 @@ FROM 테이블명;
 
 `IDENTITY`가 적용된 기본키 컬럼은 INSERT문에서 값을 직접 입력하지 않아도 자동으로 번호가 생성된다.
 
+---
+
 #### 핵심 정리
 
 - DI를 사용하면 필요한 객체를 외부에서 전달받아 클래스 간 의존성을 줄일 수 있다.
@@ -406,3 +410,6 @@ FROM 테이블명;
 - `@Slf4j`를 이용하면 로그를 단계별로 구분해서 출력할 수 있다.
 - Oracle의 `IDENTITY`를 이용하면 기본키 값을 자동으로 생성할 수 있다.
 - `INSERT` → `COMMIT` → `SELECT` 순서로 데이터 입력과 저장 결과를 확인할 수 있다.
+
+---
+
