@@ -413,3 +413,6 @@ FROM 테이블명;
 
 ---
 
+<p align="center">
+  <img src="../../training/Web/2026.08.21/day_25_2.JPG" alt="day_34" width="700">
+</p>
