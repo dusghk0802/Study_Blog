@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.MemberMapper">
+
+    <select id="selectAll">
+        SELECT * FROM member
+    </select>
+
+    <select id="selectById">
+        SELECT * FROM member WHERE id=#{id}
+    </select>
+
+    <!-- 1. 이름에 특정 문자가 포함된 회원 조회 -->
+    <select id="selectByName"
+            resultType="com.example.demo.model.Member">
+        SELECT *
+        FROM member
+        WHERE name LIKE '%' || #{name} || '%'
+    </select>
+
+    <!-- 2. 새로운 회원 추가 -->
+    <insert id="insertMember">
+        INSERT INTO member (id, name, email, age)
+        VALUES (member_seq.NEXTVAL, #{name}, #{email}, #{age})
+    </insert>
+</mapper>
