@@ -6,6 +6,8 @@
 
 📌 학습 내용 : Spring Data JDBC, CrudRepository, 쿼리 메서드, HikariCP, MyBatis, Mapper, @Select, @Param, 회원·게시글 조회 및 데이터 처리
 
+---
+
 #### 1. Spring Data JDBC 엔티티 클래스
 
 ```java
@@ -379,3 +381,7 @@ CREATE TABLE 게시글테이블명 (
 - Mapper에 조회와 추가 메서드를 작성하여 필요한 데이터베이스 기능을 구현할 수 있다.
 - 회원과 게시글처럼 서로 관련된 테이블은 외래키를 이용해 관계를 설정할 수 있다.
 - Spring Data JDBC와 MyBatis를 각각 사용해 데이터베이스에 접근하는 방법을 실습했다.
+
+---
+
+
