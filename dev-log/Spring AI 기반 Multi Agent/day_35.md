@@ -385,3 +385,4 @@ CREATE TABLE 게시글테이블명 (
 ---
 
 
+training/Spring-Boot/2026.09.04/day_35_1.PNG
