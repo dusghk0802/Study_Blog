@@ -336,3 +336,7 @@ HTTP 요청 방식에 따라 등록, 조회, 수정, 삭제 기능을 구분하�
 <p align="center">
   <img src="../../training/Spring-Boot/2026.09.05/day_36_1.PNG" alt="day_36" width="700">
 </p>
+
+<p align="center">
+  <img src="../../training/Spring-Boot/2026.09.05/day_36_2.PNG" alt="day_36" width="700">
+</p>
