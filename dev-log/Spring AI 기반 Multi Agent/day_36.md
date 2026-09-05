@@ -8,6 +8,8 @@
 Query by Example, H2 Console, REST API, @RestController,
 @RequestMapping, @PostMapping, @GetMapping, @PutMapping, @DeleteMapping
 
+---
+
 #### 1. JPA SQL 로그 설정
 
 ``` properties
@@ -303,6 +305,8 @@ DELETE  /api/경로명/{id}  → 데이터 삭제
 HTTP 요청 방식에 따라 등록, 조회, 수정, 삭제 기능을 구분하여 처리할 수
 있다.
 
+---
+
 #### 핵심 정리
 
 -   `@Entity`를 이용해 Java 클래스를 JPA가 관리하는 엔티티로 지정할 수
@@ -326,3 +330,6 @@ HTTP 요청 방식에 따라 등록, 조회, 수정, 삭제 기능을 구분하�
     이용해 REST API의 CRUD 기능을 구현할 수 있다.
 -   JPA Repository와 REST Controller를 연결하여 웹 요청으로 데이터 등록,
     조회, 수정, 삭제를 처리하는 흐름을 실습했다.
+    
+---
+
