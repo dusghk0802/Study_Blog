@@ -336,7 +336,11 @@ HTTP 요청 방식에 따라 등록, 조회, 수정, 삭제 기능을 구분하�
 <p align="center">
   <img src="../../training/Spring-Boot/2026.09.05/day_36_1.PNG" alt="day_36" width="700">
 </p>
-bootRun실행후 결과값에 있는 jdbc url로 들어가면
+bootRun실행후 결과값에 있는 jdbc url로 들어가면 H2 Console 접속화면이 뜨고 그 jdbc url 입령창에 주소를 입력하고 연결하면 쉽게 데이터 입력, 수정, 삭제 할 수 있다.
+
+여기서 주의 할점이 java코드에 추가, 수정, 삭제 사항이 있을 경우에 다시 bootRun실행후 접속해야 한다.
+
 <p align="center">
   <img src="../../training/Spring-Boot/2026.09.05/day_36_2.PNG" alt="day_36" width="700">
 </p>
+postman을 이용해서 데이터를 넣고 수정, 삭제 가능하지만 post 상태에서 중복된 내용의 데이터를 입력하여 send버튼을 여러번 누르며 그대로 중복된 내용이 여러번 추가되기 때문에 주의해야한다.
