@@ -521,18 +521,8 @@ public class ArticleController {
 
 ```
 
-또한 `POST /members/1/articles`에서 회원 생성용 JSON을 보내면 Request
-DTO의 구조가 맞지 않아 `400 Bad Request`가 발생할 수 있고, POST만 정의된
-`/members/1/articles`에 GET 요청을 보내면 `405 Method Not Allowed`가
-발생할 수 있다는 점을 실습을 통해 확인하였다.
+`POST /members/1/articles`에서 회원 생성용 JSON을 보내면 Request DTO의 구조가 맞지 않아 `400 Bad Request`가 발생할 수 있고, POST만 정의된 `/members/1/articles`에 GET 요청을 보내면 `405 Method Not Allowed`가 발생할 수 있다는 점을 실습을 통해 확인하였다.
 
-**느낀점**
-
-처음에는 URL만 맞으면 요청이 실행되는 것으로 생각했지만, 실제 REST
-API에서는 URL뿐만 아니라 HTTP 메서드와 요청 Body의 데이터 구조까지 모두
-일치해야 한다는 것을 알게 되었다. 특히 `400 Bad Request`와
+처음에는 URL만 맞으면 요청이 실행되는 것으로 생각했지만, 실제 REST API에서는 URL뿐만 아니라 HTTP 메서드와 요청 Body의 데이터 구조까지 모두 일치해야 한다는 것을 알게 되었다. 특히 `400 Bad Request`와
 `405 Method Not Allowed` 오류를 직접 확인하면서 단순히 오류 메시지만
-보는 것이 아니라 Controller의 `@RequestMapping`, `@GetMapping`,
-`@PostMapping`, `@PutMapping`과 Request DTO를 함께 확인해야 한다는 점이
-기억에 남았다. 앞으로 API 오류가 발생하면 URL, HTTP 메서드, 요청 JSON,
-Controller 매핑 순서로 확인하면 문제를 더 빠르게 찾을 수 있을 것 같다.
+보는 것이 아니라 Controller의 `@RequestMapping`, `@GetMapping`, `@PostMapping`, `@PutMapping`과 Request DTO를 함께 확인해야 한다는 점이 기억에 남았다. 앞으로 API 오류가 발생하면 URL, HTTP 메서드, 요청 JSON, Controller 매핑 순서로 확인하면 문제를 더 빠르게 찾을 수 있을 것 같다.
