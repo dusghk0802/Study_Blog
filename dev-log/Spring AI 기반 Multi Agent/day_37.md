@@ -521,12 +521,51 @@ public class 게시글Controller {
 
 따라서 다음 두 요청은 서로 다른 기능이다.
 
-``` text
-POST /members/1/articles
-→ 1번 회원의 게시글 생성
+```java
+package com.example.demo.controller;
 
-GET /articles?memberId=1
-→ 1번 회원이 작성한 게시글 조회
+import com.example.demo.dto.ArticleRequest;
+import com.example.demo.dto.ArticleResponse;
+import com.example.demo.service.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/articles")
+public class ArticleController {
+    @Autowired
+    private ArticleService articleService;
+
+    @GetMapping
+    public List<ArticleResponse> getAllArticles(){
+        return articleService.findAll();
+    }
+
+    @GetMapping(params = "memberId")
+    public List<ArticleResponse> getArticleByMemberId(
+            @RequestParam("memberId") Long memberId){
+        return articleService.findByMemberId(memberId);
+    }
+    // 게시글 한 건 조회
+    @GetMapping("/{id}")
+    public ArticleResponse getArticle(
+            @PathVariable("id") Long id) {
+
+        return articleService.findById(id);
+    }
+
+    // 게시글 수정
+    @PutMapping("/{id}")
+    public ArticleResponse updateArticle(
+            @PathVariable("id") Long id,
+            @RequestBody ArticleRequest articleRequest) {
+
+        return articleService.update(id, articleRequest);
+    }
+}
+
 ```
 
 또한 `POST /members/1/articles`에서 회원 생성용 JSON을 보내면 Request
