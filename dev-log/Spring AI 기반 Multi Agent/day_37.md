@@ -7,6 +7,8 @@
 📌 학습 내용 : DTO, Entity, JpaRepository, Service, Controller, JPA
 Auditing, 연관관계, REST API, Postman 테스트
 
+---
+
 #### 1. 회원 요청·응답 DTO
 
 클라이언트에서 전달받는 데이터와 클라이언트에게 반환하는 데이터를
@@ -469,22 +471,6 @@ Request DTO에 맞는 JSON을 전달해야 한다.
 
 특히 게시글 생성과 조회는 주소가 비슷하지만 서로 다른 Controller와 HTTP
 메서드를 사용한다.
-
-``` java
-// 회원의 게시글 생성
-@RestController
-@RequestMapping("/members")
-public class 회원Controller {
-
-    @PostMapping("/{id}/articles")
-    public 게시글응답DTO createArticle(
-            @PathVariable Long id,
-            @RequestBody 게시글요청DTO 요청) {
-
-        return 게시글Service.create(id, 요청);
-    }
-}
-```
 
 ``` java
 // 게시글 조회 및 수정
