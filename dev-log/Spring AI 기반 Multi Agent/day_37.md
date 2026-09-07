@@ -444,6 +444,8 @@ Request DTO에 맞는 JSON을 전달해야 한다.
 }
 ```
 
+---
+
 #### 핵심 정리
 
 -   DTO를 이용하여 요청 데이터와 응답 데이터를 분리할 수 있다.
@@ -464,48 +466,13 @@ Request DTO에 맞는 JSON을 전달해야 한다.
 -   Postman 테스트에서는 Controller에 정의한 HTTP 메서드와 URL, Request
     DTO의 JSON 구조를 정확하게 맞춰야 한다.
 
-#### 가장 어려웠던 부분 - URL 매핑과 HTTP 메서드 구분
+---
 
 이번 실습에서 가장 어려웠던 부분은 회원과 게시글 API의 URL 구조를
 구분하고, 각 URL에서 사용할 HTTP 메서드를 정확하게 맞추는 부분이었다.
 
 특히 게시글 생성과 조회는 주소가 비슷하지만 서로 다른 Controller와 HTTP
 메서드를 사용한다.
-
-``` java
-// 게시글 조회 및 수정
-@RestController
-@RequestMapping("/articles")
-public class 게시글Controller {
-
-    @GetMapping
-    public List<게시글응답DTO> getAllArticles() {
-        return 게시글Service.findAll();
-    }
-
-    @GetMapping(params = "memberId")
-    public List<게시글응답DTO> getByMemberId(
-            @RequestParam Long memberId) {
-
-        return 게시글Service.findByMemberId(memberId);
-    }
-
-    @GetMapping("/{id}")
-    public 게시글응답DTO getArticle(@PathVariable Long id) {
-        return 게시글Service.findById(id);
-    }
-
-    @PutMapping("/{id}")
-    public 게시글응답DTO updateArticle(
-            @PathVariable Long id,
-            @RequestBody 게시글요청DTO 요청) {
-
-        return 게시글Service.update(id, 요청);
-    }
-}
-```
-
-따라서 다음 두 요청은 서로 다른 기능이다.
 
 ```java
 package com.example.demo.controller;
