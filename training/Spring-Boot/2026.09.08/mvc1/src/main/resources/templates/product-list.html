@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 목록 화면</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>상품번호</th>
+        <th>상품명</th>
+        <th>가격</th>
+        <th>재고</th>
+    </tr>
+    <tr th:each="product : ${productList}">
+        <td th:text="${product.id}">1</td>
+        <td th:text="${product.name}">노트북</td>
+        <td th:text="${product.price}">2000</td>
+        <td th:text="${product.stock}">5</td>
+    </tr>
+</table>
+</body>
+</html>
