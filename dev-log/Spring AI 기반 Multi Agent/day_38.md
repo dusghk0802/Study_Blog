@@ -391,9 +391,14 @@ public String 목록조회(Model model) {
     확인하였다.
 
 ---
-training/Spring-Boot/2026.09.08/day_38_1.PNG
+
 | <img src="../../training/Spring-Boot/2026.09.08/day_38_1.PNG" width="700"> | <img src="../../training/Spring-Boot/2026.09.08/day_38_2.PNG" width="700"> |
 | :---: | :---: |
-| **1** | **2** |
+| **isEqualTo(3)일 경우** | **isEqualTo(2)일 경우** |
 | <img src="../../training/Spring-Boot/2026.09.08/day_38_3.PNG" width="700"> | <img src="../../training/Spring-Boot/2026.09.08/day_38_4.PNG" width="700"> |
-| **3** | **공백일 경우** |
+| **RepeatedTest(3)일 경우** | **Disabled("잠시 중단")일 경우"** |
+
+Unit 테스트를 통해 Repository의 메서드가 예상한 결과를 반환하는지 직접 검증하는 방법을 배웠다.
+@BeforeEach와 @AfterEach를 이용해 테스트 전후의 데이터를 준비하고 정리했으며, assertThat()으로 실제 결과와 예상 결과를 비교하였다. 
+데이터가 2개 들어가 있기 때문에 isEqualTo(3)으로하고 테스트를 하면 오류가 나고, @RepeatedTest를 사용하면 같은 테스트를 반복 실행할 수 있다.
+또한 @Disabled를 사용하면 특정 테스트를 일시적으로 실행하지 않을 수 있다는 것을 확인하였다.
