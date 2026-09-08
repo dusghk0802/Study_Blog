@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr th:each="member : ${memberList}">
+        <td th:text="${member.name}">코사</td>
+        <td th:text="${member.email}">kosa@kosa.co.kr</td>
+        <td th:text="${member.age}">11</td>
+    </tr>
+</table>
+
+</body>
+</html>
