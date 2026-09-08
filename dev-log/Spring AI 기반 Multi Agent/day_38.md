@@ -391,3 +391,9 @@ public String 목록조회(Model model) {
     확인하였다.
 
 ---
+
+| <img src="../../training/Web/2026.08.20/day_24_2.JPG" width="700"> | <img src="../../training/Web/2026.08.20/day_24_3.JPG" width="700"> |
+| :---: | :---: |
+| **1** | **2** |
+| <img src="../../training/Web/2026.08.20/day_24_4.JPG" width="700"> | <img src="../../training/Web/2026.08.20/day_24_5.JPG" width="700"> |
+| **3** | **공백일 경우** |
