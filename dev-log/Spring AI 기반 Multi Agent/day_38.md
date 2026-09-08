@@ -7,6 +7,8 @@
 📌 학습 내용 : JPA 연관관계, `@ManyToOne`, `@OneToMany`, Cascade, JPA
 Auditing, Service 계층, JUnit 테스트, Thymeleaf, Model 데이터 전달
 
+---
+
 ## JPA 연관관계
 
 #### 다대일 관계 설정
@@ -365,47 +367,7 @@ public String 목록조회(Model model) {
 `th:each`를 사용하여 List에 들어 있는 데이터를 하나씩 반복하면서
 테이블에 출력하였다.
 
-## 상품 목록 출력 실습
-
-``` java
-@GetMapping("/상품목록경로")
-public String 상품목록조회(Model model) {
-
-    var 상품목록 = List.of(
-            상품클래스명.builder()
-                    .기본키(값)
-                    .상품명(값)
-                    .가격(값)
-                    .재고(값)
-                    .build()
-    );
-
-    model.addAttribute("상품목록속성명", 상품목록);
-
-    return "상품목록템플릿파일명";
-}
-```
-
-``` html
-<table>
-    <tr>
-        <th>상품번호</th>
-        <th>상품명</th>
-        <th>가격</th>
-        <th>재고</th>
-    </tr>
-
-    <tr th:each="상품 : ${상품목록속성명}">
-        <td th:text="${상품.기본키}">1</td>
-        <td th:text="${상품.상품명}">상품</td>
-        <td th:text="${상품.가격}">0</td>
-        <td th:text="${상품.재고}">0</td>
-    </tr>
-</table>
-```
-
-상품 목록을 Model에 담아 전달하고 `th:each`를 이용하여 상품번호, 상품명,
-가격, 재고를 테이블 형태로 반복 출력하였다.
+---
 
 ## 핵심 정리
 
@@ -428,18 +390,4 @@ public String 상품목록조회(Model model) {
 -   JPA 데이터 처리부터 테스트와 Thymeleaf 화면 출력까지 연결되는 흐름을
     확인하였다.
 
-## 느낀점
-
-JPA 연관관계를 설정하고 부모 데이터를 삭제했을 때 연결된 데이터까지 함께
-삭제되는 과정을 Postman으로 직접 확인하면서 `cascade`가 실제로 어떻게
-동작하는지 이해하는 데 도움이 되었다.
-
-Repository와 Service 테스트에서는 테스트 전에 데이터를 준비하고 실행 후
-다시 정리하는 과정이 필요하다는 점을 배웠다. 단순히 코드를 실행하는 것과
-달리 예상한 결과와 실제 결과가 같은지 직접 확인하는 방식이라 처음에는
-조금 헷갈렸지만 테스트 코드의 역할을 이해할 수 있었다.
-
-Thymeleaf에서는 Controller에서 만든 객체나 목록을 `Model`에 담아 HTML로
-전달하고 `${}`와 `th:each`를 이용해 화면에 출력하는 과정을 실습했다.
-이전에 배운 백엔드의 데이터 처리 과정이 실제 HTML 화면까지 어떻게
-이어지는지 확인할 수 있어서 전체적인 흐름을 이해하는 데 도움이 되었다.
+---
