@@ -4,180 +4,212 @@
 
 📌 학습일 : 2026.09.09
 
-📌 학습 내용 : Spring Data JPA, Thymeleaf, 회원 등록·수정, Controller와 RestController, Spring Security, BCrypt, 권한 설정
+📌 학습 내용 : Spring Data JPA, Thymeleaf, 회원 관리, Spring Security,
+BCrypt, 권한 설정
 
 ---
 
-## 회원 엔티티와 Repository 구성
+#### 1. 회원 Entity와 Repository 구성
 
-```java
+``` java
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class 엔티티클래스명 {
+public class 회원엔티티 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long 아이디;
+    private Long 번호;
     private String 이름;
     private String 이메일;
     private Integer 나이;
 }
 ```
 
-`@Entity`를 사용해 클래스를 데이터베이스 테이블과 연결하고, `@Id`와 `@GeneratedValue`를 이용해 기본키가 자동으로 생성되도록 설정하였다.
+-   `@Entity` : JPA가 관리하는 Entity로 지정한다.
+-   `@Id` : 기본키를 지정한다.
+-   `@GeneratedValue` : 기본키 값을 자동 생성한다.
 
-```java
-public interface 저장소인터페이스명
-        extends JpaRepository<엔티티클래스명, Long> {
+``` java
+public interface 회원Repository
+        extends JpaRepository<회원엔티티, Long> {
 }
 ```
 
-`JpaRepository`를 상속받아 별도의 SQL문을 직접 작성하지 않고 회원 저장, 조회, 수정, 삭제 기능을 사용할 수 있도록 하였다.
+`JpaRepository`를 상속하여 별도의 SQL문을 직접 작성하지 않고 회원
+데이터를 저장, 조회, 수정, 삭제할 수 있도록 구성하였다.
 
-## 회원 등록
+#### 2. 회원 등록
 
-```java
-@GetMapping("/회원/추가")
-public String 회원추가화면() {
-    return "회원-폼";
+``` java
+@GetMapping("/member/add")
+public String 회원등록화면(){
+    return "member-form";
 }
 
-@PostMapping("/회원/추가")
-public String 회원추가(엔티티클래스명 회원) {
-    저장소객체.save(회원);
-    return "redirect:/홈";
+@PostMapping("/member/add")
+public String 회원등록(회원엔티티 회원){
+    회원Repository.save(회원);
+    return "redirect:/home";
 }
 ```
 
-GET 요청으로 회원 등록 화면을 보여주고, POST 요청으로 입력받은 회원 정보를 `save()`를 이용해 저장하였다.
+`GET` 요청으로 회원 등록 화면을 불러오고, 입력한 회원 정보는 `POST`
+요청으로 전달받아 `save()`를 이용해 저장하였다.
 
-```html
-<form th:action="@{/회원/추가}" method="post">
-    이름: <input type="text" name="이름"><br>
-    이메일: <input type="text" name="이메일"><br>
-    나이: <input type="text" name="나이"><br>
+``` html
+<form th:action="@{/member/add}" method="post">
+    이름: <input type="text" name="name"><br>
+    이메일: <input type="text" name="email"><br>
+    나이: <input type="text" name="age"><br>
     <button>가입자 생성</button>
 </form>
 ```
 
-Thymeleaf의 `th:action`을 이용하여 폼 데이터를 Controller로 전달하였다.
+Thymeleaf의 `th:action`을 이용하여 입력한 회원 정보를 Controller로
+전달하였다.
 
-## 회원 수정
+#### 3. 회원 수정
 
-```java
-@GetMapping("/회원/수정")
+``` java
+@GetMapping("/member/update")
 public String 회원수정화면(
-        @RequestParam("아이디") Long 아이디,
+        @RequestParam("id") Long 번호,
         Model 모델) {
 
-    엔티티클래스명 회원 =
-            저장소객체.findById(아이디).orElseThrow();
+    회원엔티티 회원 =
+            회원Repository.findById(번호).orElseThrow();
 
-    모델.addAttribute("회원", 회원);
-    return "회원-수정-폼";
+    모델.addAttribute("member", 회원);
+
+    return "member-update-form";
 }
 ```
 
-수정할 회원의 ID를 전달받아 `findById()`로 기존 정보를 조회하고 `Model`에 담아 수정 화면으로 전달하였다.
+수정할 회원의 번호를 전달받아 `findById()`로 기존 정보를 조회한 뒤
+`Model`에 담아 수정 화면으로 전달하였다.
 
-```html
-<form th:action="@{/회원/수정}" method="post">
-    <input type="hidden" name="아이디" th:value="${회원.아이디}">
-    이름: <input type="text" name="이름" th:value="${회원.이름}"><br>
-    이메일: <input type="text" name="이메일" th:value="${회원.이메일}"><br>
-    나이: <input type="text" name="나이" th:value="${회원.나이}"><br>
+``` html
+<form th:action="@{/member/update}" method="post">
+
+    <input type="hidden"
+           name="id"
+           th:value="${member.id}">
+
+    이름:
+    <input type="text"
+           name="name"
+           th:value="${member.name}"><br>
+
+    이메일:
+    <input type="text"
+           name="email"
+           th:value="${member.email}"><br>
+
+    나이:
+    <input type="text"
+           name="age"
+           th:value="${member.age}"><br>
+
     <button>가입자 수정</button>
 </form>
 ```
 
-`th:value`로 기존 회원 정보를 입력창에 표시하고, ID는 `hidden`으로 함께 전달하였다.
+`th:value`를 이용해 기존 회원 정보를 입력창에 표시하고, 회원 번호는
+`hidden`으로 함께 전달하였다.
 
-```java
-@PostMapping("/회원/수정")
-public String 회원수정(엔티티클래스명 회원) {
-    저장소객체.save(회원);
-    return "redirect:/홈";
+``` java
+@PostMapping("/member/update")
+public String 회원수정(회원엔티티 회원){
+    회원Repository.save(회원);
+    return "redirect:/home";
 }
 ```
 
-수정된 회원 객체를 다시 `save()`하여 변경된 정보를 저장하였다.
+기존 회원의 번호가 포함된 객체를 다시 `save()`하여 회원 정보를
+수정하였다.
 
-## 회원 목록과 Thymeleaf
+#### 4. 회원 목록과 Thymeleaf
 
-```java
-@GetMapping("/회원/목록")
+``` java
+@GetMapping("/members")
 public String 회원목록(Model 모델) {
-    모델.addAttribute("회원목록", 회원목록);
-    return "회원-목록";
+
+    모델.addAttribute("members", 회원목록);
+
+    return "members";
 }
 ```
 
 Controller에서 회원 목록을 `Model`에 담아 HTML로 전달하였다.
 
-```html
-<tr th:each="회원 : ${회원목록}">
-    <td th:text="${회원.아이디}"></td>
-    <td th:text="${회원.이름}"></td>
-    <td th:text="${회원.이메일}"></td>
+``` html
+<tr th:each="member : ${members}">
+    <td th:text="${member.id}"></td>
+    <td th:text="${member.name}"></td>
+    <td th:text="${member.email}"></td>
 </tr>
 ```
 
-`th:each`로 회원 목록을 반복하고 `th:text`를 이용해 각 회원의 정보를 출력하였다.
+-   `th:each` : 회원 목록을 하나씩 반복한다.
+-   `th:text` : 회원 객체의 값을 HTML 화면에 출력한다.
+-   `Model` : Controller의 데이터를 HTML 화면으로 전달한다.
 
-## Controller와 RestController
+#### 5. Controller와 RestController
 
-```java
+``` java
 @Controller
-public class 컨트롤러클래스명 {
+public class 화면Controller {
 
-    @GetMapping("/회원/목록")
-    public String 회원목록(Model 모델) {
-        return "회원-목록";
+    @GetMapping("/members")
+    public String 회원목록(Model 모델){
+        return "members";
     }
 }
 ```
 
-`@Controller`를 이용해 HTML 화면을 반환하는 방식을 실습하였다.
+`@Controller`는 주로 HTML과 같은 화면을 반환할 때 사용한다.
 
-```java
+``` java
 @RestController
-public class API컨트롤러클래스명 {
+public class APIController {
 
-    @GetMapping("/api/회원")
-    public List<엔티티클래스명> 회원목록() {
+    @GetMapping("/api/members")
+    public List<회원엔티티> 회원목록(){
         return 회원목록;
     }
 }
 ```
 
-`@RestController`에서는 객체나 리스트를 직접 응답 데이터로 반환하는 방식을 확인하였다.
+`@RestController`는 객체나 리스트 등의 데이터를 HTTP 응답으로 직접
+반환할 때 사용한다.
 
-## Spring Security 기본 설정
+#### 6. Spring Security 기본 사용자 설정
 
-```properties
+``` properties
 spring.security.user.name=사용자명
 spring.security.user.password=비밀번호
 spring.security.user.role=USER,ADMIN
 ```
 
-Spring Security에서 사용할 기본 사용자 이름, 비밀번호, 권한을 설정하였다.
+`application.properties`에서 Spring Security의 기본 사용자 이름,
+비밀번호와 권한을 설정하였다.
 
-## 회원 비밀번호와 권한
+#### 7. 회원 비밀번호와 권한 추가
 
-```java
+``` java
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class 엔티티클래스명 {
+public class 회원엔티티 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long 아이디;
+    private Long 번호;
     private String 이름;
     private String 이메일;
     private Integer 나이;
@@ -186,50 +218,57 @@ public class 엔티티클래스명 {
 }
 ```
 
-회원 정보에 로그인에 필요한 비밀번호와 사용자의 접근 권한을 저장할 필드를 추가하였다.
+회원 정보에 로그인 인증에 필요한 비밀번호와 사용자의 접근 권한을 저장할
+필드를 추가하였다.
 
-## 이메일을 이용한 회원 조회
+일반 사용자는 `ROLE_USER`, 관리자는 `ROLE_ADMIN` 권한을 사용하도록
+설정하였다.
 
-```java
-public interface 저장소인터페이스명
-        extends JpaRepository<엔티티클래스명, Long> {
+#### 8. 이메일을 이용한 회원 조회
 
-    Optional<엔티티클래스명> findByEmail(String 이메일);
+``` java
+public interface 회원Repository
+        extends JpaRepository<회원엔티티, Long> {
+
+    Optional<회원엔티티> findByEmail(String 이메일);
 }
 ```
 
-로그인할 회원을 이메일로 찾을 수 있도록 `findByEmail()`을 작성하였다. `Optional`을 사용하여 회원이 존재하지 않는 경우도 처리할 수 있도록 하였다.
+Spring Data JPA의 쿼리 메서드를 이용하여 이메일을 기준으로 회원을
+조회하도록 하였다.
 
-## BCrypt 비밀번호 암호화
+`Optional`을 사용하여 해당 이메일을 가진 회원이 존재하지 않는 경우도
+처리할 수 있도록 구성하였다.
 
-```java
-var 비밀번호암호화객체 = new BCryptPasswordEncoder();
+#### 9. BCrypt를 이용한 비밀번호 암호화
 
-저장소객체.save(
-        엔티티클래스명.builder()
-                .name("사용자이름")
-                .email("사용자이메일")
-                .age(나이)
-                .password(비밀번호암호화객체.encode("비밀번호"))
+``` java
+var 비밀번호암호화 = new BCryptPasswordEncoder();
+
+회원Repository.save(
+        회원엔티티.builder()
+                .name("회원명")
+                .email("member@test.com")
+                .age(20)
+                .password(비밀번호암호화.encode("1234"))
                 .authority("ROLE_USER")
                 .build()
 );
 ```
 
-`BCryptPasswordEncoder`를 이용해 비밀번호를 암호화한 뒤 데이터베이스에 저장하였다.
+비밀번호를 그대로 데이터베이스에 저장하지 않고 `BCryptPasswordEncoder`의
+`encode()`를 이용해 암호화한 뒤 저장하였다.
 
-일반 사용자에게는 `ROLE_USER`, 관리자에게는 `ROLE_ADMIN` 권한을 지정하였다.
+#### 10. UserDetailsService 설정
 
-## UserDetailsService
-
-```java
+``` java
 @Bean
 public UserDetailsService 사용자정보서비스(
-        저장소인터페이스명 저장소객체) {
+        회원Repository 회원Repository) {
 
     return username -> {
 
-        var 회원 = 저장소객체
+        var 회원 = 회원Repository
                 .findByEmail(username)
                 .orElseThrow();
 
@@ -242,60 +281,66 @@ public UserDetailsService 사용자정보서비스(
 }
 ```
 
-로그인할 때 입력한 사용자 정보를 이용해 데이터베이스에서 회원을 조회하고, 조회된 비밀번호와 권한 정보를 Spring Security에서 사용할 수 있도록 연결하는 과정을 실습하였다.
+로그인할 때 입력한 이메일을 기준으로 데이터베이스에서 회원 정보를
+조회하고, 조회한 이메일, 비밀번호, 권한 정보를 Spring Security에서
+사용할 수 있도록 연결하였다.
 
-## PasswordEncoder
+#### 11. PasswordEncoder 등록
 
-```java
+``` java
 @Bean
-public PasswordEncoder 비밀번호암호화() {
+public PasswordEncoder 비밀번호암호화(){
     return new BCryptPasswordEncoder();
 }
 ```
 
-`BCryptPasswordEncoder`를 Bean으로 등록하여 Spring Security에서 비밀번호를 처리할 수 있도록 하였다.
+`BCryptPasswordEncoder`를 Bean으로 등록하여 Spring Security에서
+비밀번호를 처리할 수 있도록 하였다.
 
-## 페이지 접근 권한
+#### 12. 페이지 접근 권한 설정
 
-```java
+``` java
 http.authorizeHttpRequests(권한 -> 권한
-        .requestMatchers("/", "/홈").permitAll()
-        .requestMatchers("/회원/**").hasAnyAuthority("ROLE_ADMIN")
+        .requestMatchers("/", "/home").permitAll()
+        .requestMatchers("/member/**")
+        .hasAnyAuthority("ROLE_ADMIN")
         .anyRequest().authenticated()
 );
 ```
 
-URL에 따라 접근할 수 있는 사용자의 권한을 다르게 설정하였다.
+-   `permitAll()` : 로그인하지 않아도 접근할 수 있다.
+-   `hasAnyAuthority("ROLE_ADMIN")` : 관리자 권한을 가진 사용자만 접근할
+    수 있다.
+-   `authenticated()` : 로그인한 사용자만 접근할 수 있다.
 
-- `permitAll()` : 누구나 접근 가능
-- `hasAnyAuthority()` : 지정된 권한을 가진 사용자만 접근 가능
-- `authenticated()` : 로그인한 사용자만 접근 가능
+URL에 따라 일반 사용자와 관리자가 접근할 수 있는 페이지를 구분하였다.
 
-회원 관련 페이지는 관리자 권한을 가진 사용자만 접근하도록 설정하였다.
+#### 13. 로그인과 로그아웃
 
-## 로그인과 로그아웃
-
-```java
+``` java
 .formLogin(Customizer.withDefaults())
 .logout(Customizer.withDefaults());
 ```
 
-Spring Security에서 제공하는 기본 로그인 화면과 로그아웃 기능을 적용하였다.
+Spring Security에서 제공하는 기본 로그인 화면과 로그아웃 기능을
+적용하였다.
 
----
+#### 핵심 정리
 
-## 핵심 정리
-
-- JPA를 이용해 회원 정보를 저장하고 조회하였다.
-- GET과 POST 요청을 이용해 회원 등록과 수정 기능을 구현하였다.
-- `Model`을 통해 Controller의 데이터를 Thymeleaf로 전달하였다.
-- `th:each`, `th:text`, `th:value`를 이용해 데이터를 화면에 출력하였다.
-- `@Controller`와 `@RestController`의 차이를 실습하였다.
-- 회원 정보에 비밀번호와 권한을 추가하였다.
-- 이메일을 이용해 로그인할 회원을 조회하였다.
-- BCrypt를 이용해 비밀번호를 암호화하였다.
-- Spring Security에서 사용자 정보와 데이터베이스의 회원 정보를 연결하였다.
-- 일반 사용자와 관리자에 따라 페이지 접근 권한을 다르게 설정하였다.
-- 기본 로그인과 로그아웃 기능을 적용하였다.
+-   Spring Data JPA를 이용하여 회원 데이터를 저장하고 조회하였다.
+-   `GET`, `POST` 요청을 이용하여 회원 등록과 수정 기능을 구현하였다.
+-   `Model`을 이용하여 Controller의 데이터를 Thymeleaf 화면으로
+    전달하였다.
+-   `th:each`, `th:text`, `th:value`를 이용하여 회원 정보를 화면에
+    표시하였다.
+-   `@Controller`와 `@RestController`의 차이를 확인하였다.
+-   회원 정보에 로그인에 필요한 비밀번호와 권한을 추가하였다.
+-   이메일을 기준으로 로그인할 회원 정보를 조회하였다.
+-   BCrypt를 이용하여 비밀번호를 암호화하였다.
+-   `UserDetailsService`를 이용하여 데이터베이스의 회원 정보와 Spring
+    Security를 연결하였다.
+-   `ROLE_USER`, `ROLE_ADMIN`을 이용하여 사용자별 접근 권한을
+    설정하였다.
+-   Spring Security의 기본 로그인과 로그아웃 기능을 적용하였다.
 
 ---
