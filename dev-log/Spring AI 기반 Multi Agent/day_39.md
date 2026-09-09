@@ -347,5 +347,7 @@ Spring Security에서 제공하는 기본 로그인 화면과 로그아웃 기�
 
 ---
 
-
+<p align="center">
+  <img src="../../training/Spring-Boot/2026.09.05/day_36_2.PNG" alt="day_36" width="700">
+</p>
 Postman의 Authorization에서 Basic Auth를 설정하고 Username과 Password를 입력하여 인증이 필요한 API를 호출하는 방법을 배웠다. 인증 정보가 올바르면 GET /api/members 요청에 대해 200 OK가 반환되고 회원 데이터를 정상적으로 조회할 수 있다는 것을 확인하였다.
