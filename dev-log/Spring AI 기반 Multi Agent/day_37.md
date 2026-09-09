@@ -1,37 +1,26 @@
-# 37일차
+# 39일차
 
-## Spring Boot JPA 회원·게시글 API 구현
+## Spring Boot 회원 관리 및 Spring Security
 
-📌 학습일 : 2026.09.07
+📌 학습일 : 2026.09.09
 
-📌 학습 내용 : DTO, Entity, JpaRepository, Service, Controller, JPA
-Auditing, 연관관계, REST API, Postman 테스트
+📌 학습 내용 : Spring Data JPA, Thymeleaf, 회원 관리, Spring Security,
+BCrypt, 권한 설정
 
 ---
 
-#### 1. 회원 요청·응답 DTO
-
-클라이언트에서 전달받는 데이터와 클라이언트에게 반환하는 데이터를
-분리하기 위해 Request DTO와 Response DTO를 사용한다.
+#### 1. 회원 Entity와 Repository 구성
 
 ``` java
+@Entity
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class 요청DTO {
-    private String 이름;
-    private String 이메일;
-    private Integer 나이;
-}
-```
+@AllArgsConstructor
+public class 회원엔티티 {
 
-``` java
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class 응답DTO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long 번호;
     private String 이름;
     private String 이메일;
@@ -39,15 +28,176 @@ public class 응답DTO {
 }
 ```
 
--   Request DTO는 회원 생성 시 전달받을 데이터를 정의한다.
--   Response DTO는 데이터베이스의 Entity를 그대로 반환하지 않고 필요한
-    데이터만 전달할 때 사용한다.
--   `@Data`를 사용하여 Getter, Setter 등을 자동 생성한다.
--   `@Builder`를 사용하여 객체를 필요한 값으로 조립할 수 있다.
+-   `@Entity` : JPA가 관리하는 Entity로 지정한다.
+-   `@Id` : 기본키를 지정한다.
+-   `@GeneratedValue` : 기본키 값을 자동 생성한다.
 
-#### 2. 회원 Entity와 JPA 설정
+``` java
+public interface 회원Repository
+        extends JpaRepository<회원엔티티, Long> {
+}
+```
 
-Entity는 데이터베이스 테이블과 연결되는 클래스이다.
+`JpaRepository`를 상속하여 별도의 SQL문을 직접 작성하지 않고 회원
+데이터를 저장, 조회, 수정, 삭제할 수 있도록 구성하였다.
+
+#### 2. 회원 등록
+
+``` java
+@GetMapping("/member/add")
+public String 회원등록화면(){
+    return "member-form";
+}
+
+@PostMapping("/member/add")
+public String 회원등록(회원엔티티 회원){
+    회원Repository.save(회원);
+    return "redirect:/home";
+}
+```
+
+`GET` 요청으로 회원 등록 화면을 불러오고, 입력한 회원 정보는 `POST`
+요청으로 전달받아 `save()`를 이용해 저장하였다.
+
+``` html
+<form th:action="@{/member/add}" method="post">
+    이름: <input type="text" name="name"><br>
+    이메일: <input type="text" name="email"><br>
+    나이: <input type="text" name="age"><br>
+    <button>가입자 생성</button>
+</form>
+```
+
+Thymeleaf의 `th:action`을 이용하여 입력한 회원 정보를 Controller로
+전달하였다.
+
+#### 3. 회원 수정
+
+``` java
+@GetMapping("/member/update")
+public String 회원수정화면(
+        @RequestParam("id") Long 번호,
+        Model 모델) {
+
+    회원엔티티 회원 =
+            회원Repository.findById(번호).orElseThrow();
+
+    모델.addAttribute("member", 회원);
+
+    return "member-update-form";
+}
+```
+
+수정할 회원의 번호를 전달받아 `findById()`로 기존 정보를 조회한 뒤
+`Model`에 담아 수정 화면으로 전달하였다.
+
+``` html
+<form th:action="@{/member/update}" method="post">
+
+    <input type="hidden"
+           name="id"
+           th:value="${member.id}">
+
+    이름:
+    <input type="text"
+           name="name"
+           th:value="${member.name}"><br>
+
+    이메일:
+    <input type="text"
+           name="email"
+           th:value="${member.email}"><br>
+
+    나이:
+    <input type="text"
+           name="age"
+           th:value="${member.age}"><br>
+
+    <button>가입자 수정</button>
+</form>
+```
+
+`th:value`를 이용해 기존 회원 정보를 입력창에 표시하고, 회원 번호는
+`hidden`으로 함께 전달하였다.
+
+``` java
+@PostMapping("/member/update")
+public String 회원수정(회원엔티티 회원){
+    회원Repository.save(회원);
+    return "redirect:/home";
+}
+```
+
+기존 회원의 번호가 포함된 객체를 다시 `save()`하여 회원 정보를
+수정하였다.
+
+#### 4. 회원 목록과 Thymeleaf
+
+``` java
+@GetMapping("/members")
+public String 회원목록(Model 모델) {
+
+    모델.addAttribute("members", 회원목록);
+
+    return "members";
+}
+```
+
+Controller에서 회원 목록을 `Model`에 담아 HTML로 전달하였다.
+
+``` html
+<tr th:each="member : ${members}">
+    <td th:text="${member.id}"></td>
+    <td th:text="${member.name}"></td>
+    <td th:text="${member.email}"></td>
+</tr>
+```
+
+-   `th:each` : 회원 목록을 하나씩 반복한다.
+-   `th:text` : 회원 객체의 값을 HTML 화면에 출력한다.
+-   `Model` : Controller의 데이터를 HTML 화면으로 전달한다.
+
+#### 5. Controller와 RestController
+
+``` java
+@Controller
+public class 화면Controller {
+
+    @GetMapping("/members")
+    public String 회원목록(Model 모델){
+        return "members";
+    }
+}
+```
+
+`@Controller`는 주로 HTML과 같은 화면을 반환할 때 사용한다.
+
+``` java
+@RestController
+public class APIController {
+
+    @GetMapping("/api/members")
+    public List<회원엔티티> 회원목록(){
+        return 회원목록;
+    }
+}
+```
+
+`@RestController`는 객체나 리스트 등의 데이터를 HTTP 응답으로 직접
+반환할 때 사용한다.
+
+#### 6. Spring Security 기본 사용자 설정
+
+``` properties
+spring.security.user.name=사용자명
+spring.security.user.password=비밀번호
+spring.security.user.role=USER,ADMIN
+```
+
+`application.properties`에서 Spring Security의 기본 사용자 이름,
+비밀번호와 권한을 설정하였다.
+
+#### 7. 회원 비밀번호와 권한 추가
 
 ``` java
 @Entity
@@ -60,469 +210,140 @@ public class 회원엔티티 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long 번호;
-
     private String 이름;
-
-    @Column(unique = true)
     private String 이메일;
-
     private Integer 나이;
     private String 비밀번호;
-    private Boolean 활성화여부;
+    private String 권한;
 }
 ```
 
--   `@Entity` : JPA가 관리하는 Entity로 지정한다.
--   `@Id` : 기본키를 지정한다.
--   `@GeneratedValue` : 기본키 값을 자동 생성한다.
--   `@Column(unique = true)` : 해당 컬럼의 중복값을 허용하지 않는다.
+회원 정보에 로그인 인증에 필요한 비밀번호와 사용자의 접근 권한을 저장할
+필드를 추가하였다.
 
-#### 3. JpaRepository를 이용한 데이터 처리
+일반 사용자는 `ROLE_USER`, 관리자는 `ROLE_ADMIN` 권한을 사용하도록
+설정하였다.
 
-`JpaRepository`를 상속하면 기본적인 CRUD 기능을 직접 SQL로 작성하지
-않아도 사용할 수 있다.
+#### 8. 이메일을 이용한 회원 조회
 
 ``` java
-@Repository
 public interface 회원Repository
         extends JpaRepository<회원엔티티, Long> {
+
+    Optional<회원엔티티> findByEmail(String 이메일);
 }
 ```
 
-대표적으로 사용할 수 있는 메서드는 다음과 같다.
+Spring Data JPA의 쿼리 메서드를 이용하여 이메일을 기준으로 회원을
+조회하도록 하였다.
+
+`Optional`을 사용하여 해당 이메일을 가진 회원이 존재하지 않는 경우도
+처리할 수 있도록 구성하였다.
+
+#### 9. BCrypt를 이용한 비밀번호 암호화
 
 ``` java
-save(객체);          // 등록 및 수정
-findAll();           // 전체 조회
-findById(번호);      // 한 건 조회
-deleteById(번호);    // 삭제
+var 비밀번호암호화 = new BCryptPasswordEncoder();
+
+회원Repository.save(
+        회원엔티티.builder()
+                .name("회원명")
+                .email("member@test.com")
+                .age(20)
+                .password(비밀번호암호화.encode("1234"))
+                .authority("ROLE_USER")
+                .build()
+);
 ```
 
-#### 4. Service에서 DTO와 Entity 변환
+비밀번호를 그대로 데이터베이스에 저장하지 않고 `BCryptPasswordEncoder`의
+`encode()`를 이용해 암호화한 뒤 저장하였다.
 
-Service에서는 Controller에서 받은 요청 데이터를 Entity로 변환하여
-저장하고, 조회한 Entity를 Response DTO로 변환한다.
+#### 10. UserDetailsService 설정
 
 ``` java
-public 응답DTO create(요청DTO 요청) {
+@Bean
+public UserDetailsService 사용자정보서비스(
+        회원Repository 회원Repository) {
 
-    var 엔티티 = 회원엔티티.builder()
-            .이름(요청.get이름())
-            .이메일(요청.get이메일())
-            .나이(요청.get나이())
-            .활성화여부(true)
-            .build();
+    return username -> {
 
-    repository.save(엔티티);
+        var 회원 = 회원Repository
+                .findByEmail(username)
+                .orElseThrow();
 
-    return mapToResponse(엔티티);
+        return User.builder()
+                .username(회원.getEmail())
+                .password(회원.getPassword())
+                .authorities(회원.getAuthority())
+                .build();
+    };
 }
 ```
 
-Entity를 Response DTO로 변환하는 로직을 별도의 메서드로 작성하면 여러
-기능에서 반복해서 사용할 수 있다.
+로그인할 때 입력한 이메일을 기준으로 데이터베이스에서 회원 정보를
+조회하고, 조회한 이메일, 비밀번호, 권한 정보를 Spring Security에서
+사용할 수 있도록 연결하였다.
+
+#### 11. PasswordEncoder 등록
 
 ``` java
-private 응답DTO mapToResponse(회원엔티티 엔티티) {
-    return 응답DTO.builder()
-            .번호(엔티티.get번호())
-            .이름(엔티티.get이름())
-            .이메일(엔티티.get이메일())
-            .나이(엔티티.get나이())
-            .build();
+@Bean
+public PasswordEncoder 비밀번호암호화(){
+    return new BCryptPasswordEncoder();
 }
 ```
 
-#### 5. Stream을 이용한 여러 회원 등록 및 전체 조회
+`BCryptPasswordEncoder`를 Bean으로 등록하여 Spring Security에서
+비밀번호를 처리할 수 있도록 하였다.
 
-여러 개의 요청 데이터를 한 번에 처리하기 위해 `List`와 Stream을
-사용하였다.
+#### 12. 페이지 접근 권한 설정
 
 ``` java
-@Transactional
-public List<응답DTO> createBatch(List<요청DTO> 요청목록) {
-    return 요청목록.stream()
-            .map(this::create)
-            .toList();
-}
+http.authorizeHttpRequests(권한 -> 권한
+        .requestMatchers("/", "/home").permitAll()
+        .requestMatchers("/member/**")
+        .hasAnyAuthority("ROLE_ADMIN")
+        .anyRequest().authenticated()
+);
 ```
 
-전체 회원 조회에서도 Entity 목록을 Response DTO 목록으로 변환할 수 있다.
+-   `permitAll()` : 로그인하지 않아도 접근할 수 있다.
+-   `hasAnyAuthority("ROLE_ADMIN")` : 관리자 권한을 가진 사용자만 접근할
+    수 있다.
+-   `authenticated()` : 로그인한 사용자만 접근할 수 있다.
+
+URL에 따라 일반 사용자와 관리자가 접근할 수 있는 페이지를 구분하였다.
+
+#### 13. 로그인과 로그아웃
 
 ``` java
-public List<응답DTO> findAll() {
-    return repository.findAll()
-            .stream()
-            .map(this::mapToResponse)
-            .toList();
-}
+.formLogin(Customizer.withDefaults())
+.logout(Customizer.withDefaults());
 ```
 
-#### 6. 회원 CRUD API 구현
-
-Controller에서는 HTTP 요청을 받아 Service의 기능을 호출한다.
-
-``` java
-@PostMapping
-public List<응답DTO> post(@RequestBody List<요청DTO> 요청목록) {
-    return service.createBatch(요청목록);
-}
-
-@GetMapping
-public List<응답DTO> get() {
-    return service.findAll();
-}
-
-@GetMapping("/{id}")
-public 회원엔티티 get(@PathVariable Long id) {
-    return service.findById(id).orElse(null);
-}
-
-@PutMapping("/{id}")
-public 회원엔티티 update(
-        @PathVariable Long id,
-        @RequestBody 회원엔티티 엔티티) {
-
-    엔티티.set번호(id);
-    return service.save(엔티티);
-}
-
-@DeleteMapping("/{id}")
-public void delete(@PathVariable Long id) {
-    service.deleteById(id);
-}
-```
-
-사용한 HTTP 메서드의 역할은 다음과 같다.
-
-  HTTP 메서드   기능
-  ------------- -------------
-  `POST`        데이터 등록
-  `GET`         데이터 조회
-  `PUT`         데이터 수정
-  `DELETE`      데이터 삭제
-
-#### 7. 게시글 DTO 구성
-
-게시글 등록과 수정에서는 제목과 내용을 Request DTO로 전달받는다.
-
-``` java
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class 게시글요청DTO {
-    private String 제목;
-    private String 내용;
-}
-```
-
-응답 DTO에는 게시글뿐만 아니라 작성 회원 정보와 생성·수정 시간을 포함할
-수 있다.
-
-``` java
-@Data
-@Builder
-public class 게시글응답DTO {
-    private Long 번호;
-    private Long 회원번호;
-    private String 회원이름;
-    private String 이메일;
-    private String 제목;
-    private String 내용;
-    private Date 생성일시;
-    private Date 수정일시;
-}
-```
-
-#### 8. 회원과 게시글의 연관관계
-
-여러 게시글이 하나의 회원을 참조하는 구조이므로 `@ManyToOne`을 사용한다.
-
-``` java
-@Entity
-@EntityListeners(AuditingEntityListener.class)
-public class 게시글엔티티 {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long 번호;
-
-    private String 제목;
-    private String 내용;
-
-    @CreatedDate
-    private Date 생성일시;
-
-    @LastModifiedDate
-    private Date 수정일시;
-
-    @ManyToOne
-    private 회원엔티티 회원;
-}
-```
-
--   `@ManyToOne` : 여러 게시글이 하나의 회원과 연결되는 다대일 관계를
-    설정한다.
--   `@CreatedDate` : 데이터가 처음 생성된 시간을 자동 저장한다.
--   `@LastModifiedDate` : 데이터가 수정된 시간을 자동 갱신한다.
--   `@EntityListeners(AuditingEntityListener.class)` : JPA Auditing이
-    Entity의 생성·수정 시간을 처리하도록 한다.
-
-#### 9. 회원의 게시글 생성
-
-게시글을 생성할 때 URL에서 회원 번호를 전달받아 해당 회원을 먼저 조회한
-뒤 게시글과 연결한다.
-
-``` java
-public 게시글응답DTO create(Long 회원번호, 게시글요청DTO 요청) {
-
-    회원엔티티 회원 = 회원Repository.findById(회원번호)
-            .orElseThrow();
-
-    게시글엔티티 게시글 = 게시글엔티티.builder()
-            .제목(요청.get제목())
-            .내용(요청.get내용())
-            .회원(회원)
-            .build();
-
-    게시글Repository.save(게시글);
-
-    return mapToResponse(게시글);
-}
-```
-
-게시글 생성 API는 다음과 같이 구성한다.
-
-``` java
-@PostMapping("/{id}/articles")
-@ResponseStatus(HttpStatus.CREATED)
-public 게시글응답DTO postArticle(
-        @PathVariable Long id,
-        @RequestBody 게시글요청DTO 요청) {
-
-    return 게시글Service.create(id, 요청);
-}
-```
-
-정상적으로 생성되면 `201 Created` 상태를 확인할 수 있다.
-
-#### 10. 게시글 전체 조회와 회원별 조회
-
-전체 게시글은 `findAll()`을 이용하여 조회한 뒤 Response DTO로 변환한다.
-
-``` java
-public List<게시글응답DTO> findAll() {
-    return 게시글Repository.findAll()
-            .stream()
-            .map(this::mapToResponse)
-            .toList();
-}
-```
-
-특정 회원의 게시글만 조회할 때는 회원 번호를 기준으로 필터링하였다.
-
-``` java
-public List<게시글응답DTO> findByMemberId(Long 회원번호) {
-    return 게시글Repository.findAll()
-            .stream()
-            .filter(게시글 -> 게시글.get회원().get번호().equals(회원번호))
-            .map(this::mapToResponse)
-            .toList();
-}
-```
-
-#### 11. 게시글 한 건 조회
-
-게시글 번호를 이용하여 특정 게시글 하나를 조회한다.
-
-``` java
-public 게시글응답DTO findById(Long 게시글번호) {
-
-    게시글엔티티 게시글 = 게시글Repository.findById(게시글번호)
-            .orElseThrow();
-
-    return mapToResponse(게시글);
-}
-```
-
-Controller에서는 Path Variable로 게시글 번호를 전달받는다.
-
-``` java
-@GetMapping("/{id}")
-public 게시글응답DTO getArticle(@PathVariable Long id) {
-    return 게시글Service.findById(id);
-}
-```
-
-#### 12. 게시글 수정
-
-게시글 번호로 기존 데이터를 조회한 뒤 제목과 내용을 변경하고 저장한다.
-
-``` java
-public 게시글응답DTO update(Long 게시글번호, 게시글요청DTO 요청) {
-
-    게시글엔티티 게시글 = 게시글Repository.findById(게시글번호)
-            .orElseThrow();
-
-    게시글.set제목(요청.get제목());
-    게시글.set내용(요청.get내용());
-
-    게시글Repository.save(게시글);
-
-    return mapToResponse(게시글);
-}
-```
-
-`@LastModifiedDate`가 적용되어 있으면 수정 시 `updated` 값도 변경된다.
-
-#### 13. 게시글 조회 API 경로 구분
-
-게시글 조회 조건에 따라 같은 `/articles` 경로를 서로 다르게 사용할 수
-있다.
-
-``` java
-@GetMapping
-public List<게시글응답DTO> getAllArticles() {
-    return 게시글Service.findAll();
-}
-
-@GetMapping(params = "memberId")
-public List<게시글응답DTO> getArticleByMemberId(
-        @RequestParam("memberId") Long 회원번호) {
-
-    return 게시글Service.findByMemberId(회원번호);
-}
-
-@GetMapping("/{id}")
-public 게시글응답DTO getArticle(@PathVariable Long id) {
-    return 게시글Service.findById(id);
-}
-```
-
-호출 주소는 다음과 같이 구분된다.
-
-``` text
-GET /articles
-GET /articles?memberId={회원번호}
-GET /articles/{게시글번호}
-```
-
-#### 14. Postman을 이용한 API 테스트
-
-구현한 API를 Postman에서 다음 순서로 테스트하였다.
-
-``` text
-POST /members
-→ 회원 생성 및 회원 id 확인
-
-POST /members/{id}/articles
-→ 해당 회원의 게시글 생성
-→ created / updated 자동 생성 확인
-
-GET /articles
-→ 전체 게시글 조회
-
-GET /articles?memberId={id}
-→ 특정 회원이 작성한 게시글 조회
-
-GET /articles/{id}
-→ 게시글 한 건 조회
-
-PUT /articles/{id}
-→ 게시글 제목과 내용 수정
-→ updated 변경 확인
-```
-
-`POST /members/{id}/articles` 요청에서는 회원 데이터가 아닌 게시글
-Request DTO에 맞는 JSON을 전달해야 한다.
-
-``` json
-{
-  "title": "게시글 제목",
-  "description": "게시글 내용"
-}
-```
+Spring Security에서 제공하는 기본 로그인 화면과 로그아웃 기능을
+적용하였다.
 
 ---
 
 #### 핵심 정리
 
--   DTO를 이용하여 요청 데이터와 응답 데이터를 분리할 수 있다.
--   Entity는 JPA를 통해 데이터베이스 테이블과 연결된다.
--   `JpaRepository`를 사용하면 기본적인 CRUD 기능을 간단하게 구현할 수
-    있다.
--   Service는 비즈니스 로직과 DTO·Entity 변환을 담당한다.
--   Controller는 URL과 HTTP 메서드를 매핑하여 클라이언트 요청을
-    처리한다.
--   `@ManyToOne`을 이용하여 회원과 게시글의 다대일 관계를 구성할 수
-    있다.
--   `@CreatedDate`, `@LastModifiedDate`를 이용하여 생성일과 수정일을
-    자동 관리할 수 있다.
--   `@PathVariable`은 URL 경로의 값을 받고, `@RequestParam`은 쿼리
-    파라미터 값을 받을 때 사용한다.
--   같은 URL이라도 `GET`, `POST`, `PUT`, `DELETE` 등 HTTP 메서드에 따라
-    서로 다른 기능을 수행한다.
--   Postman 테스트에서는 Controller에 정의한 HTTP 메서드와 URL, Request
-    DTO의 JSON 구조를 정확하게 맞춰야 한다.
+-   Spring Data JPA를 이용하여 회원 데이터를 저장하고 조회하였다.
+-   `GET`, `POST` 요청을 이용하여 회원 등록과 수정 기능을 구현하였다.
+-   `Model`을 이용하여 Controller의 데이터를 Thymeleaf 화면으로
+    전달하였다.
+-   `th:each`, `th:text`, `th:value`를 이용하여 회원 정보를 화면에
+    표시하였다.
+-   `@Controller`와 `@RestController`의 차이를 확인하였다.
+-   회원 정보에 로그인에 필요한 비밀번호와 권한을 추가하였다.
+-   이메일을 기준으로 로그인할 회원 정보를 조회하였다.
+-   BCrypt를 이용하여 비밀번호를 암호화하였다.
+-   `UserDetailsService`를 이용하여 데이터베이스의 회원 정보와 Spring
+    Security를 연결하였다.
+-   `ROLE_USER`, `ROLE_ADMIN`을 이용하여 사용자별 접근 권한을
+    설정하였다.
+-   Spring Security의 기본 로그인과 로그아웃 기능을 적용하였다.
 
 ---
 
-이번 실습에서 가장 어려웠던 부분은 회원과 게시글 API의 URL 구조를
-구분하고, 각 URL에서 사용할 HTTP 메서드를 정확하게 맞추는 부분이었다.
-
-특히 게시글 생성과 조회는 주소가 비슷하지만 서로 다른 Controller와 HTTP
-메서드를 사용한다.
-
-```java
-package com.example.demo.controller;
-
-import com.example.demo.dto.ArticleRequest;
-import com.example.demo.dto.ArticleResponse;
-import com.example.demo.service.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-@RestController
-@RequestMapping("/articles")
-public class ArticleController {
-    @Autowired
-    private ArticleService articleService;
-
-    @GetMapping
-    public List<ArticleResponse> getAllArticles(){
-        return articleService.findAll();
-    }
-
-    @GetMapping(params = "memberId")
-    public List<ArticleResponse> getArticleByMemberId(
-            @RequestParam("memberId") Long memberId){
-        return articleService.findByMemberId(memberId);
-    }
-    // 게시글 한 건 조회
-    @GetMapping("/{id}")
-    public ArticleResponse getArticle(
-            @PathVariable("id") Long id) {
-
-        return articleService.findById(id);
-    }
-
-    // 게시글 수정
-    @PutMapping("/{id}")
-    public ArticleResponse updateArticle(
-            @PathVariable("id") Long id,
-            @RequestBody ArticleRequest articleRequest) {
-
-        return articleService.update(id, articleRequest);
-    }
-}
-
-```
-
-`POST /members/1/articles`에서 회원 생성용 JSON을 보내면 Request DTO의 구조가 맞지 않아 `400 Bad Request`가 발생할 수 있고, POST만 정의된 `/members/1/articles`에 GET 요청을 보내면 `405 Method Not Allowed`가 발생할 수 있다는 점을 실습을 통해 확인하였다.
-
-처음에는 URL만 맞으면 요청이 실행되는 것으로 생각했지만, 실제 REST API에서는 URL뿐만 아니라 HTTP 메서드와 요청 Body의 데이터 구조까지 모두 일치해야 한다는 것을 알게 되었다. 특히 `400 Bad Request`와
-`405 Method Not Allowed` 오류를 직접 확인하면서 단순히 오류 메시지만
-보는 것이 아니라 Controller의 `@RequestMapping`, `@GetMapping`, `@PostMapping`, `@PutMapping`과 Request DTO를 함께 확인해야 한다는 점이 기억에 남았다. 앞으로 API 오류가 발생하면 URL, HTTP 메서드, 요청 JSON, Controller 매핑 순서로 확인하면 문제를 더 빠르게 찾을 수 있을 것 같다.
