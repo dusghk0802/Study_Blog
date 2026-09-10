@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      th:replace="~{base-layout::layout(~{::section})}">
+<body>
+<section class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>제목</td>
+            <td style="width: 20%;">작성자</td>
+            <td style="width: 20%;">수정날짜</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="article : ${page.content}">
+            <td th:text="${article.id}">id</td>
+            <!-- <td th:text="${article.title}">title</td> -->
+            <td><a th:text="${article.title}" th:href="@{/article/content(id=${article.id})}">title</a></td>
+            <td th:text="${article.name}">author</td>
+            <td th:text="${#temporals.format(article.updated,'yyyy-MM-dd HH:mm:ss')}">2024-06-30 09:03:19</td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="~{common::pager(${page}, '/article/list', 5)}"></div>
+    <a type="button" class="btn btn-primary" th:href="@{/article/add}" sec:authorize="isAuthenticated()">글쓰기</a>
+</section>
+</body>
+</html>
