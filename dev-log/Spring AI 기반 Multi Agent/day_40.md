@@ -477,3 +477,10 @@ DTO 변환 등의 실제 처리 로직을 담당하도록 구성하였다.
 <p align="center">
   <img src="../../training/Spring-Boot/2026.09.10/day_40_3.PNG" alt="day_40" width="700">
 </p>
+
+Gradle의 bootJar를 이용해 Spring Boot 프로젝트를 실행 가능한 JAR 파일로 빌드하는 방법을 배웠다. 
+</br>빌드가 완료되면 build/libs 폴더에 JAR 파일이 생성되는 것을 확인했고, 터미널에서 java -jar 파일명.jar 명령어를 사용해 직접 실행할 수 있다는 것을 알게 되었다. 
+</br>또한 build.gradle의 version 값을 변경하면 생성되는 JAR 파일명에도 해당 버전이 적용되는 것을 확인하였다.
+
+처음에는 JAR 파일을 실행하는 명령어를 잘못 입력해서 ClassNotFoundException 오류가 발생했고, 어디가 잘못된 건지 헷갈렸다. 
+</br>명령어를 다시 확인하면서 java 뒤에 -jar 옵션을 정확하게 입력해야 한다는 것을 알게 되었고, 직접 빌드한 JAR 파일이 실행되는 것을 보면서 프로젝트가 하나의 실행 파일로 만들어지는 과정을 이해할 수 있었다.
