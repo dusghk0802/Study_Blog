@@ -466,6 +466,14 @@ DTO 변환 등의 실제 처리 로직을 담당하도록 구성하였다.
 
 ---
 
-training/Spring-Boot/2026.09.10/day_40_1.PNG
+<p align="center">
+  <img src="../../training/Spring-Boot/2026.09.10/day_40_1.PNG" alt="day_40" width="700">
+</p>
 
+<p align="center">
+  <img src="../../training/Spring-Boot/2026.09.10/day_40_2.PNG" alt="day_40" width="700">
+</p>
 
+<p align="center">
+  <img src="../../training/Spring-Boot/2026.09.10/day_40_3.PNG" alt="day_40" width="700">
+</p>
