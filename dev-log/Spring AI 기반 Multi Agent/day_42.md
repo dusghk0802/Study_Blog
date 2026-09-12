@@ -393,7 +393,7 @@ grep testuser /etc/group
 ---
 
 <p align="center">
-  <img src="../../training/Spring-Boot/2026.09.12/day_42_1.PNG" alt="day_42" width="700">
+  <img src="../../training/Spring-Boot/2026.09.12/day_42_1.png" alt="day_42" width="700">
 </p>
 
 소프트 링크와 하드 링크는 설명만 봤을 때는 차이가 헷갈렸지만 `ls -li`와 `stat`을 이용하여 inode 번호를 직접 비교하고, 원본 파일의 이름을 변경하거나 삭제해 보면서 차이를 이해할 수 있었다.
