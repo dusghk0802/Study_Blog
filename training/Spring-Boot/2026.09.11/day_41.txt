@@ -4,10 +4,7 @@ See "man sudo_root" for details.
 
 
 # 패키지 목록 업데이트
-kosa@ubuntu:~/Desktop$ sudo apt update
-[sudo] password for kosa:
-Sorry, try again.
-[sudo] password for kosa:
+user@ubuntu:~/Desktop$ sudo apt update
 
 Hit:1 http://kr.archive.ubuntu.com/ubuntu noble InRelease
 Get:2 http://kr.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
@@ -22,7 +19,7 @@ Reading state information... Done
 
 
 # VMware Tools 설치
-kosa@ubuntu:~/Desktop$ sudo apt install open-vm-tools open-vm-tools-desktop -y
+user@ubuntu:~/Desktop$ sudo apt install open-vm-tools open-vm-tools-desktop -y
 
 Reading package lists... Done
 Building dependency tree... Done
@@ -55,156 +52,156 @@ After this operation, 13.2 MB of additional disk space will be used.
 
 
 # ls 기본 사용
-kosa@ubuntu:~/Desktop$ ls
+user@ubuntu:~/Desktop$ ls
 
-kosa@ubuntu:~/Desktop$ ls -l
+user@ubuntu:~/Desktop$ ls -l
 total 0
 
-kosa@ubuntu:~/Desktop$ ls -al
+user@ubuntu:~/Desktop$ ls -al
 total 8
 
-kosa@ubuntu:~/Desktop$ ls -la
+user@ubuntu:~/Desktop$ ls -la
 total 8
 
 
 # ls 매뉴얼
-kosa@ubuntu:~/Desktop$ man ls
+user@ubuntu:~/Desktop$ man ls
 
 
 # 현재 디렉터리 확인
-kosa@ubuntu:~/Desktop$ pwd
-/home/kosa/Desktop
+user@ubuntu:~/Desktop$ pwd
+/home/user/Desktop
 
 
 # 홈 디렉터리로 이동
-kosa@ubuntu:~/Desktop$ cd
+user@ubuntu:~/Desktop$ cd
 
-kosa@ubuntu:~$ pwd
-/home/kosa
+user@ubuntu:~$ pwd
+/home/user
 
 
 # /etc 디렉터리 이동
-kosa@ubuntu:~$ cd /etc
+user@ubuntu:~$ cd /etc
 
-kosa@ubuntu:/etc$ pwd
+user@ubuntu:/etc$ pwd
 /etc
 
-kosa@ubuntu:/etc$ ls
+user@ubuntu:/etc$ ls
 
 
 # /opt 디렉터리 이동
-kosa@ubuntu:~$ cd /opt
+user@ubuntu:~$ cd /opt
 
-kosa@ubuntu:/opt$ pwd
+user@ubuntu:/opt$ pwd
 /opt
 
-kosa@ubuntu:/opt$ ls -a
+user@ubuntu:/opt$ ls -a
 
 
 # /usr/lib → /usr → /etc 이동
-kosa@ubuntu:~$ cd /usr/lib
+user@ubuntu:~$ cd /usr/lib
 
-kosa@ubuntu:/usr/lib$ pwd
+user@ubuntu:/usr/lib$ pwd
 /usr/lib
 
-kosa@ubuntu:/usr/lib$ cd ..
+user@ubuntu:/usr/lib$ cd ..
 
-kosa@ubuntu:/usr$ pwd
+user@ubuntu:/usr$ pwd
 /usr
 
-kosa@ubuntu:/usr$ cd ../etc
+user@ubuntu:/usr$ cd ../etc
 
-kosa@ubuntu:/etc$ pwd
+user@ubuntu:/etc$ pwd
 /etc
 
 
 # nano로 hello 파일 작성
-kosa@ubuntu:~$ nano hello
+user@ubuntu:~$ nano hello
 
-kosa@ubuntu:~$ ls
+user@ubuntu:~$ ls
 
-kosa@ubuntu:~$ cat hello
+user@ubuntu:~$ cat hello
 hellow world!
 
 
 # nano로 hello2 파일 작성
-kosa@ubuntu:~$ nano hello2
+user@ubuntu:~$ nano hello2
 
-kosa@ubuntu:~$ ls
+user@ubuntu:~$ ls
 
-kosa@ubuntu:~$ cat hello2
+user@ubuntu:~$ cat hello2
 hhello world!
 ello world!
 hello world!
 
 
 # /proc 목록 확인
-kosa@ubuntu:~/Desktop$ ls -al /proc
+user@ubuntu:~/Desktop$ ls -al /proc
 total 4
 
 
 # /sys 목록 확인
-kosa@ubuntu:~/Desktop$ sudo ls -l /sys/
+user@ubuntu:~/Desktop$ sudo ls -l /sys/
 total 0
 
 
 # 홈 디렉터리의 숨김 파일까지 확인
-kosa@ubuntu:~/Desktop$ cd
+user@ubuntu:~/Desktop$ cd
 
-kosa@ubuntu:~$ ls -al | more
+user@ubuntu:~$ ls -al | more
 total 88
 
 
 # Downloads → Pictures 상대경로 이동
-kosa@ubuntu:~$ cd Downloads/
+user@ubuntu:~$ cd Downloads/
 
-kosa@ubuntu:~/Downloads$ cd ../Pictures/
+user@ubuntu:~/Downloads$ cd ../Pictures/
 
-kosa@ubuntu:~/Pictures$ pwd
-/home/kosa/Pictures
+user@ubuntu:~/Pictures$ pwd
+/home/user/Pictures
 
 
 # 존재하지 않는 경로 입력 시 발생한 오류
 bash: cd: ../Pictures: No such file or directory
 bash: cd: /gilbut: No such file or directory
-bash: /home/kosa/Pictures$: No such file or directory
+bash: /home/user/Pictures$: No such file or directory
 bash: cd: /home/ub/Pictures: No such file or directory
 bash: cd: /home/ubuntu/Pictures: No such file or directory
 bash: cd: /home/ubuntu/Pictures/: No such file or directory
 
 
 # 절대경로로 Pictures 이동
-kosa@ubuntu:~/Pictures$ cd /home/kosa/Pictures/
+user@ubuntu:~/Pictures$ cd /home/user/Pictures/
 
-kosa@ubuntu:~/Pictures$ pwd
-/home/kosa/Pictures
+user@ubuntu:~/Pictures$ pwd
+/home/user/Pictures
 
 
 # animals 디렉터리 관련 실습
-kosa@ubuntu:~/animals$ mkdir animals
+user@ubuntu:~/animals$ mkdir animals
 
-kosa@ubuntu:~/animals$ ls
+user@ubuntu:~/animals$ ls
 
-kosa@ubuntu:~/animals$ rm animals
+user@ubuntu:~/animals$ rm animals
 rm: cannot remove 'animals': Is a directory
 
-kosa@ubuntu:~/animals$ mkdir dog
+user@ubuntu:~/animals$ mkdir dog
 
-kosa@ubuntu:~/animals$ ls
+user@ubuntu:~/animals$ ls
 
-kosa@ubuntu:~/animals$ rm -r animals
+user@ubuntu:~/animals$ rm -r animals
 
-kosa@ubuntu:~/animals$ ls
+user@ubuntu:~/animals$ ls
 
 
 # 홈 디렉터리의 animlas 삭제
-kosa@ubuntu:~/animals$ cd
+user@ubuntu:~/animals$ cd
 
-kosa@ubuntu:~$ ls
+user@ubuntu:~$ ls
 
-kosa@ubuntu:~$ rm animlas
+user@ubuntu:~$ rm animlas
 rm: cannot remove 'animlas': Is a directory
 
-kosa@ubuntu:~$ rm -r animlas
+user@ubuntu:~$ rm -r animlas
 
-kosa@ubuntu:~$ ls
+user@ubuntu:~$ ls
