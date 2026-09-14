@@ -25,7 +25,9 @@ Spring AI 기반 Multi AI Agent 서비스
 
 #### 02. Java [➡️](./training/Java)
 
-#### 03. Web
+#### 03. Web [➡️](./training/Web)
+
+#### 04. React [➡️](./training/React)
 
 ---
 
