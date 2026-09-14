@@ -1,0 +1,398 @@
+sudo addgroup animals
+info: Selecting GID from range 1000 to 59999 ...
+info: Adding group `animals' (GID 1001) ...
+
+grep animals /etc/group
+animals:x:1001:
+
+sudo adduser --ingroup animals 유저명
+info: Adding user `dog' ...
+info: Adding new user `dog' (1001) with group `animals (1001)' ...
+info: Creating home directory `/home/dog' ...
+passwd: password updated successfully
+
+sudo adduser --ingroup animals 유저명
+info: Adding user `pig' ...
+info: Adding new user `pig' (1002) with group `animals (1001)' ...
+info: Creating home directory `/home/pig' ...
+passwd: password updated successfully
+
+sudo adduser --ingroup animals 유저명
+info: Adding user `duck' ...
+info: Adding new user `duck' (1003) with group `animals (1001)' ...
+info: Creating home directory `/home/duck' ...
+passwd: password updated successfully
+
+sudo addgroup fruits
+info: Selecting GID from range 1000 to 59999 ...
+info: Adding group `fruits' (GID 1002) ...
+
+sudo adduser --ingroup fruits 유저명
+info: Adding user `mango' ...
+info: Adding new user `mango' (1004) with group `fruits (1002)' ...
+info: Creating home directory `/home/mango' ...
+passwd: password updated successfully
+
+sudo adduser --ingroup fruits 유저명
+info: Adding user `banna' ...
+info: Adding new user `banna' (1005) with group `fruits (1002)' ...
+info: Creating home directory `/home/banna' ...
+passwd: password updated successfully
+
+su - 유저명
+Password:
+exit
+logout
+
+su 유저명
+Password:
+
+passwd
+Changing password for pig.
+Current password:
+New password:
+Retype new password:
+passwd: password updated successfully
+
+sudo su
+passwd 유저명
+New password:
+Retype new password:
+passwd: password updated successfully
+
+sudo adduser --ingroup animals 유저명
+info: Adding user `student1' ...
+info: Adding new user `student1' (1006) with group `animals (1001)' ...
+info: Creating home directory `/home/student1' ...
+passwd: password updated successfully
+
+sudo passwd 유저명
+New password:
+Retype new password:
+passwd: password updated successfully
+
+sudo deluser 유저명
+info: Removing crontab ...
+info: Removing user `student1' ...
+
+echo "hello_world" > normal_file
+ls -l normal_file
+-rw-rw-r-- 1 kosa kosa 11 Sep 14 11:07 normal_file
+
+sudo chown 유저명 normal_file
+ls -l normal_file
+-rw-rw-r-- 1 dog kosa 11 Sep 14 11:07 normal_file
+
+sudo chown 유저명:animals normal_file
+
+ls -l normal_file
+-rw-rw-r-- 1 dog animals 11 Sep 14 11:07 normal_file
+
+echo "hello" > greetings
+ls -l greetings
+-rw-rw-r-- 1 kosa kosa 6 Sep 14 11:23 greetings
+
+chmod 777 greetings
+ls -l greetings
+-rwxrwxrwx 1 kosa kosa 6 Sep 14 11:23 greetings
+
+chmod 644 greetings
+ls -l greetings
+-rw-r--r-- 1 kosa kosa 6 Sep 14 11:23 greetings
+
+chmod 000 greetings
+ls -l greetings
+---------- 1 kosa kosa 6 Sep 14 11:23 greetings
+
+chmod 644 greetings
+cat greetings
+hello
+
+chmod u+w greetings
+ls -l greetings
+-rw-r--r-- 1 kosa kosa 6 Sep 14 11:23 greetings
+
+chmod g-w greetings
+ls -l greetings
+-rw-r--r-- 1 kosa kosa 6 Sep 14 11:23 greetings
+
+whoami
+kosa
+
+cd /tmp
+sudo mkdir playground
+
+ls -l playground/
+total 0
+
+sudo chmod 777 playground/
+ls -l
+drwxrwxrwx 2 root root 4096 Sep 14 11:43 playground
+
+su - 유저명
+Password:
+whoami
+dog
+
+cd /tmp/playground
+pwd
+/tmp/playground
+echo "hello friends" > msg_from_dog
+ls -l msg_from_dog
+-rw-r--r-- 1 dog animals 14 Sep 14 12:07 msg_from_dog
+
+cat msg_from_dog
+hello friends
+
+su - 유저명
+Password:
+
+whoami
+mango
+
+cd /tmp/playground/
+
+ls -l msg_from_dog
+-rw-r--r-- 1 dog animals 14 Sep 14 12:07 msg_from_dog
+cat msg_from_dog
+hello friends
+chmod o-r msg_from_dog
+chmod: changing permissions of 'msg_from_dog': Operation not permitted
+
+su - 유저명
+Password:
+
+whoami
+pig
+
+cd /tmp/playground/
+cat msg_from_dog
+hello friends
+echo "hep~" > msg_from_dog
+-bash: msg_from_dog: Permission denied
+ls -l msg_from_dog
+-rw-rw---- 1 dog animals 5 Sep 14 12:20 msg_from_dog
+
+chmod o-r msg_from_dog
+ls -l msg_from_dog
+-rw-r----- 1 dog animals 14 Sep 14 12:07 msg_from_dog
+
+cat msg_from_dog
+hello friends
+chmod g-w msg_from_dog
+chmod g+w msg_from_dog
+
+cd /
+ls -l /
+
+su - 유저명
+Password:
+
+pwd
+/home/dog
+
+mkdir test_with_mango
+
+ls -l
+drwxr-xr-x 2 dog animals 4096 Sep 14 12:41 test_with_mango
+
+echo "echo i am the king" > test_with_mango/message
+
+cat test_with_mango/message
+echo i am the king
+
+ls -l test_with_mango/
+-rw-r--r-- 1 dog animals 19 Sep 14 12:42 message
+
+chmod a+x test_with_mango/message
+
+ls -l test_with_mango/
+-rwxr-xr-x 1 dog animals 19 Sep 14 12:42 message
+
+./test_with_mango/message
+i am the king
+
+su - 유저명
+Password:
+
+cd /home/dog
+-bash: cd: /home/dog: Permission denied
+
+ls -l /home
+
+chmod o+rx /home/dog
+chmod: changing permissions of '/home/dog': Operation not permitted
+
+su - 유저명
+Password:
+
+chmod o+rx /home/dog
+
+ls -l /home
+
+ls -l
+drwxr-xr-x 2 dog animals 4096 Sep 14 12:42 test_with_mango
+
+chmod o+w test_with_mango/
+
+ls -l
+drwxr-xrwx 2 dog animals 4096 Sep 14 12:42 test_with_mango
+
+cd /home/dog/
+cd test_with_mango/
+
+ls -l
+-rwxr-xr-x 1 dog animals 19 Sep 14 12:42 message
+
+echo "echo mango is the King" > message
+-bash: message: Permission denied
+
+echo "echo mango is the King" > reply
+
+ls -l
+-rwxr-xr-x 1 dog   animals 19 Sep 14 12:42 message
+-rw-r--r-- 1 mango fruits  23 Sep 14 14:20 reply
+
+./reply
+-bash: ./reply: Permission denied
+
+chmod a+x reply
+
+./reply
+mango is the King
+
+ls -l
+-rwxr-xr-x 1 dog   animals 19 Sep 14 12:42 message
+-rwxr-xr-x 1 mango fruits  23 Sep 14 14:20 reply
+
+whoami
+dog
+
+chmod o-rx /home/dog/
+
+ls -l /home
+
+mkdir secret_dir
+
+ls -l
+drwxr-xr-x 2 dog animals 4096 Sep 14 14:29 secret_dir
+drwxr-xrwx 2 dog animals 4096 Sep 14 14:26 test_with_mango
+
+chmod g-rwx secret_dir/
+
+ls -l
+
+echo "i love pig" > secret_dir/diary
+
+cat secret_dir/diary
+i love pig
+
+
+ls -al /home/dog/
+ls: cannot open directory '/home/dog/': Permission denied
+
+ls -al /home/dog/secret_dir
+ls: cannot access '/home/dog/secret_dir': Permission denied
+
+sudo su
+[sudo] password for mango:
+mango is not in the sudoers file.
+
+sudo su
+
+cd /home/dog
+
+ls -l
+drwx------ 2 dog animals 4096 Sep 14 14:32 secret_dir
+drwxr-xrwx 2 dog animals 4096 Sep 14 14:26 test_with_mango
+
+cd secret_dir/
+
+ls -l
+-rw-r--r-- 1 dog animals 11 Sep 14 14:32 diary
+
+cat diary
+i love pig
+
+
+ps
+ps -f
+ps -ef
+ps -ef --forest
+ps -ef | more
+sleep 300
+
+ps -ef | grep sleep
+kill PID
+ps -p PID
+sleep 300
+
+ps -ef | grep sleep
+kill -KILL PID
+killall -TERM sleep
+ping 8.8.8.8
+^C
+--- 8.8.8.8 ping statistics ---
+19 packets transmitted, 19 received, 0% packet loss
+
+
+ping -c 3 8.8.8.8
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss
+
+
+ping -c 3 8.8.8.8 &
+[1] 22875
+
+ping -c 10 8.8.8.8
+--- 8.8.8.8 ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss
+^Z
+[1]+ Stopped                 ping -c 10 8.8.8.8
+
+bg
+[1]+ ping -c 10 8.8.8.8 &
+ping -q -c 10 8.8.8.8
+
+^Z
+[1]+ Stopped                 ping -q -c 10 8.8.8.8
+
+bg
+[1]+ ping -q -c 10 8.8.8.8 &
+--- 8.8.8.8 ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss
+^C
+[1]+ Done                    ping -q -c 10 8.8.8.8
+
+cd
+touch practice.txt
+
+ls -l practice.txt
+-rw-rw-r-- 1 kosa kosa 0 Sep 14 16:07 practice.txt
+
+chmod 644 practice.txt
+ls -l practice.txt
+-rw-r--r-- 1 kosa kosa 0 Sep 14 16:07 practice.txt
+
+chmod 777 practice.txt
+ls -l practice.txt
+-rwxrwxrwx 1 kosa kosa 0 Sep 14 16:07 practice.txt
+
+chmod o-w practice.txt
+ls -l practice.txt
+-rwxrwxr-x 1 kosa kosa 0 Sep 14 16:07 practice.txt
+
+mkdir project
+chmod 777 project/
+ls -ld project/
+drwxrwxrwx 2 kosa kosa 4096 Sep 14 16:11 project/
+
+chmod o-w project/
+ls -ld project/
+drwxrwxr-x 2 kosa kosa 4096 Sep 14 16:11 project/
+
+sudo chown dog practice.txt
+[sudo] password for kosa:
+
+ls -ld practice.txt
+-rwxrwxr-x 1 dog kosa 0 Sep 14 16:07 practice.txt
