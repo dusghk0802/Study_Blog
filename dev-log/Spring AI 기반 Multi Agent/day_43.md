@@ -438,3 +438,7 @@ ls -ld 디렉터리명
 -   IPC에는 파이프, 메시지 큐, 소켓 등의 방식이 있다.
 
 ---
+
+<p align="center">
+  <img src="../../training/Spring-Boot/2026.09.14/day_43_1.png" alt="day_43" width="700">
+</p>
