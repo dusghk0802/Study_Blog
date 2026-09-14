@@ -7,7 +7,7 @@
 📌 학습 내용 : 사용자·그룹 관리, `/etc/passwd`, `/etc/group`, 소유권과
 권한, 프로세스, 스레드, 표준 스트림, 포어그라운드·백그라운드 작업, IPC
 
-------------------------------------------------------------------------
+---
 
 #### 1. 사용자 정보와 /etc/passwd
 
@@ -440,5 +440,5 @@ ls -ld 디렉터리명
 ---
 
 <p align="center">
-  <img src="../../training/Spring-Boot/2026.09.14/day_43_1.png" alt="day_43" width="700">
+  <img src="../../training/React/2026.09.14/day_43_1.png" alt="day_43" width="700">
 </p>
