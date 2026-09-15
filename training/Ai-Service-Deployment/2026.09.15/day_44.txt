@@ -1,0 +1,864 @@
+# ==========================================
+# 01. 출력 리다이렉션 >
+# > 는 명령어의 표준 출력을 파일에 저장하며, 기존 내용이 있으면 덮어쓴다.
+# ==========================================
+
+user@ubuntu:~$ mkdir redirect-test
+user@ubuntu:~$ cd redirect-test/
+
+user@ubuntu:~/redirect-test$ echo "hello word" > greetings
+
+user@ubuntu:~/redirect-test$ ls -l
+total 4
+-rw-rw-r-- 1 user user 11 Sep 15 09:31 greetings
+
+user@ubuntu:~/redirect-test$ cat greetings
+hello word
+
+
+# ==========================================
+# 02. > 를 이용한 파일 내용 덮어쓰기
+# ==========================================
+
+user@ubuntu:~/redirect-test$ echo "hi~~~" > greetings
+
+user@ubuntu:~/redirect-test$ cat greetings
+hi~~~
+
+
+# ==========================================
+# 03. >> 를 이용한 파일 내용 추가
+# >> 는 기존 내용을 유지하면서 명령어의 표준 출력을 파일 끝에 추가한다.
+# ==========================================
+
+user@ubuntu:~/redirect-test$ echo "hi here" >> greetings
+
+user@ubuntu:~/redirect-test$ cat greetings
+hi~~~
+hi here
+
+user@ubuntu:~/redirect-test$ echo "how are you?" >> greetings
+
+user@ubuntu:~/redirect-test$ cat greetings
+hi~~~
+hi here
+how are you?
+
+
+# ==========================================
+# 04. 표준 에러 리다이렉션 2>
+# 2> 는 명령 실행 중 발생한 표준 에러(stderr)를 파일에 저장한다.
+# ==========================================
+
+user@ubuntu:~/redirect-test$ this is error command 2> errmsg
+
+user@ubuntu:~/redirect-test$ cat errmsg
+Command 'this' not found, did you mean:
+  command 'thin' from deb thin (1.8.1-2ubuntu1)
+Try: sudo apt install <deb name>
+
+
+# ==========================================
+# 05. 표준 출력과 표준 에러 분리
+# > 는 표준 출력(stdout), 2> 는 표준 에러(stderr)를 각각 다른 파일로 저장할 수 있다.
+# ==========================================
+
+user@ubuntu:~/redirect-test$ ping -c 1 www.google.com > stdout 2> stderror
+
+user@ubuntu:~/redirect-test$ cat stdout
+PING www.google.com (...) 56(84) bytes of data.
+64 bytes from ...: icmp_seq=1 ttl=128 time=30.7 ms
+
+--- www.google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+
+user@ubuntu:~/redirect-test$ cat stderror
+
+
+# ==========================================
+# 06. 입력 리다이렉션 <
+# < 는 파일의 내용을 명령어의 표준 입력(stdin)으로 전달한다.
+# ==========================================
+
+user@ubuntu:~/redirect-test$ wc < lyrics
+11 99 480
+
+
+# ==========================================
+# 07. grep을 이용한 문자열 검색
+# ==========================================
+
+user@ubuntu:~/redirect-test$ grep "Baa" < lyrics
+Baa, baa, black sheep Have you any wool? Yes, sir, yes, sir
+And one for the dame One for the little boy Who lives down the lane Baa, baa, black sheep Have you any wool? Yes, sir, yes, sir
+Baa, baa, black sheep Have you any wool? Yes, sir, yesz sir
+And one for the dame One for the little boy Who lives down the lane Baa baa, black sheep
+
+
+# ==========================================
+# 08. grep 결과를 새로운 파일에 저장
+# ==========================================
+
+user@ubuntu:~/redirect-test$ grep "Baa" < lyrics > blacksheep
+
+user@ubuntu:~/redirect-test$ cat blacksheep
+Baa, baa, black sheep Have you any wool? Yes, sir, yes, sir
+And one for the dame One for the little boy Who lives down the lane Baa, baa, black sheep Have you any wool? Yes, sir, yes, sir
+Baa, baa, black sheep Have you any wool? Yes, sir, yesz sir
+And one for the dame One for the little boy Who lives down the lane Baa baa, black sheep
+
+
+# ==========================================
+# 09. 명령어 결과를 파일로 저장 후 grep 검색
+# ==========================================
+
+user@ubuntu:~/redirect-test$ ls /etc > result
+
+user@ubuntu:~/redirect-test$ grep cron result
+anacrontab
+cron.d
+cron.daily
+cron.hourly
+cron.monthly
+crontab
+cron.weekly
+cron.yearly
+
+
+# ==========================================
+# 10. 파이프 | 사용
+# | 는 앞 명령어의 출력 결과를 뒤 명령어의 입력으로 전달한다.
+# $? 는 바로 직전에 실행한 명령어의 종료 상태를 확인한다. 일반적으로 0은 성공, 0 이외의 값은 다른 상태를 의미한다.
+# ==========================================
+
+user@ubuntu:~/redirect-test$ cat lyrics | grep boy
+And one for the dame One for the little boy Who lives down the lane Baa, baa, black sheep Have you any wool? Yes, sir, yes, sir
+And one for the dame One for the little boy Who lives down the lane Baa baa, black sheep
+
+user@ubuntu:~/redirect-test$ echo $?
+0
+
+user@ubuntu:~/redirect-test$ cat lyrics | grep girl
+
+user@ubuntu:~/redirect-test$ echo $?
+1
+
+user@ubuntu:~/redirect-test$ cat lyrics | grep girl | wc
+0 0 0
+
+user@ubuntu:~/redirect-test$ echo $?
+0
+
+
+# ==========================================
+# 11. APT 패키지 개수 확인
+# ==========================================
+
+user@ubuntu:~$ apt list | wc -l
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+85626
+
+user@ubuntu:~$ apt list --installed | wc -l
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+1521
+
+
+# ==========================================
+# 12. 패키지 목록 업데이트
+# apt update는 설치 가능한 패키지의 최신 목록을 저장소에서 갱신한다.
+# ==========================================
+
+user@ubuntu:~$ sudo apt update
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+168 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+
+# ==========================================
+# 13. yq 패키지 설치
+# ==========================================
+
+user@ubuntu:~$ sudo apt install yq
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+
+The following NEW packages will be installed:
+  python3-argcomplete python3-toml python3-xmltodict yq
+
+0 upgraded, 4 newly installed, 0 to remove and 168 not upgraded.
+
+Do you want to continue? [Y/n] y
+
+Setting up yq (3.1.0-3) ...
+
+
+# ==========================================
+# 14. yq 패키지 삭제
+# ==========================================
+
+user@ubuntu:~$ sudo apt remove yq
+
+The following packages will be REMOVED:
+  yq
+
+0 upgraded, 0 newly installed, 1 to remove and 168 not upgraded.
+
+Do you want to continue? [Y/n] y
+
+Removing yq (3.1.0-3) ...
+
+
+# ==========================================
+# 15. yq 패키지 재설치
+# ==========================================
+
+user@ubuntu:~$ sudo apt install yq
+
+The following NEW packages will be installed:
+  yq
+
+0 upgraded, 1 newly installed, 0 to remove and 168 not upgraded.
+
+Setting up yq (3.1.0-3) ...
+
+
+# ==========================================
+# 16. 패키지 삭제 취소
+# ==========================================
+
+user@ubuntu:~$ sudo apt remove yq
+
+The following packages will be REMOVED:
+  yq
+
+0 upgraded, 0 newly installed, 1 to remove and 168 not upgraded.
+
+Do you want to continue? [Y/n] n
+Abort.
+
+
+# ==========================================
+# 17. 불필요한 패키지 자동 삭제
+# autoremove는 지정 패키지와 함께 더 이상 필요하지 않은 의존 패키지를 제거할 수 있으므로 제거 목록을 확인한다.
+# ==========================================
+
+user@ubuntu:~$ sudo apt autoremove yq
+
+The following packages will be REMOVED:
+  libgl1-amber-dri libglapi-mesa libwoff1 python3-argcomplete python3-toml python3-xmltodict yq
+
+0 upgraded, 0 newly installed, 7 to remove and 167 not upgraded.
+
+Do you want to continue? [Y/n] y
+
+Removing libgl1-amber-dri:amd64 ...
+Removing libglapi-mesa:amd64 ...
+Removing libwoff1:amd64 ...
+Removing yq (3.1.0-3) ...
+Removing python3-argcomplete ...
+Removing python3-toml ...
+Removing python3-xmltodict ...
+
+
+# ==========================================
+# 18. systemd 서비스 설정 확인
+# systemctl cat은 서비스에 적용되는 unit 설정 내용을 확인할 때 사용한다.
+# ==========================================
+
+user@ubuntu:~$ systemctl cat snapd.service
+
+[Unit]
+Description=Snap Daemon
+After=snapd.socket
+After=time-set.target
+After=snapd.mounts.target
+Wants=time-set.target
+Wants=snapd.mounts.target
+Requires=snapd.socket
+OnFailure=snapd.failure.service
+
+[Service]
+OOMScoreAdjust=-900
+ExecStart=/usr/lib/snapd/snapd
+EnvironmentFile=-/etc/environment
+EnvironmentFile=-/var/lib/snapd/environment/snapd.conf
+Restart=always
+RestartMode=direct
+WatchdogSec=5m
+Type=notify
+NotifyAccess=all
+SuccessExitStatus=42
+
+
+# ==========================================
+# 19. 서비스 실행 스크립트 생성 및 권한 확인
+# ==========================================
+
+user@ubuntu:~$ nano /tmp/myservie.sh
+
+user@ubuntu:~$ ls /tmp/myservie.sh
+/tmp/myservie.sh
+
+user@ubuntu:~$ ls -l /tmp/myservie.sh
+-rw-rw-r-- 1 user user 107 Sep 15 10:39 /tmp/myservie.sh
+
+user@ubuntu:~$ chmod +x /tmp/myservie.sh
+
+user@ubuntu:~$ ls -l /tmp/myservie.sh
+-rwxrwxr-x 1 user user 107 Sep 15 10:39 /tmp/myservie.sh
+
+
+# ==========================================
+# 20. systemd 서비스 파일 생성
+# /etc/systemd/system 아래에 사용자 정의 서비스 unit 파일을 작성한다.
+# ==========================================
+
+user@ubuntu:~$ sudo nano /etc/systemd/system/myservice.service
+
+user@ubuntu:~$ cat /etc/systemd/system/myservice.service
+
+[Unit]
+Description=My Test Service
+
+[Service]
+ExecStart=/tmp/myservice.sh
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
+
+
+# ==========================================
+# 21. 서비스 스크립트 수정 및 실행 권한 부여
+# unit 파일을 생성하거나 수정한 뒤 daemon-reload로 systemd 설정을 다시 읽어 적용한다.
+# ==========================================
+
+user@ubuntu:~$ sudo nano /tmp/myservice.sh
+
+user@ubuntu:~$ sudo chmod +x /tmp/myservice.sh
+
+user@ubuntu:~$ sudo systemctl daemon-reload
+
+user@ubuntu:~$ sudo systemctl restart myservice
+
+
+# ==========================================
+# 22. 서비스 상태 확인
+# ==========================================
+
+user@ubuntu:~$ sudo systemctl status myservice
+
+● myservice.service - My Test Service
+     Loaded: loaded (/etc/systemd/system/myservice.service; enabled; preset: enabled)
+     Active: active (running)
+   Main PID: 27414 (myservice.sh)
+      Tasks: 2
+     Memory: 952.0K
+        CPU: 9ms
+     CGroup: /system.slice/myservice.service
+             ├─27414 /bin/bash /tmp/myservice.sh
+             └─27421 sleep 10
+
+Sep 15 11:25:29 ubuntu systemd[1]: Started myservice.service - My Test Service.
+Sep 15 11:25:29 ubuntu myservice.sh[27414]: myservice is running...
+Sep 15 11:25:39 ubuntu myservice.sh[27414]: myservice is running...
+
+
+# ==========================================
+# 23. 서비스 자동 시작 활성화
+# enable은 부팅 시 서비스가 자동으로 시작되도록 설정한다.
+# ==========================================
+
+user@ubuntu:~$ sudo systemctl enable myservice
+
+user@ubuntu:~$ sudo systemctl status myservice
+
+● myservice.service - My Test Service
+     Loaded: loaded (/etc/systemd/system/myservice.service; enabled; preset: enabled)
+     Active: active (running)
+
+
+# ==========================================
+# 24. 서비스 시작 및 상태 확인
+# ==========================================
+
+user@ubuntu:~$ sudo systemctl start myservice
+
+user@ubuntu:~$ sudo systemctl status myservice
+
+● myservice.service - My Test Service
+     Loaded: loaded (/etc/systemd/system/myservice.service; enabled; preset: enabled)
+     Active: active (running)
+
+
+# ==================================================
+# 1. 디스크 사용량 확인
+# ==================================================
+
+# 파일 시스템의 디스크 사용량 확인
+user@ubuntu:~$ df
+Filesystem     1K-blocks     Used Available Use% Mounted on
+tmpfs              395616     2892    392724   1% /run
+/dev/sda2        20463184 11199884   8198496  58% /
+tmpfs             1978060        0   1978060   0% /dev/shm
+tmpfs                5120        8      5112   1% /run/lock
+tmpfs              395612      144    395468   1% /run/user/1000
+
+# /etc/passwd가 저장된 파일 시스템 확인
+user@ubuntu:~$ df /etc/passwd
+Filesystem     1K-blocks     Used Available Use% Mounted on
+/dev/sda2        20463184 11199884   8198496  58% /
+
+# 파일 시스템 정보 확인
+user@ubuntu:~$ df -k
+Filesystem     1K-blocks     Used Available Use% Mounted on
+tmpfs              395616     2892    392724   1% /run
+/dev/sda2        20463184 11199884   8198496  58% /
+tmpfs             1978060        0   1978060   0% /dev/shm
+tmpfs                5120        8      5112   1% /run/lock
+tmpfs              395612      144    395468   1% /run/user/1000
+
+
+# ==================================================
+# 2. 디렉터리 용량 확인
+# ==================================================
+
+# 현재 디렉터리의 파일 및 디렉터리 사용량 확인
+user@ubuntu:~$ du
+12      ./linktest
+4       ./testdir
+4       ./project
+4       ./Downloads
+4       ./Documents
+4       ./Desktop
+4       ./Pictures
+...
+14656   ./.cache
+4       ./Public
+4       ./Music
+
+# 사람이 읽기 쉬운 단위로 용량 확인
+user@ubuntu:~$ du -h
+12K     ./linktest
+4.0K    ./testdir
+4.0K    ./project
+4.0K    ./Downloads
+4.0K    ./Documents
+4.0K    ./Desktop
+4.0K    ./Pictures
+...
+15M     ./.cache
+4.0K    ./Public
+4.0K    ./Music
+
+
+# ==================================================
+# 3. 파일 검색
+# ==================================================
+
+# 현재 디렉터리 아래의 파일 검색
+user@ubuntu:~/redirect-test$ find .
+.
+./blacksheep
+./errmsg
+./lyrics
+./greetings
+./stderr
+./stderr
+./stdout
+./stdout
+
+# /etc에서 passwd 문자열이 포함된 경로 검색
+user@ubuntu:~/redirect-test$ sudo find /etc | grep "passwd"
+/etc/pam.d/chpasswd
+/etc/pam.d/passwd
+/etc/security/opasswd
+/etc/passwd-
+/etc/passwd
+
+# 이름이 정확히 passwd인 파일 검색
+user@ubuntu:~/redirect-test$ sudo find /etc -name "passwd"
+/etc/pam.d/passwd
+/etc/passwd
+
+# 파일명에 passwd가 포함된 파일 검색
+user@ubuntu:~/redirect-test$ sudo find /etc -name "*passwd*"
+/etc/pam.d/chpasswd
+/etc/pam.d/passwd
+/etc/security/opasswd
+/etc/passwd-
+/etc/passwd
+
+
+# ==================================================
+# 4. 파일 정보 확인
+# ==================================================
+
+user@ubuntu:~/redirect-test$ stat /etc/passwd
+  File: /etc/passwd
+  Size: 3072            Blocks: 8          IO Block: 4096   regular file
+Device: 8,2     Inode: 1099587     Links: 1
+Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
+
+# 간략한 형식으로 파일 정보 확인
+user@ubuntu:~/redirect-test$ stat -t /etc/passwd
+/etc/passwd 3072 8 81a4 0 0 802 1099587 1 0 0 1789436599 1789350129 1789350129 1789350129 4096
+
+
+# ==================================================
+# 5. 파일의 줄·단어·바이트 수 확인
+# ==================================================
+
+user@ubuntu:~/redirect-test$ wc /etc/passwd
+54 94 3072 /etc/passwd
+
+# 줄 수 확인
+user@ubuntu:~/redirect-test$ wc -l /etc/passwd
+54 /etc/passwd
+
+# 단어 수 확인
+user@ubuntu:~/redirect-test$ wc -w /etc/passwd
+94 /etc/passwd
+
+# 바이트 수 확인
+user@ubuntu:~/redirect-test$ wc -c /etc/passwd
+3072 /etc/passwd
+
+
+# ==================================================
+# 6. grep 문자열 검색
+# ==================================================
+
+# lyrics 파일에서 one 검색
+user@ubuntu:~/redirect-test$ grep "one" lyrics
+And one for the dame One for the little boy Who lives down the lane Baa, baa, black sheep Have you any wool? Yes, sir, yes, sir
+And one for the dame One for the little boy Who lives down the lane Baa baa, black sheep
+
+# 대소문자를 구분하지 않고 one 검색
+user@ubuntu:~/redirect-test$ grep -i "one" lyrics
+One for the master
+And one for the dame One for the little boy Who lives down the lane Baa, baa, black sheep Have you any wool? Yes, sir, yes, sir
+One for the master
+And one for the dame One for the little boy Who lives down the lane Baa baa, black sheep
+
+
+# ==================================================
+# 7. tar 압축 파일 생성
+# tar의 -c는 새 아카이브 생성, -f는 사용할 아카이브 파일명을 지정한다.
+# ==================================================
+
+# 실습 디렉터리 생성 및 이동
+user@ubuntu:~$ mkdir tar-test
+user@ubuntu:~$ cd tar-test/
+
+# /etc 목록을 파일로 저장
+user@ubuntu:~/tar-test$ ls -al /etc > etc-file
+user@ubuntu:~/tar-test$ ls -al /etc > etc-files
+
+# /etc/passwd 파일을 현재 디렉터리로 복사
+user@ubuntu:~/tar-test$ cp /etc/passwd .
+
+# /var/log/syslog 파일을 현재 디렉터리로 복사
+user@ubuntu:~/tar-test$ cp /var/log/syslog .
+
+# tar 아카이브 생성
+user@ubuntu:~/tar-test$ tar -c -f achive.tar passwd syslog
+
+# 아카이브 파일 확인
+user@ubuntu:~/tar-test$ ls -al archive.tar
+-rw-rw-r-- 1 user user 2560000 Sep 15 12:24 archive.tar
+
+
+# ==================================================
+# 8. tar 아카이브 해제
+# -x는 아카이브 해제, -v는 처리 파일 표시, -f는 아카이브 파일 지정 옵션이다.
+# ==================================================
+
+# 새 디렉터리에서 tar 아카이브 해제
+user@ubuntu:~/new-dir$ tar -xvf ../tar-test/archive.tar
+passwd
+syslog
+
+# 압축 해제 결과 확인
+user@ubuntu:~/new-dir$ ls -al
+total 2532
+drwxrwxr-x  2 user user    4096 Sep 15 12:32 .
+drwxr-x--- 21 user user    4096 Sep 15 12:28 ..
+-rw-rw-r--  1 user user   20712 Sep 15 12:32 etc-files
+-rw-r--r--  1 user user    3072 Sep 15 12:22 passwd
+-rw-r-----  1 user user 2552485 Sep 15 12:22 syslog
+
+
+# ==================================================
+# 9. 기존 tar 파일에 파일 추가
+# -r은 기존 tar 아카이브 뒤에 파일을 추가하고, -t는 아카이브 내부 목록을 확인한다.
+# ==================================================
+
+user@ubuntu:~/tar-test$ ls -al /etc > etc-files
+
+# archive.tar에 etc-files 추가
+user@ubuntu:~/tar-test$ tar -rvf archive.tar etc-files
+etc-files
+
+# tar 파일 내부 목록 확인
+user@ubuntu:~/tar-test$ tar -tvf archive.tar
+-rw-r--r-- user/user       3072 2026-09-15 12:22 passwd
+-rw-r----- user/user    2552485 2026-09-15 12:22 syslog
+-rw-rw-r-- user/user      20712 2026-09-15 12:34 etc-files
+
+# 기존 파일 삭제
+user@ubuntu:~/new-dir$ rm -f passwd syslog etc-files
+
+# archive.tar 다시 해제
+user@ubuntu:~/new-dir$ tar -xvf ../tar-test/archive.tar
+passwd
+syslog
+etc-files
+
+
+# ==================================================
+# 10. gzip 형식으로 압축
+# -z 옵션을 함께 사용하면 gzip 방식으로 압축된 tar 파일을 생성한다.
+# ==================================================
+
+user@ubuntu:~/new-dir$ pwd
+/home/user/new-dir
+
+user@ubuntu:~/new-dir$ cd
+user@ubuntu:~$ cd tar-test/
+
+# gzip 압축 tar 파일 생성
+user@ubuntu:~/tar-test$ tar -cvzf compress.tar.gz etc-files passwd syslog
+etc-files
+passwd
+syslog
+
+# 압축 파일 생성 확인
+user@ubuntu:~/tar-test$ ls -al
+-rw-rw-r-- 1 user user 383871 Sep 15 12:37 compress.tar.gz
+-rw-rw-r-- 1 user user  20712 Sep 15 12:34 etc-files
+-rw-r--r-- 1 user user   3072 Sep 15 12:22 passwd
+-rw-r----- 1 user user 2552485 Sep 15 12:22 syslog
+
+
+# ==================================================
+# 11. gzip 압축 해제
+# -xvzf는 gzip으로 압축된 tar 아카이브를 해제하면서 처리되는 파일명을 출력한다.
+# ==================================================
+
+user@ubuntu:~$ mkdir tgz-test
+user@ubuntu:~$ cd tgz-test/
+
+user@ubuntu:~/tgz-test$ tar -xvzf ../tar-test/compress.tar.gz
+etc-files
+passwd
+syslog
+
+user@ubuntu:~/tgz-test$ ls -al
+total 2532
+drwxrwxr-x  2 user user    4096 Sep 15 12:38 .
+drwxr-x--- 22 user user    4096 Sep 15 12:37 ..
+-rw-rw-r--  1 user user   20712 Sep 15 12:34 etc-files
+-rw-r--r--  1 user user    3072 Sep 15 12:22 passwd
+-rw-r-----  1 user user 2552485 Sep 15 12:22 syslog
+
+
+# ==================================================
+# 12. Bash 설정 파일 확인 및 적용
+# source는 현재 셸을 종료하지 않고 변경된 셸 설정을 즉시 적용한다.
+# ==================================================
+
+# .bashrc 내용 확인
+user@ubuntu:~$ cat ~/.bashrc
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+...
+
+# .bashrc 편집
+user@ubuntu:~$ nano .bashrc
+
+# 변경된 .bashrc 설정 적용
+user@ubuntu:~$ source .bashrc
+
+
+# ==================================================
+# 13. 파일 삭제
+# ==================================================
+
+user@ubuntu:~$ rm greetings
+
+user@ubuntu:~$ rm normal_file
+rm: remove write-protected regular file 'normal_file'? y
+
+
+# ==================================================
+# 14. systemd 서비스 로그 확인
+# ==================================================
+
+# 서비스 로그 파일 확인
+user@ubuntu:~$ cat /tmp/myservice.log
+Tue Sep 15 11:25:29 AM KST 2026
+Tue Sep 15 11:25:39 AM KST 2026
+Tue Sep 15 11:25:49 AM KST 2026
+...
+Tue Sep 15 11:28:10 AM KST 2026
+
+# systemd 서비스 로그 확인
+user@ubuntu:~$ journalctl -u myservice
+...
+Sep 15 11:25:29 ubuntu systemd[1]: Started myservice.service - My Test Service.
+Sep 15 11:25:29 ubuntu myservice.sh[27414]: myservice is running...
+Sep 15 11:25:39 ubuntu myservice.sh[27414]: myservice is running...
+Sep 15 11:25:49 ubuntu myservice.sh[27414]: myservice is running...
+...
+
+
+# ==================================================
+# 15. systemd 서비스 중지
+# ==================================================
+
+user@ubuntu:~$ sudo systemctl stop myservice
+
+# 서비스 상태 확인
+user@ubuntu:~$ sudo systemctl status myservice
+○ myservice.service - My Test Service
+     Loaded: loaded (/etc/systemd/system/myservice.service; enabled; preset: enabled)
+     Active: inactive (dead) since Tue 2026-09-15 11:28:37 KST
+     Process: 27414 ExecStart=/tmp/myservice.sh (code=killed, signal=TERM)
+     Main PID: 27414 (code=killed, signal=TERM)
+     CPU: 96ms
+
+
+# ==================================================
+# 16. systemd 서비스 자동 시작 비활성화
+# disable은 부팅 시 자동 시작 설정을 해제하며, 현재 실행 중인 서비스를 자동으로 중지하지는 않는다.
+# ==================================================
+
+user@ubuntu:~$ sudo systemctl disable myservice
+Removed "/etc/systemd/system/multi-user.target.wants/myservice.service".
+
+user@ubuntu:~$ sudo systemctl status myservice
+○ myservice.service - My Test Service
+     Loaded: loaded (/etc/systemd/system/myservice.service; disabled; preset: enabled)
+     Active: inactive (dead)
+
+
+# ==================================================
+# 17. systemd 실습 파일 삭제
+# ==================================================
+
+user@ubuntu:~$ sudo rm /etc/systemd/system/myservice.service
+user@ubuntu:~$ sudo rm /tmp/myservice.sh
+user@ubuntu:~$ sudo rm /tmp/myservice.log
+
+# tar-test 디렉터리로 이동
+user@ubuntu:~$ cd tar-test/
+
+# 기존 압축 파일 삭제
+user@ubuntu:~/tar-test$ rm -f archive.tar compress.tar.gz
+
+# 현재 파일 목록 확인
+user@ubuntu:~/tar-test$ ls -al
+total 5056
+drwxrwxr-x  2 user user    4096 Sep 15 14:05 .
+drwxr-x--- 22 user user    4096 Sep 15 12:37 ..
+-rw-rw-r--  1 user user 2560000 Sep 15 12:24 achive.tar
+-rw-rw-r--  1 user user   20712 Sep 15 12:34 etc-files
+-rw-rw-r--  1 user user   20712 Sep 15 12:21 etc-fule
+-rw-rw-r--  1 user user    3072 Sep 15 12:22 passwd
+-rw-r-----  1 user user 2552485 Sep 15 12:22 syslog
+
+# achive.tar 파일 삭제
+user@ubuntu:~/tar-test$ rm -f achive.tar
+
+# 삭제 후 파일 목록 확인
+user@ubuntu:~/tar-test$ ls -al
+total 2556
+drwxrwxr-x  2 user user    4096 Sep 15 14:06 .
+drwxr-x--- 22 user user    4096 Sep 15 12:37 ..
+-rw-rw-r--  1 user user   20712 Sep 15 12:34 etc-files
+-rw-rw-r--  1 user user   20712 Sep 15 12:21 etc-fule
+-rw-rw-r--  1 user user    3072 Sep 15 12:22 passwd
+-rw-r-----  1 user user 2552485 Sep 15 12:22 syslog
+
+
+# 현재 경로 확인
+user@ubuntu:~$ pwd
+/home/user
+
+# tar-test 디렉터리를 gzip 방식으로 압축
+user@ubuntu:~$ tar -cvzf dir-compress.tgz tar-test/
+tar-test/
+tar-test/syslog
+tar-test/etc-fule
+tar-test/dir-compress.tgz
+tar-test/etc-files
+tar-test/passwd
+
+# /tmp 디렉터리로 이동
+user@ubuntu:~$ cd /tmp
+
+# 압축 파일을 /tmp에 해제
+user@ubuntu:/tmp$ tar -xvzf ~/dir-compress.tgz
+tar-test/
+tar-test/syslog
+tar-test/etc-fule
+tar-test/dir-compress.tgz
+tar-test/etc-files
+tar-test/passwd
+
+# 압축 해제된 파일 확인
+user@ubuntu:/tmp$ ls tar-test/
+dir-compress.tgz  etc-files  etc-fule  passwd  syslog
+
+# 홈 디렉터리의 tar-test로 이동
+user@ubuntu:/tmp$ cd ~/tar-test
+
+# 파일 삭제
+user@ubuntu:~/tar-test$ rm dir-compress.tgz etc-fule
+rm: remove regular file 'dir-compress.tgz'? y
+rm: remove regular file 'etc-fule'? y
+
+# 삭제 후 파일 확인
+user@ubuntu:~/tar-test$ ls
+etc-files  passwd  syslog
+
+# 압축 실습용 디렉터리 생성
+user@ubuntu:~$ mkdir practice_exam
+user@ubuntu:~$ cd practice_exam/
+# 여러 개의 빈 실습 파일 생성
+user@ubuntu:~/practice_exam$ touch apple.txt banana.txt orange.log
+user@ubuntu:~/practice_exam$ ls
+apple.txt  banana.txt  orange.log
+user@ubuntu:~/practice_exam$ cd
+# 디렉터리 전체를 gzip 방식의 tar 파일로 압축
+user@ubuntu:~$ tar -cvzf practice_exam.tar.gz practice_exam/
+practice_exam/
+practice_exam/apple.txt
+practice_exam/banana.txt
+practice_exam/orange.log
+# 압축 해제 결과를 저장할 디렉터리 생성
+user@ubuntu:~$ mkdir /tmp/exam_restore
+# -C 옵션으로 지정한 디렉터리에 압축 해제
+user@ubuntu:~$ tar -xvzf practice_exam.tar.gz -C /tmp/exam_restore
+practice_exam/
+practice_exam/apple.txt
+practice_exam/banana.txt
+practice_exam/orange.log
+user@ubuntu:~$ ls -l /tmp/exam_restore/practice_exam
+total 0
+-rw-rw-r-- 1 user user 0 Sep 15 14:43 apple.txt
+-rw-rw-r-- 1 user user 0 Sep 15 14:43 banana.txt
+-rw-rw-r-- 1 user user 0 Sep 15 14:43 orange.log
+# 파일 시스템의 종류와 디스크 사용량 확인
+user@ubuntu:~$ df -T
+
+# 디스크 사용량을 사람이 읽기 쉬운 단위로 확인
+user@ubuntu:~$ df -h
