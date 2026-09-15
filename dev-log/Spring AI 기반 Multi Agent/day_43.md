@@ -440,7 +440,7 @@ ls -ld 디렉터리명
 ---
 
 <p align="center">
-  <img src="../../training/React/2026.09.14/day_43_1.png" alt="day_43" width="700">
+  <img src="../../training/Ai-Service-Deployment/2026.09.14/day_43_1.png" alt="day_43" width="700">
 </p>
 
 chmod 명령어를 사용해 파일의 읽기·쓰기·실행 권한을 변경하는 방법을 배웠다. 권한을 000으로 설정하면 파일을 읽을 수 없어 Permission denied가 발생하고, 
