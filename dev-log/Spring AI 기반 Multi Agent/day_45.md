@@ -508,3 +508,6 @@ function App() {
 <p align="center">
   <img src="../../training/React/2026.09.16/day_45_1.PNG" alt="day_45" width="700">
 </p>
+<p align="center">
+  <img src="../../training/React/2026.09.16/day_45_2.PNG" alt="day_45" width="700">
+</p>
