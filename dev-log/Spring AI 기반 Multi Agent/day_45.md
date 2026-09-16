@@ -505,3 +505,6 @@ function App() {
 
 ---
 
+<p align="center">
+  <img src="../../training/Ai-Service-Deployment/2026.09.15/day_44_1.png" alt="day_44" width="700">
+</p>
