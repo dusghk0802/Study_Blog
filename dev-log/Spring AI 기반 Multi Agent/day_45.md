@@ -2,7 +2,8 @@
 
 ## React 컴포넌트·Props·이벤트 및 모듈화
 
-📌 학습일 : 2026.09.16 📌 학습 내용 : JSX, 함수형 컴포넌트, Fragment,
+📌 학습일 : 2026.09.16 
+📌 학습 내용 : JSX, 함수형 컴포넌트, Fragment,
 Props, 구조분해할당, 배열 출력, key, React 이벤트, 이벤트 함수 전달,
 preventDefault, 컴포넌트 모듈화, export default, import, children, CSS
 스타일링
