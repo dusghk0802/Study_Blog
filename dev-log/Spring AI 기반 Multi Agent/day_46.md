@@ -243,6 +243,9 @@ const 값2 = 쿼리정보.get('항목2');
 
 ---
 
+<p align="center">
+  <img src="../../training/React/2026.09.17/day_46_1.PNG" alt="day_46" width="700">
+</p>
 ```jsx
 import {Link, NavLink} from 'react-router-dom'
 
