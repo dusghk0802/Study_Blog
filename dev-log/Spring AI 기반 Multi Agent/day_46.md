@@ -243,10 +243,23 @@ const 값2 = 쿼리정보.get('항목2');
 
 ---
 
-#### 배운점
+```jsx
+import {Link, NavLink} from 'react-router-dom'
 
-`useState`를 이용해 상태에 따라 화면을 변경하고, 폼에서 입력받은 값을 검증하여 State에 반영하는 방법을 배웠다. 객체와 배열을 State로 사용할 때는 기존 값을 직접 수정하면 화면에 바로 반영되지 않을 수 있으며, 스프레드 연산자로 새로운 객체를 만들어야 React가 변화를 인식한다는 것도 확인하였다. 또한 React Router를 이용해 URL별로 컴포넌트를 연결하고, 중첩 라우팅과 `Outlet`, 라우터 Hook을 사용하는 방법을 실습하였다.
+const TopNavi = () => {
+  return (<>
+    <nav> 
+      <a href='/'>Home</a>&nbsp;&nbsp; 
+      <NavLink to="/intro">인트로</NavLink>&nbsp;&nbsp;
+      <NavLink to="/intro/router">Router관련 Hook</NavLink>&nbsp;&nbsp;
+      <Link to="/xyz">잘못된 url</Link>&nbsp;&nbsp;
+    </nav>
+  </>)
+}
 
-#### 느낀점
+export default TopNavi
+```
 
-State까지는 이전에 배운 Props나 이벤트와 연결해서 어느 정도 이해할 수 있었지만, 얕은 비교에서 데이터를 직접 수정했을 때 화면에 바로 반영되지 않는 부분은 처음에는 헷갈렸다. 스프레드 연산자를 사용한 경우와 비교해 보면서 React가 참조값의 변화를 확인한다는 점을 조금 더 이해할 수 있었다. 라우터는 `Route`, `Outlet`, `Link`, `NavLink`, Hook 등 새로 사용하는 기능이 많아서 전체 구조를 익히려면 조금 더 연습이 필요할 것 같다.
+Link와 NavLink를 이용해 페이지를 이동하는 방법과 NavLink를 사용하면 현재 선택된 메뉴에 active 클래스가 자동으로 적용된다는 것을 배웠다. 
+</br>또한 HTML의 &nbsp;를 사용하면 공백을 넣을 수 있으며, &nbsp;&nbsp;처럼 연속해서 사용해 메뉴 사이의 간격을 조절할 수 있다는 것도 알게 되었다.
+</br>기존의 a 태그와 Link, NavLink의 차이가 처음에는 헷갈렸지만 직접 사용해 보면서 각각의 역할을 이해할 수 있었다. 메뉴 사이에 공백을 넣는 간단한 방법도 함께 실습해서 기억에 남았다.
