@@ -242,4 +242,7 @@ print(test[1::3])
 
 ---
 
-training/Python/2026.09.18/day_47_1.PNG
+<p align="center">
+  <img src="../../training/Python/2026.09.18/day_47_1.PNG" alt="day_47" width="700">
+</p>
+
