@@ -342,12 +342,12 @@ if (날씨.icon) {
   <img src="../../training/React/2026.09.19/day_48_1.PNG" alt="day_48_1" width="700">
 </p>
 
-내부 JSON 파일의 도서 데이터를 `async/await` 방식으로 불러와 `map()`을 이용해 도서 제목과 저자를 목록으로 출력하였다.
-</br>`try-catch-finally`와 `loading` State를 이용하여 데이터 요청 과정의 예외 처리와 로딩 상태를 관리하는 방법도 확인하였다.
+내부 JSON 파일의 도서 데이터를 async/await 방식으로 불러와 map()을 이용해 도서 제목과 저자를 목록으로 출력하였다.
+</br>try-catch-finally와 loading State를 이용하여 데이터 요청 과정의 예외 처리와 로딩 상태를 관리하는 방법도 확인하였다.
 
 <p align="center">
   <img src="../../training/React/2026.09.19/day_48_2.PNG" alt="day_48_2" width="700">
 </p>
 
-외부 날씨 API를 `fetch()`로 호출하여 현재 온도와 날씨 상태를 출력하고, API에서 전달받은 아이콘 값을 이용해 날씨 아이콘을 화면에 표시하였다.
+외부 날씨 API를 fetch()로 호출하여 현재 온도와 날씨 상태를 출력하고, API에서 전달받은 아이콘 값을 이용해 날씨 아이콘을 화면에 표시하였다.
 </br>외부 API의 JSON 응답에서 필요한 데이터를 추출하여 State에 저장하고 화면에 렌더링하는 과정을 확인하였다.
