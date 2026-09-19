@@ -338,4 +338,6 @@ if (날씨.icon) {
 
 ---
 
-
+<p align="center">
+  <img src="../../training/Python/2026.09.18/day_48_1.PNG" alt="day_48" width="700">
+</p>
