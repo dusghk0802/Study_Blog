@@ -274,22 +274,10 @@ React에서 요청을 보내면 Spring Boot의 REST API가 요청을 처리하�
 ---
 
 <p align="center">
-  <img src="../../training/Spring Boot/2026.09.21/day_49_1.PNG" alt="day_49_1" width="700">
+  <img src="../../training/React/2026.09.21/day_49_1.PNG" alt="day_49" width="700">
 </p>
 
-Spring Data JPA의 Entity와 Repository를 생성하고 Oracle 데이터베이스와 연결하여 자동차 데이터를 저장하고 조회하였다.
-</br>`@ManyToOne`, `@OneToMany`를 이용한 Entity 간 연관관계와 Repository를 통한 데이터 관리 과정을 확인하였다.
-
-<p align="center">
-  <img src="../../training/Spring Boot/2026.09.21/day_49_2.PNG" alt="day_49_2" width="700">
-</p>
-
-Spring Boot에서 REST API를 구현하고 React에서 `fetch()`를 이용하여 서버의 데이터를 조회하였다.
-</br>Spring Boot → Oracle → React로 데이터가 전달되는 과정을 확인하고 React 화면에 조회 결과를 출력하였다.
-
-<p align="center">
-  <img src="../../training/Spring Boot/2026.09.21/day_49_3.PNG" alt="day_49_3" width="700">
-</p>
-
-React에서 회원 추가 기능을 구현하고 `POST` 요청을 통해 입력한 데이터를 Spring Boot 서버로 전달하였다.
-</br>회원 목록을 다시 조회하여 데이터베이스에 저장된 회원 정보가 React 화면에 반영되는 것을 확인하였다.
+이번에는 Spring Boot 백엔드 API랑 React 프론트엔드를 연결해서 데이터 조회랑 등록 기능을 구현해 봤다.
+</br>처음에는 가져온 데이터를 그냥 텍스트로 늘어놓다 보니 화면이 지저분해 보였는데, 테이블 형태로 싹 바꿔주니까 회원 목록이 한눈에 들어오고 훨씬 깔끔해졌다.
+</br>그리고 회원 추가 버튼을 눌러도 화면에 바로 안 뜨는 문제가 있었는데, 데이터 등록 요청이 끝난 뒤에 목록을 다시 불러오도록 로직을 고쳐서 바로 반영되게 해결했다. 
+</br>이번에 직접 해보면서 프론트랑 백엔드가 비동기로 데이터 주고받는 전체적인 흐름을 확실히 감 잡았고, 사용자 입장에서 보기 편한 UI 구성이랑 제때 화면을 갱신해 주는 게 얼마나 중요한지 느꼈다.
