@@ -2,7 +2,8 @@
 
 ## Spring Boot REST API·JPA·Oracle·React 데이터 연동
 
-📌 학습일 : 2026.09.21\
+📌 학습일 : 2026.09.21
+
 📌 학습 내용 : Spring Data JPA, Entity, Repository, Entity 연관관계, REST API, Oracle 연동, CORS, Swagger/OpenAPI, React fetch, CRUD
 
 ---
