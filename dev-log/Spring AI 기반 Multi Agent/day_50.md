@@ -125,4 +125,12 @@ ubuntu@ip-172-31-43-197:~/ec2-spring-boot-sample/build/libs$ sudo java -jar ec2-
   <img src="training/Ai-Service-Deployment/2026.09.22/day_50_1.png" alt="day_50" width="700">
 </p>
 
+vi application.yml 파일 생성 시 입력 모드(i)로 전환하지 않고 코드를 붙여넣어 내용이 다 깨지고 엉키는 현상이 있었습니다.
+작업 중 의도치 않게 비주얼 블록(VISUAL BLOCK) 모드로 들어가면서 명령어가 먹히지 않아 에디터에 갇히기도 했습니다.
+에디터를 강제 종료하려고 할 때도 :qa! 대신 qua!로 오타를 내서 명령어가 인식되지 않는 에러를 겪었습니다.
+리눅스 환경에서의 Vim 에디터 조작에 익숙하지 않아 배포 과정에서 다소 애를 먹었습니다.
 
+Esc나 Ctrl + c를 눌러 비주얼 모드에서 빠져나온 뒤 일반 모드로 전환했습니다.
+종료 명령어인 :qa!를 오타 없이 정확히 입력하여 먹통이 된 에디터를 안전하게 종료했습니다.
+vi 실행 후 반드시 i를 눌러 -- INSERT -- 상태를 확인하고 작성하거나, 더 쉬운 nano 에디터를 활용하는 요령을 익혔습니다.
+에디터 조작법을 숙지한 후 application.yml 파일에 80번 포트 설정을 잘 마무리하고 Spring Boot 서버 배포까지 무사히 완료했습니다.
