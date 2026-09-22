@@ -59,9 +59,9 @@ AWS EC2(Elastic Compute Cloud) 가상 서버인 인스턴스를 생성하였다.
 #### 5. Ubuntu 서버 환경 설정 (JDK 17)
 
 ```bash
-ubuntu@ip-172-31-43-197:~$ sudo apt update
-ubuntu@ip-172-31-43-197:~$ sudo apt install openjdk-17-jdk -y
-ubuntu@ip-172-31-43-197:~$ java -version
+ubuntu@ip-##:~$ sudo apt update
+ubuntu@ip-##:~$ sudo apt install openjdk-17-jdk -y
+ubuntu@ip-##:~$ java -version
 ```
 
 EC2 인스턴스 콘솔에 원격 접속한 후, Spring Boot 3.x 실행을 위한 OpenJDK 17을 설치하고 버전을 확인하였다.
@@ -86,9 +86,9 @@ GitHub에서 Spring Boot 프로젝트 소스코드를 서버로 복사(Git Clone
 #### 7. Gradle 빌드 및 JAR 파일 생성
 
 ```bash
-ubuntu@ip-172-31-43-197:~/ec2-spring-boot-sample$ ./gradlew clean build
-ubuntu@ip-172-31-43-197:~/ec2-spring-boot-sample$ cd build/libs
-ubuntu@ip-172-31-43-197:~/ec2-spring-boot-sample/build/libs$ ls
+ubuntu@ip-##:~/ec2-spring-boot-sample$ ./gradlew clean build
+ubuntu@ip-##:~/ec2-spring-boot-sample$ cd build/libs
+ubuntu@ip-##:~/ec2-spring-boot-sample/build/libs$ ls
 ```
 
 프로젝트 루트 디렉터리로 이동하여 `./gradlew clean build` 명령어로 기존 빌드를 정리하고 실행 가능한 애플리케이션을 빌드하였다.
@@ -98,7 +98,7 @@ ubuntu@ip-172-31-43-197:~/ec2-spring-boot-sample/build/libs$ ls
 #### 8. Spring Boot 서버 실행 및 브라우저 접속 확인
 
 ```bash
-ubuntu@ip-172-31-43-197:~/ec2-spring-boot-sample/build/libs$ sudo java -jar ec2-spring-boot-sample-0.0.1-SNAPSHOT.jar
+ubuntu@ip-##:~/ec2-spring-boot-sample/build/libs$ sudo java -jar ec2-spring-boot-sample-0.0.1-SNAPSHOT.jar
 ```
 
 `sudo java -jar` 명령어를 통해 80번 포트로 Spring Boot 애플리케이션 서버를 실행시켰다.
