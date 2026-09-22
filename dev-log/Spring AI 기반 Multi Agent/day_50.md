@@ -122,7 +122,7 @@ ubuntu@ip-172-31-43-197:~/ec2-spring-boot-sample/build/libs$ sudo java -jar ec2-
 ---
 
 <p align="center">
-  <img src="training/Ai-Service-Deployment/2026.09.22/day_50_1.png" alt="day_50_1" width="700">
+  <img src="training/Ai-Service-Deployment/2026.09.22/day_50_1.png" alt="day_50" width="700">
 </p>
 
 
