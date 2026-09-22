@@ -3,6 +3,7 @@
 ## AWS EC2를 활용한 Spring Boot 백엔드 서버 배포
 
 📌 학습일 : 2026.09.22
+
 📌 학습 내용 : Cloud Computing, AWS Free Tier, EC2, Security Group, Elastic IP, OpenJDK 17, Git Clone, Gradle Build, Spring Boot 배포
 
 ---
