@@ -69,9 +69,9 @@ EC2 인스턴스 콘솔에 원격 접속한 후, Spring Boot 3.x 실행을 위�
 #### 6. GitHub 프로젝트 Clone 및 설정 파일 작성
 
 ```bash
-ubuntu@ip-172-31-43-197:~$ git clone https://github.com/JSCODE-EDU/ec2-spring-boot-sample.git
-ubuntu@ip-172-31-43-197:~$ cd ec2-spring-boot-sample/src/main/resources
-ubuntu@ip-172-31-43-197:~/.../resources$ vi application.yml
+ubuntu@ip-##:~$ git clone https://github.com/JSCODE-EDU/ec2-spring-boot-sample.git
+ubuntu@ip-##:~$ cd ec2-spring-boot-sample/src/main/resources
+ubuntu@ip-##:~/.../resources$ vi application.yml
 ```
 
 ```yaml
