@@ -122,22 +122,7 @@ ubuntu@ip-172-31-43-197:~/ec2-spring-boot-sample/build/libs$ sudo java -jar ec2-
 ---
 
 <p align="center">
-  <img src="../../training/AWS/2026.09.22/day_50_1.PNG" alt="day_50_1" width="700">
+  <img src="training/Ai-Service-Deployment/2026.09.22/day_50_1.png" alt="day_50_1" width="700">
 </p>
 
-AWS 프리 티어 계정을 가입하고 서울 리전에 Ubuntu OS 기반 EC2 인스턴스를 생성하였다.
-</br>22번(SSH), 80번(HTTP) 포트를 개방하는 보안 그룹 설정과 고정 주소를 위한 탄력적 IP 연결을 완료하였다.
 
-<p align="center">
-  <img src="../../training/AWS/2026.09.22/day_50_2.PNG" alt="day_50_2" width="700">
-</p>
-
-EC2 서버에 원격 접속하여 JDK 17을 설치하고 GitHub에서 Spring Boot 프로젝트를 Clone 하였다.
-</br>vi 편집기로 `application.yml` 포트 환경변수를 구성한 후 `./gradlew clean build`로 JAR 빌드 파일을 생성하였다.
-
-<p align="center">
-  <img src="../../training/AWS/2026.09.22/day_50_3.PNG" alt="day_50_3" width="700">
-</p>
-
-`sudo java -jar` 명령으로 Spring Boot 백엔드 서버를 동작시키고 웹 브라우저에서 탄력적 IP 주소로 직접 접속하였다.
-</br>로컬 환경을 벗어나 클라우드 인프라 상에 웹 서비스가 성공적으로 배포된 것을 확인하였다.
