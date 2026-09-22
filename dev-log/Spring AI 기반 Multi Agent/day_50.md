@@ -122,7 +122,7 @@ ubuntu@ip-172-31-43-197:~/ec2-spring-boot-sample/build/libs$ sudo java -jar ec2-
 ---
 
 <p align="center">
-  <img src="training/Ai-Service-Deployment/2026.09.22/day_50_1.png" alt="day_50" width="700">
+  <img src="../../training/Ai-Service-Deployment/2026.09.22/day_50_1.png" alt="day_50" width="700">
 </p>
 
 vi application.yml 파일 생성 시 입력 모드(i)로 전환하지 않고 코드를 붙여넣어 내용이 다 깨지고 엉키는 현상이 있었습니다.
