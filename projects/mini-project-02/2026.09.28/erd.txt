@@ -1,0 +1,399 @@
+// ========== ENUMS ==========
+Enum theater_brand {
+  CGV
+  LOTTE_CINEMA
+  MEGABOX
+}
+
+Enum social_provider {
+  NAVER
+  GOOGLE
+  KAKAO
+}
+
+Enum user_status {
+  ACTIVE
+  WITHDRAWN
+}
+
+Enum seat_select_mode {
+  AUTO
+  MANUAL
+}
+
+Enum verification_purpose {
+  FIND_ID
+  RESET_PASSWORD
+  LINK_ACCOUNT
+}
+
+Enum movie_status {
+  NOW_SHOWING
+  COMING_SOON
+  ENDED
+}
+
+Enum age_rating {
+  ALL
+  AGE_12
+  AGE_15
+  AGE_19
+}
+
+Enum seat_type {
+  NORMAL
+  COUPLE
+  DISABLED
+}
+
+Enum screening_seat_status {
+  AVAILABLE
+  HELD
+  RESERVED
+}
+
+Enum reservation_status {
+  PENDING
+  CONFIRMED
+  CANCELED
+  EXPIRED
+}
+
+Enum payment_method {
+  CARD
+  BANK_TRANSFER
+}
+
+Enum payment_status {
+  READY
+  PAID
+  CANCELED
+  REFUNDED
+}
+
+Enum ticket_status {
+  ISSUED
+  USED
+  CANCELED
+}
+
+Enum waitlist_status {
+  WAITING
+  NOTIFIED
+  RESERVED
+  EXPIRED
+  CANCELED
+}
+
+Enum notification_type {
+  CANCEL_TICKET
+  SHOW_REMINDER
+}
+
+// ========== 회원 ==========
+Table users {
+  id bigint [pk, increment]
+  login_id varchar(100) [unique, not null, note: '일반: 영문+숫자 4~12자 / 소셜 전용 회원: provider_고유ID 자동 설정']
+  password varchar(255) [note: 'BCrypt 해시, 소셜 전용 회원은 NULL']
+  name varchar(50) [not null]
+  birth_date date [not null]
+  phone varchar(20) [unique, not null, note: '휴대폰 번호 (숫자만 저장)']
+  email varchar(100) [unique, not null, note: '아이디·비밀번호 찾기, 계정 연동 인증용']
+  address varchar(255) [not null]
+  address_detail varchar(255)
+  latitude decimal(10,7) [note: '주소 좌표 (극장 추천 거리 계산용)']
+  longitude decimal(10,7)
+  preferred_brand theater_brand [note: '선호 영화관 브랜드 (1개)']
+  seat_select_mode seat_select_mode [not null, default: 'MANUAL']
+  preferred_seat_row varchar(2) [note: '선호 좌석 열 (예: A, B)']
+  preferred_seat_number int [note: '선호 좌석 번호']
+  status user_status [not null, default: 'ACTIVE']
+  created_at datetime [not null, default: `now()`]
+  updated_at datetime
+  deleted_at datetime [note: '탈퇴 일시 (soft delete)']
+}
+
+Table social_accounts {
+  id bigint [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  provider social_provider [not null]
+  provider_user_id varchar(100) [not null, note: '소셜 제공자 고유 ID']
+  provider_email varchar(100) [note: '소셜 계정 이메일 (카카오 미동의 시 NULL)']
+  linked_at datetime [not null, default: `now()`]
+
+  indexes {
+    (provider, provider_user_id) [unique]
+    (user_id, provider) [unique]
+  }
+}
+
+Table email_verifications {
+  id bigint [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  email varchar(100) [not null, note: '인증번호를 발송한 이메일']
+  purpose verification_purpose [not null]
+  code varchar(6) [not null, note: '6자리 인증번호']
+  attempt_count int [not null, default: 0, note: '인증 시도 횟수 (최대 5회 등)']
+  expires_at datetime [not null, note: '발송 후 3~5분']
+  verified_at datetime [note: '인증 성공 시각']
+  created_at datetime [not null, default: `now()`]
+
+  indexes {
+    (email, purpose, created_at)
+  }
+}
+
+Table user_preferred_theaters {
+  id bigint [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  theater_id bigint [not null, ref: > theaters.id]
+  priority tinyint [not null, note: '선호 순서 1~3 (최대 3개는 애플리케이션에서 제한)']
+  distance_m int [note: '집 주소 기준 직선거리 (선택 시점 API 결과 저장)']
+  transit_minutes int [note: '대중교통 이동시간 (선택 시점 API 결과 저장)']
+  calculated_at datetime [note: '거리·이동시간 계산 시각']
+  created_at datetime [not null, default: `now()`]
+
+  indexes {
+    (user_id, theater_id) [unique]
+    (user_id, priority) [unique]
+  }
+}
+
+// ========== 극장 ==========
+Table theaters {
+  id bigint [pk, increment]
+  brand theater_brand [not null]
+  brand_theater_code varchar(30) [note: '브랜드별 극장 코드 (연동 시 사용)']
+  name varchar(100) [not null, note: '예: CGV 강남, 메가박스 코엑스']
+  district varchar(20) [not null, note: '서울 구 (예: 강남구)']
+  address varchar(255) [not null]
+  latitude decimal(10,7) [not null]
+  longitude decimal(10,7) [not null]
+  phone varchar(20)
+  description text
+  parking_info varchar(255)
+  created_at datetime [not null, default: `now()`]
+  updated_at datetime
+
+  indexes {
+    (brand, name) [unique]
+    (brand, district)
+  }
+}
+
+Table screens {
+  id bigint [pk, increment]
+  theater_id bigint [not null, ref: > theaters.id]
+  name varchar(50) [not null, note: '예: 1관, IMAX관']
+  screen_type varchar(20) [note: '2D, 3D, IMAX, 4DX 등']
+  total_seats int [not null]
+  row_count int [not null]
+  column_count int [not null]
+
+  indexes {
+    (theater_id, name) [unique]
+  }
+}
+
+Table seats {
+  id bigint [pk, increment]
+  screen_id bigint [not null, ref: > screens.id]
+  seat_row varchar(2) [not null, note: '열 (A, B, C...)']
+  seat_number int [not null, note: '번호']
+  seat_type seat_type [not null, default: 'NORMAL']
+  is_active boolean [not null, default: true]
+
+  indexes {
+    (screen_id, seat_row, seat_number) [unique]
+  }
+}
+
+// ========== 영화 ==========
+Table movies {
+  id bigint [pk, increment]
+  kobis_movie_code varchar(20) [unique, note: '영화진흥위원회 API 영화코드']
+  kmdb_movie_id varchar(30) [note: 'KMDb API 영화 ID (포스터·줄거리용)']
+  title varchar(200) [not null]
+  title_en varchar(200)
+  release_date date
+  running_time int [note: '분 단위']
+  age_rating age_rating [not null]
+  genre varchar(100)
+  director varchar(100)
+  actors varchar(500)
+  synopsis text
+  poster_url varchar(500)
+  status movie_status [not null]
+  cumulative_audience bigint [not null, default: 0]
+  booking_rate decimal(5,2) [not null, default: 0, note: '예매율 (정렬용 캐시)']
+  like_count int [not null, default: 0, note: '찜 수 (캐시)']
+  review_count int [not null, default: 0, note: '관람평 수 (캐시)']
+  avg_rating decimal(3,2) [not null, default: 0, note: '평균 별점 (캐시)']
+  created_at datetime [not null, default: `now()`]
+  updated_at datetime
+
+  indexes {
+    (status, booking_rate)
+    release_date
+  }
+}
+
+// ========== 상영 ==========
+Table screenings {
+  id bigint [pk, increment]
+  movie_id bigint [not null, ref: > movies.id]
+  screen_id bigint [not null, ref: > screens.id]
+  start_time datetime [not null]
+  end_time datetime [not null]
+  price int [not null, note: '조조·심야 등 회차별 가격']
+  total_seat_count int [not null]
+  remaining_seat_count int [not null, note: '0이면 매진 → 취소표 알림 팝업']
+  created_at datetime [not null, default: `now()`]
+
+  indexes {
+    (movie_id, start_time)
+    (screen_id, start_time)
+  }
+}
+
+Table screening_seats {
+  id bigint [pk, increment]
+  screening_id bigint [not null, ref: > screenings.id]
+  seat_id bigint [not null, ref: > seats.id]
+  status screening_seat_status [not null, default: 'AVAILABLE']
+  reservation_id bigint [ref: > reservations.id, note: '현재 점유 중인 예매 (HELD/RESERVED일 때)']
+  held_until datetime [note: '결제 대기 중 좌석 점유 만료 시각']
+  version int [not null, default: 0, note: '낙관적 락 (동시 예매 방지)']
+
+  indexes {
+    (screening_id, seat_id) [unique]
+    (screening_id, status)
+  }
+}
+
+// ========== 예매 / 결제 / 티켓 ==========
+Table reservations {
+  id bigint [pk, increment]
+  reservation_number varchar(30) [unique, not null]
+  user_id bigint [not null, ref: > users.id]
+  screening_id bigint [not null, ref: > screenings.id]
+  waitlist_id bigint [ref: - waitlists.id, note: '취소표로 예매한 경우']
+  seat_count int [not null]
+  total_price int [not null]
+  status reservation_status [not null, default: 'PENDING']
+  expires_at datetime [note: '결제 마감 시각']
+  confirmed_at datetime
+  canceled_at datetime
+  created_at datetime [not null, default: `now()`]
+
+  indexes {
+    (user_id, status)
+    screening_id
+  }
+}
+
+Table reservation_seats {
+  id bigint [pk, increment]
+  reservation_id bigint [not null, ref: > reservations.id]
+  seat_id bigint [not null, ref: > seats.id]
+  price int [not null, note: '예매 당시 가격']
+
+  indexes {
+    (reservation_id, seat_id) [unique]
+  }
+}
+
+Table payments {
+  id bigint [pk, increment]
+  reservation_id bigint [unique, not null, ref: - reservations.id]
+  method payment_method [not null]
+  status payment_status [not null, default: 'READY']
+  amount int [not null]
+  card_company varchar(30) [note: '신용카드 결제 시']
+  bank_name varchar(30) [note: '무통장입금 시']
+  depositor_name varchar(50) [note: '무통장입금 시']
+  deposit_deadline datetime [note: '무통장입금 기한']
+  paid_at datetime
+  canceled_at datetime
+  created_at datetime [not null, default: `now()`]
+}
+
+Table tickets {
+  id bigint [pk, increment]
+  reservation_id bigint [unique, not null, ref: - reservations.id]
+  ticket_code varchar(100) [unique, not null, note: '모바일 티켓 QR 코드 값']
+  status ticket_status [not null, default: 'ISSUED']
+  issued_at datetime [not null, default: `now()`]
+  used_at datetime
+}
+
+// ========== 취소표 대기 ==========
+Table waitlists {
+  id bigint [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  screening_id bigint [not null, ref: > screenings.id]
+  waiting_number int [not null, note: '상영회차별 대기번호']
+  seat_count int [not null, default: 1, note: '원하는 좌석 수']
+  status waitlist_status [not null, default: 'WAITING']
+  agreed_at datetime [not null, note: '취소표 알림 동의 시각']
+  notified_at datetime [note: '차례가 되어 알림 발송된 시각']
+  expires_at datetime [note: '결제 제한 시각 (알림 후 5~10분)']
+  created_at datetime [not null, default: `now()`]
+  updated_at datetime
+
+  indexes {
+    (screening_id, waiting_number) [unique]
+    (user_id, screening_id) [unique]
+    (screening_id, status, waiting_number)
+  }
+}
+
+// ========== 알림 ==========
+Table notifications {
+  id bigint [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  type notification_type [not null]
+  title varchar(100) [not null]
+  message varchar(500) [not null]
+  reservation_id bigint [ref: > reservations.id, note: '상영 30분 전 알림 → 예매 상세']
+  waitlist_id bigint [ref: > waitlists.id, note: '취소표 알림 → 예매 페이지']
+  scheduled_at datetime [note: '발송 예정 시각']
+  sent_at datetime
+  is_read boolean [not null, default: false]
+  read_at datetime
+  created_at datetime [not null, default: `now()`]
+
+  indexes {
+    (user_id, is_read, created_at)
+    (scheduled_at, sent_at)
+  }
+}
+
+// ========== 관람평 / 찜 ==========
+Table reviews {
+  id bigint [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  movie_id bigint [not null, ref: > movies.id]
+  reservation_id bigint [ref: > reservations.id, note: '관람 인증용']
+  rating tinyint [not null, note: '1~5']
+  content text [not null]
+  created_at datetime [not null, default: `now()`]
+  updated_at datetime
+  deleted_at datetime
+
+  indexes {
+    (user_id, movie_id) [unique]
+    (movie_id, created_at)
+  }
+}
+
+Table movie_likes {
+  id bigint [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  movie_id bigint [not null, ref: > movies.id]
+  created_at datetime [not null, default: `now()`]
+
+  indexes {
+    (user_id, movie_id) [unique]
+  }
+}
