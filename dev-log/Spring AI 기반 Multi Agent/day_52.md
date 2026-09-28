@@ -108,3 +108,6 @@
 
 ---
 
+<p align="center">
+  <img src="../../training/Ai-Service-Deployment/2026.09.22/day_50_1.png" alt="day_50" width="700">
+</p>
