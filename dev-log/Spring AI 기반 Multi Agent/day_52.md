@@ -2,7 +2,7 @@
 
 ## 미니프로젝트 요구사항 분석 및 영화 예매 시스템 ERD 설계
 
-📌 학습일 : 2026.09.24
+📌 학습일 : 2026.09.28
 
 📌 학습 내용 : Mini Project, Requirement Analysis, ERD, Database Design, Movie Reservation System, Entity Relationship, Reservation, Payment, Concurrency Control, External API
 
@@ -107,3 +107,4 @@
 - 외부 API와 데이터 수집, 성능·보안·동시성 등의 비기능 요구사항도 함께 고려하며 프로젝트 설계를 시작함
 
 ---
+
