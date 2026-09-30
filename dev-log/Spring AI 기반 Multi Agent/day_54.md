@@ -1,4 +1,4 @@
-# 54일차
+<img width="1415" height="840" alt="image" src="https://github.com/user-attachments/assets/ea357cbf-1ff6-4571-9287-6d2d29da270b" /># 54일차
 
 ## 미니프로젝트 개발 환경 세팅 및 TMDB 영화 데이터 가져오기 구현
 
