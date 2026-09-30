@@ -96,7 +96,7 @@
 ---
 
 <p align="center">
-  <img src="../../projects/mini-project-02/2026.09.30/movie-import.png" alt="day_54" width="700">
+  <img src="../../projects/mini-project-02/2026.09.30/day_54.png" alt="day_54" width="700">
 </p>
 
 본격적으로 개발을 시작하려고 하니 코드를 작성하기 전에 저장소 연결, 데이터베이스, 환경변수, 실행 설정처럼 준비해야 할 것이 생각보다 많았다.
