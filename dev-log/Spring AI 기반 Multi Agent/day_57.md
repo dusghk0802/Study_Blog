@@ -130,7 +130,7 @@
 ---
 
 <p align="center">
-  <img src="../../projects/mini-project-02/2026.10.03/day_57.png" alt="day_57" width="700">
+  <img src="../../projects/mini-project-02/2026.10.03/day_57_1.png" alt="day_57" width="700">
 </p>
 
 인기 순위에 따라 회차를 차등 배분하는 시간표를 만들면서, 겹침 없이 새벽 3시 전에 끝나도록 배치하는 규칙을 직접 설계하고 모든 팀원이 같은 결과를 보도록 기준값을 고르는 과정이 생각보다 중요하다는 것을 알게 되었다.
