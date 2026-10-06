@@ -1,0 +1,15 @@
+.smart { max-width: 1180px; margin: 0 auto; padding: var(--booking-space-medium) 0 48px; }
+.smart { font-family: var(--booking-font); }
+.smart :is(h2, h3, strong) { font-weight: 600; letter-spacing: normal; }
+.heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
+.heading h2 { margin: 0; font-size: clamp(24px, 3vw, 32px); }
+.notice, .failure { padding: clamp(20px, 3vw, 32px); border-radius: var(--booking-radius-large); background: var(--booking-soft); border: 1px solid var(--booking-border); min-width: 0; }
+.notice p, .failure p { font-size: 13px; line-height: 1.8; color: var(--booking-muted); }
+.failure { margin-top: 24px; }
+.failure h3 { font-size: 22px; margin: 12px 0; }
+.eyebrow { color: var(--booking-accent); font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 20px; }
+.actions a, .notice a { color: var(--booking-accent); min-height: 44px; display: inline-flex; align-items: center; font-size: 13px; }
+.smart a:focus-visible { outline: 2px solid var(--booking-accent); outline-offset: 4px; }
+.waiting { border-top: 1px solid var(--booking-border); margin-top: 24px; padding-top: 24px; }
+
