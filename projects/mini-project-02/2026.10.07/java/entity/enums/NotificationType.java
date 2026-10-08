@@ -1,0 +1,10 @@
+package smartticketing.entity.enums;
+
+public enum NotificationType {
+    SEAT_HOLD_STARTED,
+    QUEUE_TURN,
+    RESERVATION_COMPLETED,
+    RESERVATION_CANCELLED,
+    PAYMENT_FAILED,
+    SEAT_HOLD_EXPIRED
+}

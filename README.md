@@ -8,7 +8,7 @@
 
 ### 🚀 Projects
 
-#### Mini Project Ⅰ
+#### Mini Project Ⅰ[➡️](https://github.com/Kosa-Project1/1st_project)
 Java & Web 기반 미니 프로젝트
 
 #### Mini Project Ⅱ
@@ -25,11 +25,13 @@ Spring AI 기반 Multi AI Agent 서비스
 
 #### 02. Java [➡️](./training/Java)
 
-#### 03. Web
+#### 03. Web [➡️](./training/Web)
+
+#### 04. React [➡️](./training/React)
 
 ---
 
-## 📚 Dev-log 
+# 📚 Dev-log 
 
 교육 실습, 개인 학습, 문제 해결 과정, 팀 프로젝트 및 개인 프로젝트의 개발 과정등에서 배운 내용과 실습 기록을 정리한 공간입니다.
 
