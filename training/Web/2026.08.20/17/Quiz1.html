@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<!-- 1. 사용자로부터 구매 금액을 입력받으세요.
+
+구매 금액에 따라 다음과 같이 회원 등급을 출력하세요.
+- 100,000원 이상 → VIP 회원
+- 50,000원 이상 → GOLD 회원
+- 10,000원 이상 → SILVER 회원
+- 그 외 → 일반 회원
+
+if ~ else if ~ else 문을 사용하세요. -->
+<script>
+  let price = parseInt(prompt('구매금액을 입력하세요'));
+
+  if(price > 100000)
+   alert('VIP 회원');
+  else if (price > 50000)
+   alert('GOLD 회원');
+  else if (price > 10000)
+   alert('SIVER 회원') 
+  else alert('일반 회원')
+</script>
+  
+</body>
+</html>

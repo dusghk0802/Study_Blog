@@ -1,0 +1,362 @@
+[1. 디렉터리 이동 및 경로 확인]
+
+cd pwd /home/user
+
+cd Documents/ cd pwd /home/user
+
+cd Downloads/ pwd /home/user/Downloads
+
+cd pwd /home/user
+
+cd Downloads/ cd ../Pictures/ pwd /home/user/Pictures
+
+cd pwd /home/user
+
+cd ../../
+
+[2. 디렉터리 생성]
+
+cd ls
+
+cd animals/ ls cat cow dog
+
+cd .. mkdir animals/snake
+
+cd animals/ ls cat cow dog snake
+
+cd pwd /home/user
+
+mkdir fruits/apple mkdir: cannot create directory ‘fruits/apple’: No
+such file or directory
+
+mkdir -p fruits/apple
+
+ls fruits/ apple
+
+ls -al fruits/ total 12 drwxrwxr-x 3 user user 4096 Sep 12 09:33 .
+drwxr-xr-x 17 user user 4096 Sep 12 09:33 .. drwxrwxr-x 2 user user 4096
+Sep 12 09:33 apple
+
+[3. rmdir을 이용한 디렉터리 삭제]
+
+whoami user
+
+cd animals/ ls cat cow dog snake
+
+rmdir cat ls cow dog snake
+
+rmdir cow dog snake ls
+
+cd .. rmdir animals/
+
+ls fruits/ apple
+
+rmdir fruits/ rmdir: failed to remove ‘fruits/’: Directory not empty
+
+rmdir -p fruits/apple
+
+ls
+
+[4. 파일 생성 및 복사]
+
+mkdir testdir cd testdir/ pwd /home/user/testdir
+
+echo “hello word” > greetings
+
+ls greetings
+
+cat greetings hello word
+
+cp greetings say_hello
+
+ls greetings say_hello
+
+cat say_hello hello word
+
+[5. 여러 파일을 디렉터리로 복사]
+
+mkdir temporary
+
+ls greetings say_hello temporary
+
+cp greetings say_hello temporary/
+
+cd temporary
+
+ls greetings say_hello
+
+cat greetings hello word
+
+cat say_hello hello word
+
+[6. mv를 이용한 파일 이름 변경 및 이동]
+
+pwd /home/user/testdir/temporary
+
+mv say_hello hello
+
+ls greetings hello
+
+mv greetings welcom
+
+ls hello welcom
+
+cd ..
+
+ls greetings hello say_hello temporary
+
+ls temporary/ hello welcom
+
+mv temporary/hello ./
+
+ls greetings hello say_hello temporary
+
+ls temporary/ welcom
+
+mv temporary/welcom ./welcome
+
+ls greetings hello say_hello temporary welcome
+
+mv welcome WELCOME
+
+ls greetings hello say_hello temporary WELCOME
+
+[7. mv를 이용한 디렉터리 이름 변경 및 이동]
+
+mkdir haha
+
+ls greetings haha hello say_hello temporary WELCOME
+
+mv haha hoho
+
+ls greetings hello hoho say_hello temporary WELCOME
+
+mv hoho temporary/
+
+ls temporary/ hoho
+
+mv temporary/hoho ./hihi
+
+ls greetings hello hihi say_hello temporary WELCOME
+
+[8. rm을 이용한 일반 파일 삭제]
+
+rm say_hello
+
+ls greetings hello hihi temporary WELCOME
+
+rm -i hello rm: remove regular file ‘hello’? y
+
+ls greetings hihi temporary WELCOME
+
+rm WELCOME greetings
+
+ls hihi temporary
+
+[9. rm을 이용한 디렉터리 삭제]
+
+ls -al
+
+touch hihi/newfile
+
+ls hihi/ newfile
+
+rm temporary/ rm: cannot remove ‘temporary/’: Is a directory
+
+rm -d temporary/
+
+ls hihi
+
+rm -d hihi/ rm: cannot remove ‘hihi/’: Directory not empty
+
+rm -r hihi/
+
+ls
+
+mkdir temporary cd temporary/
+
+touch newfile
+
+ls newfile
+
+cd ..
+
+rm -r temporary/
+
+ls
+
+[10. 파일 및 디렉터리 정보 확인]
+
+cd pwd /home/user
+
+ls Desktop Documents Downloads hello hello2 Music Pictures Public snap
+Templates testdir Videos
+
+ls -al
+
+[11. 소프트 링크 생성]
+
+mkdir linktest cd linktest/
+
+echo “this is a target file” > target
+
+cat target this is a target file
+
+ln -s target s-link
+
+ls -li 131373 lrwxrwxrwx 1 user user 6 Sep 12 11:15 s-link -> target
+131371 -rw-rw-r– 1 user user 22 Sep 12 11:14 target
+
+cat s-link this is a target file
+
+[12. 원본 파일과 소프트 링크의 inode 확인]
+
+stat target
+
+File: target Size: 22 Inode: 131371 Links: 1
+
+stat s-link
+
+File: s-link -> target Size: 6 Inode: 131373 Links: 1
+
+[13. 원본 파일 내용 변경 후 링크 확인]
+
+echo “this file is modified” > target
+
+stat target stat s-link
+
+ls -li 131373 lrwxrwxrwx 1 user user 6 Sep 12 11:15 s-link -> target
+131371 -rw-rw-r– 1 user user 22 Sep 12 11:21 target
+
+[14. 소프트 링크 대상 파일 이동 및 복원]
+
+mv target moved_target
+
+ls -il 131371 -rw-rw-r– 1 user user 22 Sep 12 11:21 moved_target 131373
+lrwxrwxrwx 1 user user 6 Sep 12 11:15 s-link -> target
+
+cat moved_target this file is modified
+
+cat s-link cat: s-link: No such file or directory
+
+mv moved_target target
+
+ls -li 131373 lrwxrwxrwx 1 user user 6 Sep 12 11:15 s-link -> target
+131371 -rw-rw-r– 1 user user 22 Sep 12 11:21 target
+
+cat s-link this file is modified
+
+[15. 하드 링크 생성 및 inode 확인]
+
+echo “this is a new target file” > new-target
+
+cat new-target this is a new target file
+
+ls -li 131376 -rw-rw-r– 1 user user 26 Sep 12 11:34 new-target 131373
+lrwxrwxrwx 1 user user 6 Sep 12 11:15 s-link -> target 131371 -rw-rw-r–
+1 user user 22 Sep 12 11:21 target
+
+ln new-target h-link
+
+ls -li 131376 -rw-rw-r– 2 user user 26 Sep 12 11:34 h-link 131376
+-rw-rw-r– 2 user user 26 Sep 12 11:34 new-target 131373 lrwxrwxrwx 1
+user user 6 Sep 12 11:15 s-link -> target 131371 -rw-rw-r– 1 user user
+22 Sep 12 11:21 target
+
+[16. 하드 링크 원본 파일 수정 및 확인]
+
+echo “modified version of new target file” > new-target
+
+cat new-target modified version of new target file
+
+cat h-link modified version of new target file
+
+stat new-target File: new-target Size: 36 Inode: 131376 Links: 2
+
+stat h-link File: h-link Size: 36 Inode: 131376 Links: 2
+
+ls -li 131376 -rw-rw-r– 2 user user 36 Sep 12 11:41 h-link 131376
+-rw-rw-r– 2 user user 36 Sep 12 11:41 new-target 131373 lrwxrwxrwx 1
+user user 6 Sep 12 11:15 s-link -> target 131371 -rw-rw-r– 1 user user
+22 Sep 12 11:21 target
+
+[17. 하드 링크 원본 파일 이름 변경]
+
+mv new-target new_target2
+
+ls -li 131376 -rw-rw-r– 2 user user 36 Sep 12 11:41 h-link 131376
+-rw-rw-r– 2 user user 36 Sep 12 11:41 new_target2 131373 lrwxrwxrwx 1
+user user 6 Sep 12 11:15 s-link -> target 131371 -rw-rw-r– 1 user user
+22 Sep 12 11:21 target
+
+[18. 하드 링크 원본 파일 삭제 후 확인]
+
+rm new_target2
+
+ls -li 131376 -rw-rw-r– 1 user user 36 Sep 12 11:41 h-link 131373
+lrwxrwxrwx 1 user user 6 Sep 12 11:15 s-link -> target 131371 -rw-rw-r–
+1 user user 22 Sep 12 11:21 target
+
+[19. 사용자 계정 정보 확인]
+
+cat /etc/passwd
+
+root:x:0:0:root:/root:/bin/bash …
+
+사용자 및 시스템 계정 정보가 /etc/passwd에 저장되는 것을 확인함. ※ 공개
+저장소 기록을 위해 시스템 계정 전체 출력은 생략함.
+
+[20. 사용자 계정 생성]
+
+sudo adduser testuser
+
+info: Adding user
+testuser' ... info: Selecting UID/GID from the configured range ... info: Adding new grouptestuser’
+… info: Adding new user testuser' with grouptestuser’ … info: Creating
+home directory /home/testuser' ... info: Copying files from/etc/skel’ …
+passwd: password updated successfully Changing the user information for
+testuser Is the information correct? [Y/n] y info: Adding user
+testuser' to supplemental / extra groupsusers’ … info: Adding user
+testuser' to groupusers’ …
+
+※ sudo 비밀번호 입력 프롬프트와 비밀번호 설정 과정은 공개 기록에서
+생략함.
+
+[21. 생성된 사용자 홈 디렉터리 확인]
+
+sudo ls -al /home/testuser/
+
+total 20 drwxr-x— 2 testuser testuser 4096 Sep 12 12:20 . drwxr-xr-x 4
+root root 4096 Sep 12 12:20 .. -rw-r–r– 1 testuser testuser 220 Sep 12
+12:20 .bash_logout -rw-r–r– 1 testuser testuser 3771 Sep 12 12:20
+.bashrc -rw-r–r– 1 testuser testuser 807 Sep 12 12:20 .profile
+
+[22. 로그인 화면에서 생성한 사용자 확인]
+
+로그인 화면에서 기존 사용자 user와 새로 생성한 실습용 사용자 testuser가
+표시되는 것을 확인함.
+
+[23. 사용자 계정 및 홈 디렉터리 삭제]
+
+sudo deluser –remove-home testuser
+
+info: Looking for files to backup/remove … info: Removing files … info:
+Removing crontab … info: Removing user `testuser’ …
+
+[24. 사용자 및 그룹 삭제 여부 확인]
+
+grep testuser /etc/passwd grep testuser /etc/group
+
+출력 결과가 없으므로 testuser 사용자와 testuser 그룹이 삭제되었음을
+확인함.
+
+[25. 삭제 후 홈 디렉터리 상태 확인]
+
+sudo ls -al /home/testuser
+
+total 12 drwx—— 3 1001 1001 4096 Sep 12 12:28 . drwxr-xr-x 4 root root
+4096 Sep 12 12:20 .. drwx—— 3 1001 1001 4096 Sep 12 12:28 .cache
+
+/etc/passwd와 /etc/group에서는 실습용 사용자가 삭제되었지만,
+/home/testuser 디렉터리에 UID/GID 1001 소유의 .cache 디렉터리가 남아
+있는 것을 확인함.

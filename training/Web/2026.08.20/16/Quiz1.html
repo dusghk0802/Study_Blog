@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>구구단 - break문</title>
+	<link rel="stylesheet" href="css/timestable.css">
+</head>
+<body>
+	<h1>구구단</h1>
+  <div class="container">
+    <script>
+      // Do it! 구구단, 2단에서 9단 중에서 짝수단만 출력 (2,4,6,8단 출력)
+      //홀수단은 건너뛰기 continue문을 사용
+  
+      for (let i = 2; i <= 9; i++) {
+          document.write(`<div class="times">`);
+          document.write(`<h3>${i}단</h3>`);
+          for (let j = 1; j <= 9; j++) {
+            document.write(`${i} X ${j} = ${i * j} <br>`);
+          }
+          document.write(`</div>`);
+          if (i=i+1){ 
+            continue;
+          }
+        }
+    </script>
+  </div>
+</body>
+</html>

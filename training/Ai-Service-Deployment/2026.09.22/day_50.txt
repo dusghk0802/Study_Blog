@@ -1,0 +1,38 @@
+//Ubuntu 환경에서 JDK 17 설치하기
+sudo apt update
+sudo apt install openjdk-17-jdk -y
+
+//Java 버전 확인하기
+java -version
+
+//GitHub 에서 Spring Boot 프로젝트 Clone 하기
+git clone https://github.com/JSCODE-EDU/ec2-spring-boot-sample.git
+cd ec2-spring-boot-sample
+ls
+cd src
+cd main
+ls
+cd resources/
+vi application.yml
+
+//application.yml 파일 직접 만들기
+server: 
+port: 80
+
+//프로젝트 루트로 이동한 후 빌드하기
+cd ../../.. 
+ls 
+./gradlew clean build
+
+//build 폴더와 JAR 파일 확인하기
+cd build
+ls
+cd libs
+ls
+
+//Spring Boot 서버 실행하기
+sudo java -jar ec2-spring-boot-sample-0.0.1-SNAPSHOT.jar
+
+//브라우저에서 접속하기
+http://
+

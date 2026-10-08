@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<!-- 4.
+상품 가격과 할인 금액을 전달받아 최종 가격을 반환하는 함수를 화살표 함수로 작성하세요.
+
+호출
+discount(30000, 5000)
+
+실행 결과
+할인된 가격 : 25000원 -->
+
+<script>
+  const discount = (price, sale) => {
+    return price - sale;
+  };
+
+  console.log("할인된 가격 :" + discount(30000, 5000) + "원");
+</script>
+  
+</body>
+</html>

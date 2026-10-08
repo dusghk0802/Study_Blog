@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "React Basics",
+    "author": "John Doe"
+  },
+  {
+    "id": 2,
+    "title": "Advanced React",
+    "author": "Jane Smith"
+  },
+  {
+    "id": 3,
+    "title": "JavaScript Essentials",
+    "author": "Alan Turing"
+  },
+  {
+    "id": 4,
+    "title": "CSS Mastery",
+    "author": "Rachel Green"
+  }
+]

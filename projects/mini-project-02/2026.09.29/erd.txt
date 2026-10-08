@@ -1,0 +1,670 @@
+// =====================================================
+// SmartTicketing - Final ERD
+// Spring Boot + React + MySQL
+// =====================================================
+
+
+// =====================================================
+// ENUMS
+// =====================================================
+
+Enum theater_brand {
+  CGV
+  LOTTE_CINEMA
+  MEGABOX
+}
+
+Enum social_provider {
+  GOOGLE
+  NAVER
+  KAKAO
+}
+
+Enum user_status {
+  ACTIVE
+  INACTIVE
+  WITHDRAWN
+}
+
+
+// 좌석 위치
+//
+// SIDE   : 좌우 측면
+// MIDDLE : 중앙
+//
+// FRONT  : 앞
+// MIDDLE : 중간
+// REAR   : 뒤
+Enum seat_position {
+  SIDE_FRONT
+  SIDE_MIDDLE
+  SIDE_REAR
+  MIDDLE_FRONT
+  MIDDLE_MIDDLE
+  MIDDLE_REAR
+}
+
+Enum reservation_type {
+  SMART
+  NORMAL
+}
+
+Enum reservation_status {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  EXPIRED
+}
+
+Enum seat_status {
+  AVAILABLE
+  HOLDING
+  RESERVED
+}
+
+Enum queue_status {
+  WAITING
+  NOTIFIED
+  HOLDING
+  COMPLETED
+  EXPIRED
+  CANCELLED
+}
+
+Enum payment_status {
+  READY
+  SUCCESS
+  FAILED
+  CANCELLED
+}
+
+Enum payment_method {
+  MOCK
+}
+
+Enum ticket_status {
+  VALID
+  USED
+  CANCELLED
+}
+
+Enum notification_type {
+  SEAT_HOLD_STARTED
+  QUEUE_TURN
+  RESERVATION_COMPLETED
+  RESERVATION_CANCELLED
+  PAYMENT_FAILED
+}
+
+Enum showtime_status {
+  SCHEDULED
+  CLOSED
+  CANCELLED
+  COMPLETED
+}
+
+
+// =====================================================
+// USER
+// =====================================================
+
+Table users {
+  id bigint [pk, increment]
+
+  name varchar(50) [not null]
+
+  // 회원 생년월일
+  // 관람 등급 확인 등에 사용
+  birth_date date [not null]
+
+  // 일반 로그인 사용
+  // 소셜 로그인 사용자는 NULL 가능
+  login_id varchar(50) [unique]
+  password varchar(255)
+
+  email varchar(255) [unique]
+  nickname varchar(100) [not null]
+
+  // 예: 인천시 부평구 부일로
+  address varchar(255) [not null]
+
+  status user_status [not null, default: 'ACTIVE']
+}
+
+
+// =====================================================
+// SOCIAL LOGIN
+// Google / Naver / Kakao
+// =====================================================
+
+Table user_social_accounts {
+  id bigint [pk, increment]
+
+  user_id bigint [not null]
+
+  provider social_provider [not null]
+  provider_user_id varchar(255) [not null]
+
+  // 소셜 제공자로부터 전달받은 이메일
+  email varchar(255)
+
+  indexes {
+    // 동일 소셜 계정 중복 가입 방지
+    (provider, provider_user_id) [unique]
+
+    // 하나의 사용자가 같은 제공자를
+    // 여러 계정으로 연결하는 것 방지
+    (user_id, provider) [unique]
+  }
+}
+
+
+// =====================================================
+// USER NEARBY THEATERS
+//
+// 주소/교통 API 등을 이용해 계산한 결과
+// 오래된 데이터 허용
+// =====================================================
+
+Table user_nearby_theaters {
+  id bigint [pk, increment]
+
+  user_id bigint [not null]
+  theater_id bigint [not null]
+
+  distance_meters decimal(10,2) [not null]
+  travel_time_minutes int [not null]
+  priority int [not null]
+
+  indexes {
+    // 사용자에게 같은 영화관이 중복 저장되지 않도록
+    (user_id, theater_id) [unique]
+
+    // 같은 사용자의 우선순위 중복 방지
+    (user_id, priority) [unique]
+  }
+}
+
+
+// =====================================================
+// USER PREFERRED THEATERS
+// =====================================================
+
+Table user_preferred_theaters {
+  id bigint [pk, increment]
+
+  user_id bigint [not null]
+  theater_id bigint [not null]
+
+  priority int [not null]
+
+  indexes {
+    // 같은 영화관 중복 선택 방지
+    (user_id, theater_id) [unique]
+
+    // 같은 순위 중복 방지
+    (user_id, priority) [unique]
+  }
+}
+
+
+// =====================================================
+// USER PREFERRED SEATS
+//
+// 좌석 위치를 하나의 ENUM으로 관리
+//
+// 예:
+// SIDE_FRONT
+// MIDDLE_MIDDLE
+// SIDE_REAR
+// =====================================================
+
+Table user_preferred_seats {
+  id bigint [pk, increment]
+
+  user_id bigint [not null]
+
+  seat_position seat_position [not null]
+
+  indexes {
+    // 같은 위치를 중복 선택하지 않도록
+    (user_id, seat_position) [unique]
+  }
+}
+
+
+// =====================================================
+// THEATER
+//
+// Kakao Map API 사용
+// 영화관 좌표는 DB에 저장하지 않음
+// =====================================================
+
+Table theaters {
+  id bigint [pk, increment]
+
+  brand theater_brand [not null]
+  name varchar(100) [not null]
+  address varchar(255) [not null]
+
+  // Kakao Place ID
+  kakao_place_id varchar(255) [not null, unique]
+
+  is_active boolean [not null, default: true]
+
+  indexes {
+    // 검색용 인덱스
+    // UNIQUE가 아니므로 같은 브랜드/이름도 다른 지역에 존재 가능
+    (brand, name)
+  }
+}
+
+
+// =====================================================
+// SCREEN
+// =====================================================
+
+Table screens {
+  id bigint [pk, increment]
+
+  theater_id bigint [not null]
+
+  name varchar(100) [not null]
+
+  is_active boolean [not null, default: true]
+
+  indexes {
+    // 한 영화관 안의 상영관 이름 중복 방지
+    (theater_id, name) [unique]
+  }
+}
+
+
+// =====================================================
+// SEAT
+// =====================================================
+
+Table seats {
+  id bigint [pk, increment]
+
+  screen_id bigint [not null]
+
+  seat_row varchar(10) [not null]
+  seat_number int [not null]
+
+  // SIDE_FRONT
+  // SIDE_MIDDLE
+  // SIDE_REAR
+  // MIDDLE_FRONT
+  // MIDDLE_MIDDLE
+  // MIDDLE_REAR
+  seat_position seat_position [not null]
+
+  is_active boolean [not null, default: true]
+
+  indexes {
+    // 같은 상영관에서 같은 좌석 번호 중복 방지
+    (screen_id, seat_row, seat_number) [unique]
+  }
+}
+
+
+// =====================================================
+// MOVIE
+//
+// 영화 데이터 직접 관리
+// 외부 영화 API ID는 사용하지 않음
+// =====================================================
+
+Table movies {
+  id bigint [pk, increment]
+
+  title varchar(255) [not null]
+  description text
+
+  running_time int
+  rating varchar(20)
+  release_date date
+
+  poster_url varchar(500)
+
+  is_active boolean [not null, default: true]
+}
+
+
+// =====================================================
+// SHOWTIME
+//
+// 관람 가격은 모든 상영이 동일하므로
+// application.yml 등의 설정값으로 관리
+// =====================================================
+
+Table showtimes {
+  id bigint [pk, increment]
+
+  movie_id bigint [not null]
+  screen_id bigint [not null]
+
+  start_time timestamp [not null]
+  end_time timestamp [not null]
+
+  // 상영 생성 시점의 실제 좌석 수
+  total_seats int [not null]
+
+  // 현재 남은 좌석 수
+  // showtime_seats 변경과 같은 Transaction에서 변경
+  available_seats int [not null]
+
+  status showtime_status [not null, default: 'SCHEDULED']
+
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    // 같은 상영관에서 동일 시작시간 중복 방지
+    (screen_id, start_time) [unique]
+
+    (movie_id, start_time)
+    (status, start_time)
+  }
+}
+
+
+// =====================================================
+// SHOWTIME SEATS
+//
+// 특정 상영시간에서의 현재 좌석 상태
+//
+// 동시성 제어의 핵심 테이블
+// =====================================================
+
+Table showtime_seats {
+  id bigint [pk, increment]
+
+  showtime_id bigint [not null]
+  seat_id bigint [not null]
+
+  status seat_status [not null, default: 'AVAILABLE']
+
+  // 현재 HOLDING / RESERVED 상태인 예약
+  reservation_id bigint
+
+  // HOLDING 좌석의 만료 시간
+  hold_expired_at timestamp
+
+  indexes {
+    // 하나의 상영에서 하나의 좌석은 하나의 상태만 가짐
+    (showtime_id, seat_id) [unique]
+
+    reservation_id
+
+    (showtime_id, status, hold_expired_at)
+  }
+}
+
+
+// =====================================================
+// RESERVATION
+// =====================================================
+
+Table reservations {
+  id bigint [pk, increment]
+
+  user_id bigint [not null]
+  showtime_id bigint [not null]
+
+  // 대기열을 통해 생성된 예약이면 값 존재
+  // 일반 예매면 NULL
+  waiting_queue_id bigint
+
+  reservation_type reservation_type [not null]
+  status reservation_status [not null]
+
+  total_amount int [not null]
+
+  // PENDING 예약 만료 시간
+  expires_at timestamp
+
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    (user_id, created_at)
+    (showtime_id, status)
+
+    // 하나의 대기번호에서 예약은 최대 한 번만 생성
+    waiting_queue_id [unique]
+  }
+}
+
+
+// =====================================================
+// RESERVATION SEATS
+//
+// 예매 당시의 좌석 이력
+//
+// showtime_id는 reservations에서 확인 가능하므로
+// 중복 저장하지 않음
+// =====================================================
+
+Table reservation_seats {
+  id bigint [pk, increment]
+
+  reservation_id bigint [not null]
+  seat_id bigint [not null]
+
+  // 예매 당시 가격
+  // 공통 가격 정책이 변경되어도
+  // 기존 예매 금액 유지
+  price int [not null]
+
+  indexes {
+    (reservation_id, seat_id) [unique]
+  }
+}
+
+
+// =====================================================
+// QUEUE COUNTER
+//
+// 상영시간별 대기번호 발급
+// Redis 없이 DB로 처리
+//
+// next_queue_number:
+// "다음에 발급할 번호"
+//
+// 실제 구현에서는 Transaction + FOR UPDATE 사용
+// =====================================================
+
+Table queue_counters {
+  showtime_id bigint [pk]
+
+  next_queue_number int [not null, default: 1]
+}
+
+
+// =====================================================
+// WAITING QUEUE
+//
+// 동일 사용자의 중복 참가 허용
+//
+// 예:
+// User A → 1번
+// User B → 2번
+// User A → 3번
+// User A → 4번
+// =====================================================
+
+Table waiting_queues {
+  id bigint [pk, increment]
+
+  user_id bigint [not null]
+  showtime_id bigint [not null]
+
+  queue_number int [not null]
+
+  status queue_status [not null]
+
+  // 차례가 되었을 때
+  // 5분 예매 기회 만료 시간
+  opportunity_expires_at timestamp
+
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+
+  indexes {
+    // 동일 상영시간에서 대기번호 중복 방지
+    (showtime_id, queue_number) [unique]
+
+    // 다음 대기자 검색
+    (showtime_id, status, queue_number)
+
+    (user_id, created_at)
+  }
+}
+
+
+// =====================================================
+// PAYMENT
+//
+// Mock 결제
+// 예매 1건당 결제 1건
+//
+// 실패 시 기존 행의 상태를 변경
+// =====================================================
+
+Table payments {
+  id bigint [pk, increment]
+
+  reservation_id bigint [not null, unique]
+
+  payment_method payment_method [not null]
+  status payment_status [not null]
+
+  amount int [not null]
+
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+
+// =====================================================
+// TICKET
+//
+// 예약 1건 = 티켓 1장
+// =====================================================
+
+Table tickets {
+  id bigint [pk, increment]
+
+  reservation_id bigint [not null, unique]
+
+  ticket_number varchar(100) [not null, unique]
+  qr_code varchar(500)
+
+  status ticket_status [not null]
+
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+
+// =====================================================
+// NOTIFICATION
+// =====================================================
+
+Table notifications {
+  id bigint [pk, increment]
+
+  user_id bigint [not null]
+
+  type notification_type [not null]
+  message varchar(500) [not null]
+
+  is_read boolean [not null, default: false]
+
+  created_at timestamp [not null]
+
+  indexes {
+    (user_id, is_read, created_at)
+  }
+}
+
+
+// =====================================================
+// RELATIONS
+// =====================================================
+
+
+// ---------------------
+// USER
+// ---------------------
+
+Ref: user_social_accounts.user_id > users.id
+
+Ref: user_nearby_theaters.user_id > users.id
+Ref: user_nearby_theaters.theater_id > theaters.id
+
+Ref: user_preferred_theaters.user_id > users.id
+Ref: user_preferred_theaters.theater_id > theaters.id
+
+Ref: user_preferred_seats.user_id > users.id
+
+
+// ---------------------
+// THEATER
+// ---------------------
+
+Ref: screens.theater_id > theaters.id
+
+Ref: seats.screen_id > screens.id
+
+
+// ---------------------
+// MOVIE / SHOWTIME
+// ---------------------
+
+Ref: showtimes.movie_id > movies.id
+Ref: showtimes.screen_id > screens.id
+
+Ref: showtime_seats.showtime_id > showtimes.id
+Ref: showtime_seats.seat_id > seats.id
+Ref: showtime_seats.reservation_id > reservations.id
+
+
+// ---------------------
+// RESERVATION
+// ---------------------
+
+Ref: reservations.user_id > users.id
+Ref: reservations.showtime_id > showtimes.id
+Ref: reservations.waiting_queue_id > waiting_queues.id
+
+Ref: reservation_seats.reservation_id > reservations.id
+Ref: reservation_seats.seat_id > seats.id
+
+
+// ---------------------
+// QUEUE
+// ---------------------
+
+Ref: queue_counters.showtime_id > showtimes.id
+
+Ref: waiting_queues.user_id > users.id
+Ref: waiting_queues.showtime_id > showtimes.id
+
+
+// ---------------------
+// PAYMENT / TICKET
+// ---------------------
+
+Ref: payments.reservation_id > reservations.id
+
+Ref: tickets.reservation_id > reservations.id
+
+
+// ---------------------
+// NOTIFICATION
+// ---------------------
+
+Ref: notifications.user_id > users.id
