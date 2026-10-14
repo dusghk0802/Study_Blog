@@ -1,0 +1,126 @@
+==================================================
+[1] mod1 모듈 사용 - import / from import
+==================================================
+(base) C:\Users\<사용자>>cd ../..
+
+(base) C:\>cd doit
+
+(base) C:\doit>python
+Python 3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mod1
+>>> print(mod1.add(3, 4))
+7
+>>> print(mod1.sub(4, 4))
+0
+>>> print(mod1.sub(4, 2))
+2
+>>> from mod1 import add
+>>> add(3, 40)
+43
+
+
+==================================================
+[2] from mod1 import add, sub / from mod1 import *
+==================================================
+NameError: name 'su' is not defined. Did you mean: 'sub'?
+>>> sub(10, 5)
+5
+>>> from mod1 import add, sub
+>>> add(3, 40)
+43
+>>> sub(10, 5)
+5
+>>> from mod1 import *
+>>> sub(10, 5)
+5
+>>> add(3, 40)
+43
+>>> exit
+
+(base) C:\doit>python
+Python 3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mod2
+5
+2
+>>> import mod2
+>>>
+
+
+==================================================
+[3] mod3 모듈 - 변수, 클래스 사용
+==================================================
+(base) C:\Users\<사용자>>cd ../..
+
+(base) C:\>cd doit
+
+(base) C:\doit>python
+Python 3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mod3
+>>> print(mod3.PI)
+3.141592
+>>> a = mod3.Math()
+>>> print(a.solv(2))
+12.566368
+
+
+==================================================
+[4] mod3 모듈 - 함수 사용
+==================================================
+(base) C:\doit>python
+Python 3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mod3
+>>> print(mod3.add(mod3.PI, 4.4))
+7.541592000000005
+>>>
+
+
+==================================================
+[5] Faker 설치 및 가짜 이름 생성
+==================================================
+(base) C:\Users\<사용자>>pip install Faker
+Collecting Faker
+  Downloading faker-40.43.0-py3-none-any.whl.metadata (16 kB)
+Requirement already satisfied: tzdata in <Anaconda 설치 경로>\lib\site-packages (from Faker) (2025.2)
+Downloading faker-40.43.0-py3-none-any.whl (2.1 MB)
+   ---------------------------------------- 2.1/2.1 MB 26.8 MB/s eta 0:00:00
+Installing collected packages: Faker
+Successfully installed Faker-40.43.0
+
+(base) C:\Users\<사용자>>python
+Python 3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from faker import Faker
+>>> fake = Faker()
+>>> fake.name()
+'Matthew Burton'
+>>> fake.name()
+'Emily Lee'
+>>> fake.name()
+'Gary Crawford'
+>>> fake.name()
+'Robert Wallace'
+>>> fake.name()
+'Michael Hernandez'
+>>> fake = Faker('ko-KR')
+>>> fake.name()
+'이은서'
+>>> fake.name()
+'한정숙'
+>>> fake.name()
+'안병철'
+>>> fake.name()
+'김서영'
+>>>
+
+
+==================================================
+[6] Faker로 테스트 데이터 30개 생성 (이름, 주소)
+==================================================
+>>> test_data = [(fake.name(), fake.address()) for i in range(30)]
+>>> test_data
+[('황수민', '강원특별자치도 동해시 반포대가 386-34 (영호박마을)'), ('이상현', '울산광역시 금천구 도산대176가 419 (영환엄동)'), ('조서영', '강원특별자치도 고성군 학동로 853-29'), ('박명자', '대전광역시 중랑구 반포대19가 438-13 (채원권읍)'), ('임상훈', '충청남도 양양군 학동로 지하427'), ('최주원', '인천광역시 구로구 테헤란거리 853'), ('이예지', '제주특별자치도 인제군 가락거리 504'), ('장준호', '전북특별자치도 청주시 청원구 역삼13거리 247-26 (영길최동)'), ('송경수', '강원특별자치도 삼척시 서초대가 532 (정희이오마을)'), ('이서준', '인천광역시 강남구 삼성3거리 973'), ('김정수', '서울특별시 강북구 오금거리 348'), ('이춘자', '경기도 양평군 가락43로 418'), ('김건우', '서울특별시 영등포구 잠실53거리 882-61'), ('노하은', '충청북도 음성군 선릉503가 666 (도윤최동)'), ('안종수', '인천광역시 중랑구 잠실80길 405'), ('이현정', '부산광역시 강동구 반포대3로 404'), ('안상훈', '강원특별자치도 청주시 서원구 언주04로 535-7'), ('김병철', '충청남도 부천시 원미구 선릉거리 315 (우진김권리)'), ('김현우', '충청남도 성남시 수정구 압구정길 지하517 (정수김동)'), ('김옥자', '광주광역시 중구 백제고분6가 301-85'), ('권정남', '충청남도 양구군 테헤란8가 22 (현우박김면)'), ('박영자', '경기도 단양군 서초대22가 877 (예준한김동)'), ('김지아', '경상남도 보령시 선릉거리 644'), ('김경숙', '충청남도 오산시 백제고분로 474 (지원김리)'), ('윤예준', '인천광역시 광진구 서초대가 927'), ('문하은', '대구광역시 성북구 언주로 235'), ('오상현', '대구광역시 마포구 서초중앙가 557 (예진권최읍)'), ('김광수', '경상남도 태백시 가락09가 841 (지아고마을)'), ('양준영', '대전광역시 노원구 도산대가 370-38 (지은고이리)'), ('김숙자', '세종특별자치시 금천구 선릉656가 지하394 (동현박이면)')]
+>>>
