@@ -4,7 +4,7 @@
 
 📌 학습일 : 2026.10.15
 
-📌 학습 내용 : 앤스콤 데이터, matplotlib, figure, add_subplot, subplots, 히스토그램, 산점도, 박스 그래프, map, apply, seaborn, histplot, kdeplot, rugplot, displot, countplot, scatterplot, regplot, lmplot, barplot, pie, Path, glob, read_excel, rename, str.split, replace, to_numeric, dropna, agg
+📌 학습 내용 : matplotlib, figure, add_subplot, subplots, 히스토그램, 산점도, 박스 그래프, map, apply, seaborn, histplot, kdeplot, rugplot, displot, countplot, scatterplot, regplot, lmplot, barplot, pie, Path, glob, read_excel, rename, str.split, replace, to_numeric, dropna, agg
 
 ---
 
