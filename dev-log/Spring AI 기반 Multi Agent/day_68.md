@@ -4,7 +4,7 @@
 
 📌 학습일 : 2026.10.19
 
-📌 학습 내용 : Plotly Express, line, bar, area, facet_col, rangeslider, FinanceDataReader, StockListing, DataReader, shift, pct_change, diff, requests, get, post, params, BeautifulSoup, find, select, select_one, CSS 선택자, Selenium, webdriver, Options, Service, ChromeDriverManager, find_element, send_keys, 인스타그램 크롤링, 유튜브 크롤링
+📌 학습 내용 : Plotly Express, line, bar, area, facet_col, rangeslider, FinanceDataReader, StockListing, DataReader, shift, pct_change, diff, requests, get, post, params, BeautifulSoup, find, select, select_one, Selenium, webdriver, Options, Service, ChromeDriverManager, find_element, send_keys, Crawling
 
 ---
 
