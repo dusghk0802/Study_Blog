@@ -2,8 +2,8 @@ name: Create scheduled study folders
 
 on:
   schedule:
-    # 15:00 UTC is 00:00 the next day in Asia/Seoul.
-    - cron: "0 15 * * *"
+    # 15:07 UTC is 00:07 the next day in Asia/Seoul.
+    - cron: "7 15 * * *"
   workflow_dispatch:
     inputs:
       target_date:
