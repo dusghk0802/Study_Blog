@@ -1,0 +1,83 @@
+//급여(SAL)가 2000 이상인 사원의 사원번호, 이름, 직업, 급여를 조회하세요. 급여가 높은 순으로 정렬하세요.
+select deptno, ename, job, sal 
+from emp
+WHERE sal >= 2000
+order by sal DESC;
+
+-- 실행 결과
+-- DEPTNO   ENAME         JOB        SAL
+-- ----------------------------------------------
+-- 10	          KING	PRESIDENT	5000
+-- 20	          FORD	ANALYST	3000
+-- 20	          SCOTT	ANALYST	3000
+-- 20	          JONES	MANAGER	2975
+-- 30	          BLAKE	MANAGER	2850
+-- 10	          CLARK	MANAGER	2450
+
+//30번 부서 사원의 이름, 급여, 커미션, 연봉을 조회하세요. 연봉은 급여 × 12 + 커미션이고, 
+//커미션이 NULL이면 0으로 계산하세요. 연봉 열 이름은 연봉으로 표시하세요.
+SELECT ename, sal, comm, sal*12 + nvl(comm, 0) "연봉"
+from emp
+where deptno=30;
+
+-- 실행 결과
+-- ENAME    SAL  COMM 연봉
+-- ---------------------------------
+-- ALLEN	1600	300	19500
+-- WARD	1250	500	15500
+-- MARTIN	1250	1400	16400
+-- BLAKE	2850		34200
+-- TURNER	1500	0	18000
+-- JAMES	950		11400
+
+//부서번호별 사원 수와 평균 급여를 조회하세요.
+//평균 급여는 소수점 첫째 자리에서 반올림하고, 부서번호 순으로 정렬하세요.
+SELECT deptno, COUNT(*) "사원수", round(avg(sal)) "평균"
+from emp
+GROUP by deptno
+ORDER by deptno;
+
+-- 실행 결과
+-- ENAME  사원수   평균
+-- ---------------------------
+-- 10	          3	  2917
+-- 20	          5	  2175
+-- 30	          6	  1567
+
+//근무지(LOC)가 DALLAS인 사원의 이름, 부서명, 근무지를 조회하세요. EMP와 DEPT를 조인해야 해요.
+SELECT e.ename, d.dname, d.loc
+from emp e, dept d
+where e.deptno=d.deptno
+and d.loc='DALLAS';
+
+-- 실행 결과
+-- ENAME     DNAME       LOC
+-- -----------------------------------
+-- JONES	RESEARCH	DALLAS
+-- FORD	RESEARCH	DALLAS
+-- ADAMS	RESEARCH	DALLAS
+-- SMITH	RESEARCH	DALLAS
+-- SCOTT	RESEARCH	DALLAS
+
+//사원 이름과 그 사원의 매니저 이름을 함께 조회하세요. 
+//열 이름은 사원, 매니저로 표시하세요. EMP 테이블을 두 번 사용해야 해요.
+SELECT e.ename "사원이름", m.ename "매니저"
+FROM emp e, emp m
+where e.deptno=m.deptno
+and e.mgr=m.empno;
+
+-- 실행 결과
+-- 사원이름     매니저
+-- ----------------------
+-- SCOTT	   JONES
+-- FORD	   JONES
+-- ALLEN	   BLAKE
+-- WARD	   BLAKE
+-- MARTIN	   BLAKE
+-- TURNER	   BLAKE
+-- JAMES	   BLAKE
+-- MILLER	   CLARK
+-- ADAMS	   SCOTT
+-- CLARK	   KING
+-- SMITH	   FORD
+
