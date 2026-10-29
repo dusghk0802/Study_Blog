@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    /*
+    Default parameter
+    기본값, 인자, 인수, 매개변수
+
+    function call(param, param2, param3){
+    }
+
+    //default
+    function call(param=1, param2={}, param3="korea"){
+    }
+    call(30, {name:"길동"}, "japan");
+    call(); //1, {name:"길동"}, "korea"
+    */
+
+    function printPersonData(h, w, age){
+      let h2 = h || 100
+      let w2 = w || 60
+      let age2 = age || 50;
+      console.log(h2,w2,age2);
+    }
+    printPersonData();
+    printPersonData(111,222,333);
+
+    function printPersonData2(h=1111, w=2222, age=3333){
+      let h2 = h;
+      let w2 = w;
+      let age2 = age;
+      console.log(h2,w2,age2);
+    }
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

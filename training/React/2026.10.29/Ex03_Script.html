@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p id="demo"></p>
+
+<script>
+  /*
+  call back 함수
+  어떤 논리(프로그램)에 의해서 호출되는 함수
+  지연된 함수...
+
+  javascript Array함수를 다루는 것
+
+  1.Array.isArray() : 배열인지 아닌지 확인
+  2.Array.forEach(function(value, index, array){}) : 배열이 가지는 개수 만큼 call back된다..함수가
+  3.Array.map(callback) 조작 (논리에 따라서 새로운 배열 생성)
+  4.Array.filter(callback) : 조건에 맞는 배열만 추출
+
+  //암기
+  const numbers = [65, 44, 2, 7];
+  const newArr = numbers.map(num => num * 10); > 새로운 배열 [650, 440, 20, 70]
+  */
+  function myFunc() {
+    const data = ["A", "B", "C", "D"];
+    let x = document.getElementById("demo");
+    x.innerHTML = Array.isArray(data);
+  }
+  myFunc();
+
+  const numbers = [45, 5, 9, 25];
+  function myFunc2(value, index, array) {
+    console.log(value + index + array);
+  }
+  numbers.map(myFunc2); //myFunc2() 4번 호출
+
+  const numbers2 = [65, 50, 9, 25];
+  const newArray = numbers2.map(function(value, index, array) {
+    return value * 10 + index;
+  });
+  console.log(newArray);
+
+  //Array.map 함수를 사용해서
+  let evens = [2, 4, 6, 8];
+  let odds = evens.map(value => value + 1);
+  console.log("odds: ", odds);   // [3, 5, 7, 9]
+
+  //Array.map() 함수를 사용하지 않고 forEach() 사용해서 같은 결과의 배열
+  let arr = [];
+  evens.forEach(function(value, index, array) {
+    arr.push(value + 1);
+  });
+  console.log(arr);   // [3, 5, 7, 9]
+
+  //react 에서는 map() 함수를 통해서 데이터 추가, filter() 함수를 통해서 데이터 삭제, 수정
+
+  let data = [2, 5, 6, 9];
+  let filterData = data.filter(number => number % 2 === 0);
+  console.log(filterData);   // [2, 6]
+
+  const users = [
+    { name: '홍길동', age: 25 },
+    { name: '김유신', age: 30 },
+    { name: '이순신', age: 20 }
+  ];
+
+  //회원의 이름만 추출
+  // const nameArray = users.map(function(value, index, array) { return value.name; });
+  const nameArray = users.map(user => user.name);
+  console.log("nameArray: ", nameArray);
+
+  const numbers3 = [1, 2, 3, 4, 5];
+  //배열의 값이 짝수인 경우 "짝수", 홀수인 경우 "홀수"라는 문자를 갖는 배열을 생성
+  //["홀수", "짝수", "홀수"...]
+  //map 사용해서
+  const datalist = numbers3.map(number => number % 2 === 0 ? "짝수" : "홀수");
+  console.log(datalist);
+
+  //react에서
+  const boards = [  //backEnd > select id, title, content from board > 객체배열로 ...;
+    {id:1 , title:"첫번째 글" , content:"안녕 방가 방가"},
+    {id:2 , title:"두번째 글" , content:"안녕 점심"},
+    {id:3 , title:"세번째 글" , content:"안녕 저녁"},
+    {id:4 , title:"네번째 글" , content:"안녕 지각 금지"},
+  ];
+
+  //id 2인 글을 삭제하고 나머지를 화면에 출력
+  //react에서 글삭제하기 (filter)
+  const deleteBoardId = (boards, deleteId) => {
+    return boards.filter(board => board.id !== deleteId);
+  }
+
+  //글을 삭제
+  const newBoardList = deleteBoardId(boards, 2);
+  console.log(typeof(newBoardList));
+  console.log(newBoardList);
+  console.log("data" + JSON.stringify(newBoardList)); //객체가 문자열로 바꾸어서 보내기
+
+  //react, vue 못하는 것은 javascript에서 못하는 것
+</script>
+</body>
+</html>
