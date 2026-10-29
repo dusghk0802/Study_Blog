@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    /*
+    1. 삼항 연산자 (조건) ? "A" : "B"
+    2. === 값도 같고 타입 같은가
+    3. 널 병합 연산자 ??
+
+    const text;
+    const data = text ?? "hello world";
+    */
+
+    function printTitle(text){
+      let title = text ?? "hello world";
+      console.log(title);
+    }
+    printTitle("AAAA");
+    printTitle();
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+  /*
+  Spread Operator
+  펼침 연산자 (복제가능)
+
+  ...
+  특정객체 or 배열 > 다른객체 or 배열 복제하거나 옮길 때 편하게 사용
+
+  연산자...
+  */
+
+ const obj = {a:10, b:20}
+
+ let newobj = {...obj}; //복제 (펼침은 복제다)
+ console.log(newobj);
+
+ //배열, 객체, 문자열 요소를 분해하거나 합치는 목적
+ const arr3 = [1, 2, 3];
+ const arr4 = [4, 5, 6];
+
+ const combineArray = [...arr3, ...arr4];
+ console.log(combineArray); // [1, 2, 3, 4, 5, 6]
+
+ //객체
+ const obj3 = {name:"길동"};
+ const obj4 = {age:25};
+ const combineObj = {...obj3, ...obj4};
+ //{name: "길동", age:25} json객체 생성
+
+ //react, vue에서 많이 사용되는 방법
+ //데이터 추가
+ const person = {name:"김유신", age:40};
+ const updatePerson = {...person, city:"seoul"};
+ //{name:"김유신", age:40, city:"seoul"};
+</script>
+</html>

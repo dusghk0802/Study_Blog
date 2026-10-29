@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script> 
+  //json 객체 다루기
+  /*
+  let data = {
+    "list" : {},
+    "list2" : [{}, {}, {}]
+  }
+
+  외부 API 불러서 사용하는 경우
+  */
+
+ let students = [];
+ students.push({"이름":"홍길동", "국어": 80, "영어": 90});
+ students.push({"이름":"김유신", "국어": 100, "영어": 90});
+ students.push({"이름":"이순신", "국어": 80, "영어": 100});
+ //[{}, {}, {}]
+ for(let index in students){
+    console.log(students[index], students[index].이름, students[index].국어);
+  }
+
+//Quiz
+let myCars;
+myCars = {
+  "name":"john", 
+  "age":30, 
+  "cars":[
+    {"name":"Ford", "model":["Mustang", "Fous"]},
+    {"name":"BMW", "model":["X5", "X7", "X8"]},
+    {"name":"Fiat", "model":["500", "Panda"]}
+]
+}
+
+//1.차량이름과 차량모델만 출력
+// Ford: Mustang, Fous
+// BMW: X5, X7, X8
+
+for(let obj of myCars.cars){
+  document.write("차량이름 : " + obj.name);
+  for(let index in obj.model){
+    document.write(" " + obj.model[index]);
+  }
+  document.write("<hr>");
+}
+
+</script>
+</html>

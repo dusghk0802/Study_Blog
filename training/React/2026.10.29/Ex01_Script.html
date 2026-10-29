@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p id="demo">서론</p>  
+</body>
+<script>
+  //화살표 함수
+  //Arrow functions (줄임표현)
+  let foo = function (){ //익명함수
+    console.log("foo");
+  }
+  foo();
+
+  let bar = () => console.log("bar 함수")
+  bar();
+
+  //매개변수 1개 return 
+  //let foo2 = (x) => function(x){return x;};
+  //let foo2 = (x) => x;
+  
+  let foo2 = (x) => x+1;
+  console.log("data", data);
+
+  //let, const
+  let heollo;
+  //heollo = function(val){return "hello" + val}
+  //heollo = (val) => "hello" + val;
+  hello = val => "hello" + val;
+
+  const value = hello("world");
+  //dom-script
+  // . > class, # > id
+  document.getElementById("demo").innerHTML = value;
+
+  //function call(x, y){return x+y;}
+  //function call(x, y,z){return x+y+z;}
+  let foo3 = (x, y) => x+y;
+
+  //실행 블럭을 생략하지 않는 경우는 (논리가 있는 경우)
+  let foo4 = (a, b) => {
+    let c = 100;
+    return c ;
+  }
+
+  const arr = [10, 20, 30];
+  let arr2 = [];
+  arr2.push(100);
+</script> 
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=/*, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  /*
+  Destructuring Assignment 구조분해 할당
+  */
+ const data = ["사과", "배", "포도"];
+
+ const a = data[0];
+ const b = data[1];
+ const c = data[2];
+
+ //ES6
+ const data2 =["바나나", "망고", "딸기"];
+
+ const [a2,b2,c2] = data2;
+ console.log(a2);
+ console.log(b2);
+ console.log(c2);
+
+ const smith = {
+  lang:"javascript",
+  position:"front-end",
+  area:"kangam",
+  hobby:"baseball",
+  age:90
+ }
+
+ const {lang, position,area,hobby,age} = smith;
+ console.log(lang);
+ ///////////////////////////////////////////////////
+ const number = [1, 2, 3, 4, 5];
+ const [,,th3, th4] = number;
+ console.log(th3);
+ console.log(th4);
+
+ const person = {
+  name:"길동",
+  age:20
+ }
+ const name2 = person.name;
+ const age2 = person.age;
+
+ //중요: 객체 구조분해 할당시 이름과 순서가 중요하다
+ //const {name3, age3} = person; 안되요
+ const {name3, age3} = person3;
+ console.log(name3);
+ console.log(age3);
+</script>
+
+<body>
+  
+</body>
+</html>

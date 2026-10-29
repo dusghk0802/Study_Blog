@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+  /*
+  Es6 향상된 객체 리터럴 (JSON)
+  객체표기를 간결하게
+  */
+  const datObj = {
+    language: "javascript",
+    coding:function(){
+      console.log(this.language + "...coding")
+    }
+  };
+  datObj.coding();   // javascript...coding
+
+  /////////////////////////////
+  const language = "java";
+  const dataobj2 = {language}; //const dataobj2 = {language:language}; 속성과 값이 같은 경우 생략
+  //key, value 같은 이름이면 하나만 표기 {key:value}
+  //react, vue 생략해서 많이 사용
+  console.log(dataobj2);   // {language: 'java'}
+
+  const dataObj3 = {
+    coding:function(){
+      console.log("hello world coding")
+    }
+  }
+  dataObj3.coding();   // hello world coding
+
+  //메서드 축약 표현 (function 키워드 생략)
+  const dataObj4 = {
+    coding(){console.log("hello world coding");}
+  }
+  dataObj4.coding();   // hello world coding
+
+  /////////////////////////////////////
+  //속성 축약 + 메서드 축약
+  const dataObj5 = {
+    language,
+    coding(){
+      console.log(this.language + "...coding");
+    }
+  }
+  dataObj5.coding();   // java...coding
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <a id="myAnchor" href="https://www.w3schools.com">Go TO School</a>
+  <button class="btn">Button</button>
+</body>
+<script>
+  document.getElementById("myAnchor").addEventListener("click", function(event){
+    //a 가지고 있는 기본 속성을 막고 싶어요
+    event.preventDefault(); //link를 적용하지마
+    alert("hello world");
+  });
+
+  // . > class, # > id
+  const btn = document.querySelector(".btn"); //css 선택자가 공부하면 END
+
+  //사건 (이벤트) > 사건의 전말 (누가 발생, 주체, 어떤 사건인 event 객체)
+  btn.addEventListener("click", function(e){
+    console.log(e.currentTarget); 
+    console.log(this); 
+    console.log (this === e.currentTarget);
+    //e.stoPropagation 이벤트의 전파 방지 (버블링, 캡처리 방지)
+  });
+  //javascript: Event 객체, this, Array 
+</script>
+</html>
