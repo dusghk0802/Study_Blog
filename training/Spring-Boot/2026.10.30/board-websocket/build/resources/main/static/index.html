@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실시간 알림 게시판</title>
+  <!-- STOMP 클라이언트 (WebSocket 위에서 구독 / 발행) -->
+  <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Malgun Gothic", sans-serif; background: #f4f6f9; color: #222; }
+    header { background: #2f5aa8; color: #fff; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { margin: 0; font-size: 20px; }
+    #status { font-size: 13px; padding: 4px 10px; border-radius: 12px; background: #c0392b; }
+    #status.on { background: #27ae60; }
+    main { max-width: 900px; margin: 24px auto; padding: 0 16px; display: grid; grid-template-columns: 1fr 1.4fr; gap: 20px; }
+    section { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    h2 { margin-top: 0; font-size: 17px; }
+    label { display: block; font-size: 13px; margin: 10px 0 4px; }
+    input, textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font: inherit; }
+    textarea { height: 120px; resize: vertical; }
+    button { margin-top: 14px; width: 100%; padding: 10px; border: 0; border-radius: 4px; background: #2f5aa8; color: #fff; font-size: 15px; cursor: pointer; }
+    button:hover { background: #244786; }
+    ul { list-style: none; margin: 0; padding: 0; }
+    li.post { border-bottom: 1px solid #eee; padding: 12px 0; cursor: pointer; }
+    li.post:hover { background: #f8f9fc; }
+    li.post .title { font-weight: bold; }
+    li.post .meta { font-size: 12px; color: #888; margin-top: 4px; }
+    li.post .content { display: none; margin-top: 8px; white-space: pre-wrap; font-size: 14px; }
+    li.post.open .content { display: block; }
+    li.post.new { animation: highlight 2s ease-out; }
+    @keyframes highlight { from { background: #fff4c2; } to { background: transparent; } }
+    .empty { color: #999; text-align: center; padding: 30px 0; }
+    #toasts { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 10; }
+    .toast { background: #333; color: #fff; padding: 12px 16px; border-radius: 6px; min-width: 240px; box-shadow: 0 2px 8px rgba(0,0,0,.25); animation: slide .3s ease-out; }
+    .toast strong { display: block; margin-bottom: 4px; }
+    @keyframes slide { from { transform: translateX(120%); } to { transform: translateX(0); } }
+    @media (max-width: 700px) { main { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📋 실시간 알림 게시판</h1>
+    <span id="status">연결 끊김</span>
+  </header>
+
+  <main>
+    <section>
+      <h2>글쓰기</h2>
+      <form id="writeForm">
+        <label for="writer">작성자</label>
+        <input id="writer" placeholder="이름 (비우면 익명)">
+        <label for="title">제목</label>
+        <input id="title" required>
+        <label for="content">내용</label>
+        <textarea id="content" required></textarea>
+        <button type="submit">등록</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>글 목록</h2>
+      <ul id="postList"></ul>
+    </section>
+  </main>
+
+  <div id="toasts"></div>
+
+<script>
+  // ---------------------------------------------------------------
+  // 1. WebSocket(STOMP) 연결 → /topic/notifications 구독
+  // ---------------------------------------------------------------
+  const statusEl = document.getElementById("status");
+
+  const stompClient = new StompJs.Client({
+    brokerURL: `ws://${location.host}/ws`,
+    reconnectDelay: 3000            // 끊기면 3초 후 자동 재연결
+  });
+
+  stompClient.onConnect = () => {
+    statusEl.textContent = "실시간 연결됨";
+    statusEl.classList.add("on");
+
+    stompClient.subscribe("/topic/notifications", (message) => {
+      const notification = JSON.parse(message.body);
+      showToast(notification);
+      loadPosts(notification.postId);   // 목록 새로고침 + 새 글 강조
+    });
+  };
+
+  stompClient.onWebSocketClose = () => {
+    statusEl.textContent = "연결 끊김";
+    statusEl.classList.remove("on");
+  };
+
+  stompClient.activate();
+
+  // ---------------------------------------------------------------
+  // 2. 글 목록 불러오기 (REST)
+  // ---------------------------------------------------------------
+  async function loadPosts(newPostId) {
+    const response = await fetch("/api/posts");
+    const posts = await response.json();
+    const list = document.getElementById("postList");
+
+    if (posts.length === 0) {
+      list.innerHTML = `<li class="empty">아직 작성된 글이 없습니다.</li>`;
+      return;
+    }
+
+    list.innerHTML = posts.map(post => `
+      <li class="post ${post.id === newPostId ? "new" : ""}" data-id="${post.id}">
+        <div class="title">${escapeHtml(post.title)}</div>
+        <div class="meta">${escapeHtml(post.writer)} · ${formatDate(post.createdAt)}</div>
+        <div class="content">${escapeHtml(post.content)}</div>
+      </li>
+    `).join("");
+  }
+
+  // 글 클릭 시 내용 펼치기 (이벤트 위임)
+  document.getElementById("postList").addEventListener("click", (e) => {
+    const item = e.target.closest("li.post");
+    if (item) item.classList.toggle("open");
+  });
+
+  // ---------------------------------------------------------------
+  // 3. 글 작성 (REST) → 서버가 저장 후 모든 사용자에게 알림 발송
+  // ---------------------------------------------------------------
+  document.getElementById("writeForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const body = {
+      writer:  document.getElementById("writer").value,
+      title:   document.getElementById("title").value,
+      content: document.getElementById("content").value
+    };
+
+    const response = await fetch("/api/posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+      alert("제목과 내용을 입력해 주세요.");
+      return;
+    }
+
+    document.getElementById("title").value = "";
+    document.getElementById("content").value = "";
+    // 목록 갱신은 WebSocket 알림을 받았을 때 처리된다.
+  });
+
+  // ---------------------------------------------------------------
+  // 4. 알림(토스트) 표시
+  // ---------------------------------------------------------------
+  function showToast(notification) {
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerHTML = `
+      <strong>🔔 ${escapeHtml(notification.message)}</strong>
+      ${escapeHtml(notification.title)}
+    `;
+    document.getElementById("toasts").appendChild(toast);
+    setTimeout(() => toast.remove(), 4000);
+  }
+
+  // 사용자가 입력한 값에 HTML 태그가 있어도 그대로 실행되지 않도록 변환
+  function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text ?? "";
+    return div.innerHTML;
+  }
+
+  function formatDate(value) {
+    return value ? value.replace("T", " ").substring(0, 16) : "";
+  }
+
+  loadPosts();
+</script>
+</body>
+</html>
