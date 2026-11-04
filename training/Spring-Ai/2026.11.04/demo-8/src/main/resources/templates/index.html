@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring AI 이미지 생성</title>
+
+    <script>
+        async function generateImage() {
+
+            const prompt = document.getElementById("prompt").value;
+            const button = document.getElementById("generateBtn");
+            const loading = document.getElementById("loading");
+            const result = document.getElementById("result");
+            const container = document.getElementById("result-container");
+
+            if (!prompt.trim()) {
+                alert("이미지 생성 내용을 입력하세요.");
+                return;
+            }
+
+            button.disabled = true;
+            loading.style.display = "block";
+            container.style.display = "none";
+
+            try {
+                const response = await fetch(
+                    "/imgGen?request=" + encodeURIComponent(prompt)
+                );
+
+                if (!response.ok) {
+                    throw new Error("이미지 생성 요청 실패: " + response.status);
+                }
+
+                // 서버에서 반환한 Base64 문자열
+                const b64Json = await response.text();
+
+                // Base64 데이터를 이미지로 변환
+                result.src = "data:image/png;base64," + b64Json.trim();
+
+                // 이미지 표시
+                container.style.display = "block";
+
+            } catch (error) {
+                console.error(error);
+                alert("이미지 생성 중 오류가 발생했습니다: " + error.message);
+
+            } finally {
+                button.disabled = false;
+                loading.style.display = "none";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div style="text-align: center; margin-top: 40px;">
+
+        <h2>Spring AI 이미지 생성</h2>
+
+        <input type="text"
+               id="prompt"
+               placeholder="예> 수영장이 있는 호텔의 야경"
+               style="width: 400px; padding: 10px;">
+
+        <button id="generateBtn"
+                onclick="generateImage()">
+            이미지 생성
+        </button>
+
+        <p id="loading" style="display: none;">
+            이미지를 생성하고 있습니다. 잠시 기다려 주세요...
+        </p>
+
+        <div id="result-container"
+             style="display: none; margin-top: 20px;">
+
+            <h3>생성된 이미지</h3>
+
+            <img id="result"
+                 alt="AI 생성 이미지"
+                 width="512"
+                 style="max-width: 100%;">
+
+        </div>
+    </div>
+</body>
+</html>
