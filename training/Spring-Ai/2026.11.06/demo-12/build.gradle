@@ -1,0 +1,88 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.7'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = '기본적인 RAG 다양한 옵션'
+
+java {
+toolchain {
+languageVersion = JavaLanguageVersion.of(21)
+}
+}
+
+repositories {
+mavenCentral()
+}
+
+// Spring AI 버전
+ext {
+set('springAiVersion', '1.0.1')
+}
+
+dependencies {
+
+// ==============================
+// Spring Boot Web
+// ==============================
+implementation 'org.springframework.boot:spring-boot-starter-web'
+
+// WebFlux
+implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+// ==============================
+// Spring AI
+// ==============================
+
+// VectorStore Advisor (RAG)
+implementation 'org.springframework.ai:spring-ai-advisors-vector-store'
+
+// OpenAI ChatModel / EmbeddingModel
+implementation 'org.springframework.ai:spring-ai-starter-model-openai'
+
+// PostgreSQL pgvector
+implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
+
+// ==============================
+// Database
+// ==============================
+
+// Spring Data JDBC
+implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+
+// ==============================
+// Lombok
+// ==============================
+compileOnly 'org.projectlombok:lombok'
+annotationProcessor 'org.projectlombok:lombok'
+
+testCompileOnly 'org.projectlombok:lombok'
+testAnnotationProcessor 'org.projectlombok:lombok'
+
+// ==============================
+// Development
+// ==============================
+developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+// ==============================
+// Test
+// ==============================
+testImplementation 'org.springframework.boot:spring-boot-starter-test'
+testImplementation 'io.projectreactor:reactor-test'
+
+testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// Spring AI BOM
+dependencyManagement {
+imports {
+mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+}
+}
+
+tasks.named('test') {
+useJUnitPlatform()
+}
