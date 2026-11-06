@@ -145,7 +145,7 @@
 - GitHub Actions `expected true to be false` (`preferences.integration.test.jsx`) → 테스트 회원의 좌석이 2개라 새 규칙에 막힘, 로컬에서 **다른 파일 이름으로 실행**해 실패를 못 잡음 → 테스트 수정 후 `npx vitest run`으로 전체 확인
 - k6 `connectex: actively refused` (전부 실패) → 백엔드가 꺼져 있거나 켜지는 중 → `Started SmartTicketingApplication` 확인 후 실행
 - PowerShell `'Tomcat' 용어가 cmdlet ... 인식되지 않습니다` → 로그에서 찾을 문장을 터미널에 입력함 → 로그는 **Run 창(Alt + 4)** 에서 Ctrl + F로 검색
-- k6 로그인 100% 실패 (약 8ms) → 예시 값(`loadtest01`)을 그대로 넣어 없는 계정으로 요청 → 실제 테스트 계정으로 실행, 특수문자가 있는 비밀번호는 `'PASSWORD=...'`처럼 작은따옴표로 감쌈
+- k6 로그인 100% 실패 (약 8ms) → 예시 값(`loadtest01`)을 그대로 넣어 없는 계정으로 요청 → 실제 테스트 계정으로 실행, 특수문자가 있는 비밀번호는 `'PASSWORD=비밀번호'`처럼 작은따옴표로 감쌈
 - 동시 로그인 시 `actively refused`로 약 80% 실패 → 같은 순간에 연결이 몰려 연결 대기열(기본 약 100) 초과 → `SPREAD`로 몇 초에 걸쳐 몰리게 변경
 - SPREAD를 줬는데 실행 시간이 1초대 → 스크립트에 `sleep` 수정이 저장되지 않음 → `running` 시간이 SPREAD 이상인지로 적용 여부 확인
 - 체크 이름이 `로그인 5000`으로 표시 → 사람 수를 바꾸다 이름표까지 바뀜 → `r.status === 200`은 **HTTP 상태 코드(성공)** 라 사람 수와 무관하며 200으로 고정
