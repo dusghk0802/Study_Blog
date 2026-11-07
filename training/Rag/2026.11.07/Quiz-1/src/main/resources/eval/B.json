@@ -1,0 +1,12 @@
+[
+  { "question": "Spring MVC와 WebFlux의 차이는?", "keywords": ["WebFlux"] },
+  { "question": "Java에서 인터페이스와 추상 클래스는 어떻게 다른가요?", "keywords": ["추상 클래스"] },
+  { "question": "JVM의 가비지 컬렉션은 무슨 일을 하나요?", "keywords": ["가비지 컬렉션"] },
+  { "question": "ArrayList와 LinkedList는 언제 쓰나요?", "keywords": ["LinkedList"] },
+  { "question": "스프링의 의존성 주입이 무엇인가요?", "keywords": ["의존성 주입"] },
+  { "question": "트랜잭션의 ACID가 무엇인가요?", "keywords": ["ACID"] },
+  { "question": "데이터베이스 인덱스를 쓰면 무엇이 좋아지나요?", "keywords": ["인덱스"] },
+  { "question": "정규화를 왜 하나요?", "keywords": ["정규화"] },
+  { "question": "2002년 월드컵 우승국은 어디인가요?", "keywords": [] },
+  { "question": "제주도 여행 코스를 추천해 줘", "keywords": [] }
+]

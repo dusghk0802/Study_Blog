@@ -1,0 +1,12 @@
+[
+  { "question": "경조사 휴가는 며칠인가요?", "keywords": ["경조사 휴가"] },
+  { "question": "본인 결혼 때 휴가를 얼마나 받을 수 있나요?", "keywords": ["본인 결혼"] },
+  { "question": "연차는 1년에 며칠 발생하나요?", "keywords": ["15일"] },
+  { "question": "연차를 쓰려면 언제까지 신청해야 하나요?", "keywords": ["3일 전"] },
+  { "question": "출근 시간과 퇴근 시간이 어떻게 되나요?", "keywords": ["오전 9시"] },
+  { "question": "수습 기간은 얼마나 되나요?", "keywords": ["수습 기간은 3개월"] },
+  { "question": "건강검진 비용을 지원해 주나요?", "keywords": ["건강검진"] },
+  { "question": "통신비 지원 금액은 얼마인가요?", "keywords": ["통신비"] },
+  { "question": "회사 주식의 올해 목표 주가는 얼마인가요?", "keywords": [] },
+  { "question": "맛있는 김치찌개 끓이는 방법을 알려줘", "keywords": [] }
+]

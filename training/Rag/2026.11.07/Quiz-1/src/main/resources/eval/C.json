@@ -1,0 +1,12 @@
+[
+  { "question": "제품 초기화 방법은 무엇인가요?", "keywords": ["초기화"] },
+  { "question": "필터는 언제 교체해야 하나요?", "keywords": ["6개월"] },
+  { "question": "Wi-Fi 연결은 어떻게 하나요?", "keywords": ["Wi-Fi"] },
+  { "question": "자동 모드는 어떻게 동작하나요?", "keywords": ["자동 모드"] },
+  { "question": "E1 오류가 뜨면 어떻게 해야 하나요?", "keywords": ["E1"] },
+  { "question": "E3 오류는 무슨 뜻인가요?", "keywords": ["E3"] },
+  { "question": "제품에서 소음이 심할 때 해결 방법은?", "keywords": ["소음"] },
+  { "question": "보증 기간은 얼마나 되나요?", "keywords": ["보증 기간"] },
+  { "question": "이 회사의 작년 매출액은 얼마인가요?", "keywords": [] },
+  { "question": "노트북 배터리를 교체하는 방법을 알려줘", "keywords": [] }
+]
