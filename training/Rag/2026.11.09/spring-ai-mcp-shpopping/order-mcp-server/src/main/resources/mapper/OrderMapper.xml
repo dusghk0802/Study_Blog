@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.OrderMapper">  
+   <select id="findById"  resultType="com.example.demo.dto.OrderInfo">
+
+        SELECT
+            ORDER_ID,
+            CUSTOMER_NAME,
+            PRODUCT_NAME,
+            QUANTITY,
+            TOTAL_AMOUNT,
+            ORDER_STATUS,
+            ORDER_DATE
+        FROM ORDERS
+        WHERE ORDER_ID = #{orderId}
+
+    </select>
+</mapper>  
