@@ -407,24 +407,6 @@ Parameter 0 of constructor in com.example.demo.controller.ChatController require
 
 `ChatService`에 `@Service`가 없어서 빈으로 등록되지 않았다. `@Service`를 붙이고, `ChatConfig`의 `chatClient()`에도 `@Bean`을 붙여 ChatClient가 빈으로 등록되게 했다.
 
-```
-java.net.ConnectException ... Client failed to initialize by explicit API call
-```
-
-MCP 클라이언트의 서버 주소가 클라이언트 자기 자신의 포트인 `8070`으로 되어 있어서, 시작하는 중에 자기 자신에게 연결하다 실패했다. 서버 주소를 MCP 서버 포트인 `8090`으로 바꾸고, 서버를 먼저 실행한 뒤 클라이언트를 실행했다.
-
-```
-ORA-00904: "ADDRESS": 부적합한 식별자
-```
-
-sqlplus로 테이블 생성 SQL을 실행할 때 컬럼 줄 끝에 붙인 한글 주석이 인코딩 문제로 다음 줄까지 주석으로 처리되어 `CATEGORY`, `ADDRESS` 컬럼이 만들어지지 않았다. `ALTER TABLE ... ADD`로 두 컬럼을 추가하고, SQL 파일의 주석은 컬럼 줄과 분리했다.
-
-```
-ORA-28000: 계정이 잠겼습니다.
-```
-
-`spring.datasource.password=${DB_PASSWORD}`로 바꿨는데 환경변수를 만들지 않았고, 만든 뒤에도 STS를 다시 켜지 않아서 비밀번호 없이 로그인을 반복하다가 계정이 잠겼다. STS를 끄고 `ALTER USER hr ACCOUNT UNLOCK;`으로 잠금을 푼 뒤, 환경변수를 적용하고 다시 실행했다.
-
 <p align="center">
   <img src="../../training/Rag/2026.11.09/day_86_1.png" alt="day_86" width="700">
 </p>
