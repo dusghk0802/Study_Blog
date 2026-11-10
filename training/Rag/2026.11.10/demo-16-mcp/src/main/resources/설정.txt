@@ -1,0 +1,28 @@
+Spring AI + Notion 공식 MCP Server (Windows 11 / STS4)
+구성: Java 21 / Spring Boot 3.5.8 / Spring AI 1.1.0 / Gradle / OpenAI / Notion 공식 MCP / mcp-remote (STDIO ↔ OAuth HTTP 브리지)
+1. 준비
+1. JDK 21, STS4, Node.js LTS(node -v, npx -v)를 설치합니다.
+2. Notion 계정에서 접근할 워크스페이스를 선택합니다.
+3. PowerShell에서 npx -y mcp-remote https://mcp.notion.com/mcp를 실행하고 브라우저 OAuth 인증을 마칩니다. 인증 후 프로세스가 대기할 수 있으므로 Ctrl+C로 종료합니다.
+4. OAuth 콜백 URL의 code를 복사해 설정 파일에 넣지 않습니다. 인증 정보는 mcp-remote가 사용자 홈의 .mcp-auth 아래에 관리합니다.
+5. STS4 Run Configurations > Environment에 OPENAI_API_KEY를 설정합니다.
+2. 프로젝트 가져오기
+STS4: File > Import > Gradle > Existing Gradle Project > 이 폴더 선택.
+Gradle 동기화 후 com.example.notion.NotionApplication을 Spring Boot App으로 실행합니다.
+3. 실행 및 확인
+- http://localhost:8080/ : 실습 웹 화면
+- http://localhost:8080/api/tools : Notion에서 제공하는 MCP Tool 목록
+- http://localhost:8080/api/ask?message=Spring%20AI%20문서를%20찾아줘 : 조회 요청
+연결에 실패하면 (1) Node/npx 경로, (2) Notion OAuth 승인 여부, (3) STS를 실행한 Windows 사용자 계정, (4) 8080 포트, (5) OpenAI 키를 확인합니다.
+4. 주요 파일
+- src/main/resources/mcp-servers.json: cmd.exe /c npx -y mcp-remote https://mcp.notion.com/mcp
+- application.properties: Spring AI MCP STDIO 구성
+- NotionChatService: Tool 목록 확인 및 읽기 도구만 선택해 질문 처리
+- NotionController: /api/tools, /api/ask
+5. 주의 사항
+- 이 예제는 Notion 공식 MCP 서버를 사용하며, Notion REST API를 직접 호출하는 자체 서버를 만들지 않습니다.
+- Tool 이름에 search, fetch, retrieve, list가 포함된 경우만 조회용으로 선택하는 교육용 휴리스틱입니다. 실제 Tool 목록을 확인한 후 정확한 이름으로 허용 목록을 정의하세요. 도구 이름만으로 읽기 전용이 보장되지는 않습니다.
+- 로그인된 Notion 계정은 이 로컬 Spring Boot 앱 전체에서 공유됩니다. 외부 공개/다중 사용자 서비스에 그대로 사용하지 마세요.
+- 인증 정보, OpenAI 키, OAuth 콜백 URL은 Git에 업로드하지 마세요.
+- 이 산출물은 소스 코드 예제이며 Notion 계정 연결 및 Gradle 빌드/실행은 이 환경에서 검증되지 않았습니다.
+- Windows 전용 STDIO 명령입니다. macOS/Linux는 mcp-servers.json의 command/`args`를 해당 OS에 맞게 변경하세요.
