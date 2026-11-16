@@ -1,0 +1,11 @@
+.git
+.gradle
+bin
+.vscode
+.env
+.env.*
+!.env.example
+build/*
+!build/libs/
+build/libs/*
+!build/libs/*.jar
