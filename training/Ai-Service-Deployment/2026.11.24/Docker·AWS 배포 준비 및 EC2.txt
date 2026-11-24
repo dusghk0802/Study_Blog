@@ -1,0 +1,48 @@
+2026.11.24 | Docker·AWS 배포 준비 및 EC2 SSH 접속 실습
+
+로컬 Docker 이미지 생성까지 완료했어. 오늘은 EC2에 접속하기 위해 .pem 파일 권한을 정리하고 PowerShell과 PuTTY에서 접속을 시도했어. SSH 접속과 EC2에 Docker 설치는 아직 확인되지 않았어.
+1. AWS 배포 구성
+- ECR에 로컬 Docker 이미지를 업로드하고, EC2에서 이미지를 내려받아 컨테이너로 실행하는 구조야.
+- IAM은 AWS 리소스에 접근할 권한을 관리해.
+- DB는 Oracle RDS를 검토 중이야. DB 주소와 비밀번호는 이미지 밖에서 관리하고, 로컬 DB의 볼륨·백업과 RDS로의 데이터 이전은 별도로 준비하기로 했어.
+- 앞서 이야기한 월 15만~25만 원은 가정에 따른 추정치야. EC2·RDS를 중지해도 저장 공간 비용은 남을 수 있어.
+2. Windows PowerShell에서 SSH 키 권한 확인
+kgf.pem이 있는 폴더로 이동한 뒤 실행한 명령이야.
+cd "C:\Users\kosa\Documents\edu\InfraLabs\key"
+
+icacls kgf.pem
+icacls kgf.pem /inheritance:r
+icacls kgf.pem /remove "*S-1-1-0"
+icacls kgf.pem /grant:r "${env:USERNAME}:R"
+icacls kgf.pem
+
+/inheritance:r은 상속된 권한을 제거하고, /remove "*S-1-1-0"은 Everyone 권한을 제거해. 마지막 조회에서 **`DESKTOP-39TQAGH\kosa:(R)`**만 남은 걸 확인했어. (R)은 읽기 권한이라서 이 파일의 권한 설정은 추가로 할 필요 없어.
+3. PowerShell에서 EC2 접속 및 타임아웃 점검
+AWS 콘솔의 현재 퍼블릭 주소를 확인한 뒤 아래 두 SSH 명령 중 하나만 실행하면 돼.
+# 퍼블릭 DNS로 접속
+ssh -i ".\kgf.pem" ubuntu@ec2-52-78-171-9.ap-northeast-2.compute.amazonaws.com
+
+# 또는 퍼블릭 IPv4로 접속
+ssh -i ".\kgf.pem" ubuntu@52.78.171.9
+
+# 타임아웃이 나면 TCP 22번 포트 확인
+Test-NetConnection 52.78.171.9 -Port 22
+
+오늘은 Connection timed out이 반복됐어. 이 오류는 키 인증 전에 22번 포트에서 응답을 받지 못한 상태야. TcpTestSucceeded가 False면 EC2 실행 상태 → 현재 퍼블릭 IPv4 → 해당 인스턴스에 연결된 보안 그룹의 SSH / TCP 22 / 내 IP 규칙 → 서브넷의 인터넷 게이트웨이 경로 순서로 확인하면 돼.
+
+중간에 나온 kglim.pem과 15.164.224.16은 별도로 붙여넣은 예시야. 접속할 때는 대상 인스턴스에 맞는 키와 현재 주소를 사용해.
+4. PuTTY 주소 입력 오류
+PuTTY의 Host does not exist는 52-78-171-9처럼 하이픈으로 주소를 입력했을 때 발생했어.
+PuTTY 항목	입력값
+Host Name (or IP address)	52.78.171.9 또는 콘솔의 현재 퍼블릭 IPv4
+Port	22
+Connection type	SSH
+
+
+5. SSH 접속 성공 후 Ubuntu에서 Docker 설치
+아래 명령은 EC2의 Ubuntu 터미널에서 실행해. 패키지 이름은 docker.io로, 중간에 점이 들어가.
+sudo apt update
+sudo apt install docker.io
+sudo docker version
+
+현재 이어서 할 작업은 EC2의 22번 포트 연결 확인 → SSH 접속 → Docker 설치 및 버전 확인이야.
